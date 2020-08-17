@@ -1,5 +1,6 @@
-## Command to login docker container
+# Command to login docker container
 docker exec -it 6a4f2dba71c2 /bin/bash
+# docker cp
 1. Container -> Local Host
 * Copy file or folder from a docker container to the local file system.
 
