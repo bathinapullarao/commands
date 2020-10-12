@@ -10,9 +10,10 @@ if [ $(echo qa01 | cut -c 1-3) != "dev" -a $(echo qa01 | cut -c 1-2) != "qa" ]; 
 
     rm -rf /var/www/html/catch /var/www/html/*.conf
 fi
-##sed
+
+## sed
 sed -i -e "s/MEMORY_STORE_IP/10.61.199.44/g" /etc/php.ini
-##mount
+## mount
 mount -t gcsfuse -o implicit_dirs,uid=48,gid=48,allow_other qa01-gcm-uploads /var/www/html/upload
 
 # /etc/crontab
