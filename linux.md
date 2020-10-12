@@ -7,6 +7,7 @@
 * diff -y /etc/my.cnf_20190107 /etc/my.cnf |grep "|"
 ## IF
 if [ $(echo qa01 | cut -c 1-3) != "dev" -a $(echo qa01 | cut -c 1-2) != "qa" ]; then
+
     rm -rf /var/www/html/catch /var/www/html/*.conf
 fi
 ##sed
@@ -16,4 +17,5 @@ mount -t gcsfuse -o implicit_dirs,uid=48,gid=48,allow_other qa01-gcm-uploads /va
 
 # /etc/crontab
 echo "# SugarCRM Sucheduled JOB (DF-106)" >> /etc/crontab
+
 echo "* * * * * apache cd /var/www/html; php -f cron.php > /dev/null 2>&1" >> /etc/crontab
