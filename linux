@@ -61,3 +61,7 @@ NETMASK	       255.	255.	0.	0
 Netmask length	8	16	    -	-
 And so on.
 
+#Date format
+touch HtmlReport_$(date +%Y-%m-%d)
+zip -r HtmlReport_Jenkinsjob.zip HtmlReport_$(date +%Y-%m-%d)
+
