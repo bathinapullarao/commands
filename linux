@@ -32,6 +32,26 @@ iptables -t nat -A POSTROUTING -j MASQUERADE
 service iptables save
 
 # Routing table
-
 route -n
+
+# NETMASK
+# IP	            NETMASK	         DESCRIPTION
+192.168.55.161	255.255.255.255	 Only applies to 192.168.55.161
+192.168.55.0	255.255.255.0	 Applies to IPs in the 192.168.55.0 - 192.168.55.255 range
+192.168.55.240	255.255.255.240	 192.168.55.240 - 192.168.55.255
+192.168.55.161	255.255.255.0	 192.168.55.0 - 192.168.55.255
+192.168.0.0	    255.255.0.0	     192.168.0.0 - 192.168.255.255
+
+Sometimes you will see that a Netmask is defined by one number, e.g., 24. This number is the length of the Netmask in bits:
+NETMASK	      255.	255.	255.	255
+Netmask length	8	16	    24	    32
+
+So, for example, a Netmask that is 24-bits long is 255.255.255.0:
+NETMASK	        255.	255.	255.	0
+Netmask length	8	    16	    24	    -
+
+A Netmask that is 16-bits long is 255.255.0.0:
+NETMASK	       255.	255.	0.	0
+Netmask length	8	16	    -	-
+And so on.
 
