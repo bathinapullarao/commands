@@ -20,3 +20,10 @@ mount -t gcsfuse -o implicit_dirs,uid=48,gid=48,allow_other qa01-gcm-uploads /va
 echo "# SugarCRM Sucheduled JOB (DF-106)" >> /etc/crontab
 
 echo "* * * * * apache cd /var/www/html; php -f cron.php > /dev/null 2>&1" >> /etc/crontab
+
+## IPTABLE-redirect an incoming connection to a different IP address
+https://my.esecuredata.com/index.php?/knowledgebase/article/49/how-to-redirect-an-incoming-connection-to-a-different-ip-address-on-a-specific-port-using-iptables/
+iptables -t nat -A PREROUTING -p tcp --dport 3124 -j DNAT --to-destination 1.1.1.1:3000
+iptables -t nat -A POSTROUTING -j MASQUERADE
+service iptables save
+
