@@ -1,3 +1,14 @@
+## To list the software packages that constitute the EPEL repository, run the command.
+yum search epel-release
+yum info epel-release
+yum install epel-release
+rpm -qa | grep epel
+yum repolist
+yum --disablerepo="*" --enablerepo="epel" list available | grep 'htop'
+yum --enablerepo="epel" install <package_name>
+yum --enablerepo=epel info htop
+yum --enablerepo=epel install htop
+
 ## SCP
 * scp -r -i id_rsa -P61854 /tmp/sugar.zip dev_bathinapullarao@153.146.159.201:/tmp
 * scp -r -i ~/.ssh/dev_chef01.pem /tmp/sugar.sql dev_chef01@dev-gcm-db04:/tmp
