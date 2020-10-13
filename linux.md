@@ -31,3 +31,7 @@ iptables -t nat -A POSTROUTING -j MASQUERADE
 
 service iptables save
 
+# Routing table
+
+route -n
+
