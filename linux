@@ -65,3 +65,6 @@ And so on.
 touch HtmlReport_$(date +%Y-%m-%d)
 zip -r HtmlReport_Jenkinsjob.zip HtmlReport_$(date +%Y-%m-%d)
 
+#latest created file or directory
+ls -t $directory_path | head -n1
+
