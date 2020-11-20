@@ -71,7 +71,7 @@ zip -r HtmlReport_Jenkinsjob.zip HtmlReport_$(date +%Y-%m-%d)
 ls -t $directory_path | head -n1
 
 mount
-create fstab like "dev-gcm-web01"
+create fstab like "dev-gcp-web01"
 /upload/upload                /var/www/html/upload    none    bind           0  0
 //mount /upload/upload to /var/www/html/upload
 mount -a
