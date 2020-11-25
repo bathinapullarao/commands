@@ -3,3 +3,5 @@ kubectl describe pod
 kubectl delete pod hello-node
 ## Test to ensure the version you installed is up-to-date:
 kubectl version --client
+## By default, kubectl configuration is located at ~/.kube/config.Check that kubectl is properly configured by getting the cluster state:
+kubectl cluster-info
