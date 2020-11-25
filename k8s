@@ -1,3 +1,5 @@
 kubectl run hello-node --image=hello-node:v1 --port=8080
 kubectl describe pod
 kubectl delete pod hello-node
+## Test to ensure the version you installed is up-to-date:
+kubectl version --client
