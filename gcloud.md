@@ -7,3 +7,4 @@
 * gcloud sql instances list
 * gsutil cp -p gs://sugarsql/sugarcrm.sql gs://dev02-gcm-uploads/sugarcrm.sql
 * gcloud container clusters describe dev99-gke-gcp-cluster --region=asia-northeast1-a | grep maxNodeCount
+* gcloud container clusters list
