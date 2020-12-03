@@ -3,5 +3,33 @@ kubectl describe pod
 kubectl delete pod hello-node
 ## Test to ensure the version you installed is up-to-date:
 kubectl version --client
+kubectl version
 ## By default, kubectl configuration is located at ~/.kube/config.Check that kubectl is properly configured by getting the cluster state:
 kubectl cluster-info
+kubectl get nodes
+kubectl get pod
+kubectl get services
+kubectl create -h        <---help
+kubectl create deployment nginx-deploy --image=nginx
+kubectl get deployment
+kubectl get pod          <--pod will be ready after deploymnet
+kubectl get replicaset   <--manages the replicas of a pod
+kubectl edit deployment nginx-deploy  <--you may edit version .. etc
+kubectl get pod 
+kubectl get replicaset
+kubectl logs podname                   <--get logs
+kubectl create deployment mongo-deploy --image=mongo
+kubectl get pod
+kubectl describe pod podname            <--get aditional information
+kubectl exec -it podname -- /bin/bash   <--enter in to terminal for debugging
+exit                                    <--to exit from container
+kubectl get deployment                  <--check the name of deploymnet
+kubectl delete deployment nameofdeploymnet
+kubectl create deployment name image option1 option2 
+kubectl apply -f config-file.yml        <--apply the configuration
+    
+
+
+
+---------------------------
+minikube status
