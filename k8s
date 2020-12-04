@@ -6,9 +6,10 @@ kubectl version --client
 kubectl version
 ## By default, kubectl configuration is located at ~/.kube/config.Check that kubectl is properly configured by getting the cluster state:
 kubectl cluster-info
+kubectl get all          <--shows all the componets inside cluster
 kubectl get nodes
 kubectl get pod
-kubectl get services
+kubectl get service
 kubectl create -h        <---help
 kubectl create deployment nginx-deploy --image=nginx
 kubectl get deployment
@@ -25,10 +26,16 @@ kubectl exec -it podname -- /bin/bash   <--enter in to terminal for debugging
 exit                                    <--to exit from container
 kubectl get deployment                  <--check the name of deploymnet
 kubectl delete deployment nameofdeploymnet
+kubectl delete -f deployment.yml
+kubectl delete -f service.yml
 kubectl create deployment name image option1 option2 
 kubectl apply -f config-file.yml        <--apply the configuration
-    
-
+kubectl describe service sevicename     <-- can see all service details like example port forwording..etc
+kubectl get pod -o wide                 <--get internal ip details of container
+kubectl get deployment deploymnetname -o yaml > result.yml   <--can see etcd in yaml format
+echo -n 'username' | base64             <-- to encript username or password to keep in secret
+kubectl apply -f secret.yml
+kubectl get secret
 
 
 ---------------------------
