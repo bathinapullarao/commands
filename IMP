@@ -1,8 +1,13 @@
 Linux
 /etc/resolv.conf  <-- DNS servers that the system uses for name resolution are defined in the /etc/resolv. conf file
+/etc/hosts        <-- translate hostnames or domain names to IP addresses
+/etc/crontab      <-- to schedule 
+/etc/fstab        <--contains information about major filesystems on the system
 ~/.bashrc         <--script file that's executed when a user logs in
 ~/.bash_logout    
 ~/.bash_profile   <-- export path
+/etc/profile and /etc/profile.d/*.sh are the global initialization scripts that are equivalent to ~/.profile for each user
+/etc/environment
 ~/.bash_history   <-- history of user activities
 Rsyslog
 
