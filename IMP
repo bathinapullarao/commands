@@ -1,4 +1,4 @@
-Linux
+## Linux
 /etc/resolv.conf  <-- DNS servers that the system uses for name resolution are defined in the /etc/resolv. conf file
 /etc/hosts        <-- translate hostnames or domain names to IP addresses
 /etc/crontab      <-- to schedule 
@@ -11,5 +11,5 @@ Linux
 ~/.bash_history   <-- history of user activities
 Rsyslog
 
-git
+## git
 .gitignore        <--  A gitignore file specifies intentionally untracked files that Git should ignore, .gitignore file must be edited and committed by hand when you have new files that you wish to ignore.
