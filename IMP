@@ -1,1 +1,4 @@
-source ${HOME}/.bash_profile
+~/.bashrc         <--script file that's executed when a user logs in
+~/.bash_logout    
+~/.bash_profile   <-- export path
+~/.bash_history   <-- history of user activities
