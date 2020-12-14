@@ -10,7 +10,7 @@ kubectl get all          <--shows all the componets inside cluster
 kubectl get nodes
 kubectl get pod
 kubectl get service
-kubectl create -h        <---help
+kubectl create -h        <---help on creaing
 kubectl create deployment nginx-deploy --image=nginx
 kubectl get deployment
 kubectl get pod          <--pod will be ready after deploymnet
