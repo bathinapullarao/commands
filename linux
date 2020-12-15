@@ -1,4 +1,5 @@
 chattr +i /etc/resolv.conf   <-- which will make the file immutable and won't be overwritten  Ref:https://www.tecmint.com/chattr-command-examples/
+lsattr                       <-- verify the immutable status of files using ‘lsattr‘ command.
 ## To list the software packages that constitute the EPEL repository, run the command.
 yum search epel-release
 yum info epel-release
