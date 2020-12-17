@@ -39,4 +39,5 @@ kubectl get secret
 
 
 ---------------------------
+minikube start
 minikube status
