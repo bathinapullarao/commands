@@ -41,3 +41,7 @@ kubectl get secret
 ---------------------------
 minikube start
 minikube status
+--------------------------
+kind: Service
+kind: Endpoints
+
