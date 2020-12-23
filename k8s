@@ -37,7 +37,17 @@ kubectl get deployment deploymnetname -o yaml > result.yml   <--can see etcd in 
 echo -n 'username' | base64             <-- to encript username or password to keep in secret
 kubectl apply -f secret.yml
 kubectl get secret
-
+-------------------------
+kubeadm version
+kubeadm upgrade plan
+kubeadm upgrade apply v1.20.x
+kubeadm upgrade node
+kubeadm upgrade apply
+kubeadm certs check-expiration
+kubeadm certs renew apiserver --use-api &
+kubectl certificate approve kubeadm-cert-kube-apiserver-ld526
+systemctl daemon-reload
+systemctl restart kubelet
 
 ---------------------------
 minikube start
