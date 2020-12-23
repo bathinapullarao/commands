@@ -14,6 +14,7 @@ kubectl create -h        <---help on creaing
 kubectl create deployment nginx-deploy --image=nginx
 kubectl get deployment
 kubectl get pod          <--pod will be ready after deploymnet
+ kubectl get pods -l app=nginx
 kubectl get replicaset   <--manages the replicas of a pod
 kubectl edit deployment nginx-deploy  <--you may edit version .. etc
 kubectl get pod 
