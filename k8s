@@ -1,3 +1,4 @@
+Ref: https://kubernetes.io/docs/concepts/services-networking/connect-applications-service/
 kubectl run hello-node --image=hello-node:v1 --port=8080
 kubectl describe pod
 kubectl delete pod hello-node
@@ -13,9 +14,11 @@ kubectl get service
 kubectl create -h        <---help on creaing
 kubectl create deployment nginx-deploy --image=nginx
 kubectl get deployment
+kubectl expose deployment/my-nginx
 kubectl get pod          <--pod will be ready after deploymnet
  kubectl get pods -l app=nginx
 kubectl get replicaset   <--manages the replicas of a pod
+kubectl get rs           <--manages the replicas of a pod
 kubectl edit deployment nginx-deploy  <--you may edit version .. etc
 kubectl get pod 
 kubectl get replicaset
@@ -32,11 +35,14 @@ kubectl delete -f service.yml
 kubectl create deployment name image option1 option2 
 kubectl apply -f config-file.yml        <--apply the configuration
 kubectl describe service sevicename     <-- can see all service details like example port forwording..etc
+kubectl get svc my-nginx
+kubectl describe deployments
 kubectl get pod -o wide                 <--get internal ip details of container
 kubectl get deployment deploymnetname -o yaml > result.yml   <--can see etcd in yaml format
 echo -n 'username' | base64             <-- to encript username or password to keep in secret
 kubectl apply -f secret.yml
 kubectl get secret
+//kubectl delete deployments,svc my-nginx; kubectl create -f ./nginx-secure-app.yam
 -------------------------
 kubeadm version
 kubeadm upgrade plan
