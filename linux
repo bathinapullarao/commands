@@ -78,4 +78,9 @@ create fstab like "dev-gcp-web01"
 //mount /upload/upload to /var/www/html/upload
 mount -a
 
+aliveintervel
+vi /etc/ssh/sshd_config
+ClientAliveInterval  1200
+ClientAliveCountMax 3
+systemctl reload sshd
 
