@@ -1,0 +1,179 @@
+# to install packages
+- name: install epel-release
+  yum:
+    name: epel-release
+    state: present
+    lock_timeout: 180
+
+- name: Install remi-release-7
+  yum:
+    name: http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
+    state: latest
+    lock_timeout: 180
+
+- name: To install packages
+  yum:
+    name:
+      - gcc
+      - git
+      - nfs-utils
+      - mariadb
+    state: latest
+    lock_timeout: 180
+
+- name: To install gcsfuse
+  yum:
+    name:
+      - gcsfuse
+    enablerepo: gcsfuse
+    state: latest
+    lock_timeout: 180
+
+- name: To start services
+  service:
+    name: "{{ item }}"
+    state: started
+    enabled: yes
+  with_items:
+    - httpd
+    - php-fpm
+
+
+- name: setup /etc directory
+  copy:
+    src: etc/
+    dest: /etc/
+    owner: root
+    group: root
+
+- name: setup /var/log directory
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: apache
+    group: apache
+    mode: '0644'
+  with_items:
+    - /var/log/crm
+    - /upload
+    - /var/export
+    
+ - name: To stop postfix
+  service:
+    name: postfix
+    state: stopped
+    enabled: no
+
+- block:
+  - name: git pull gc
+    git:
+      repo: "https://{{ gc_user }}:{{ gc_pass }}@git.devgc-system.com/spo-gitlab/gc.git"
+      dest: /tmp/crm
+      version: "{{ gc_branch }}"
+      
+ - name: checkout git revision
+    shell: 'cd /tmp/sugarcr/Application/CRM ; git rev-parse $(git log --oneline -n 1 . | cut -d " " -f 1) > app_revision'
+    
+ - name: remove directories
+    file:
+      path: "{{ item }}"
+      state: absent
+    with_items:
+      - /var/www/html
+      - /var/www/CRM/cache
+      
+- name: Copy api files
+    copy:
+      remote_src: yes
+      src: /tmp/crm/Application/QASchema/api/{{ item.sname }}
+      dest: /var/www/CRM/{{ item.dname }}
+      owner: apache
+      group: apache
+      mode: '0755'
+    with_items:
+      - { sname: json-schema, dname: api/ }
+      - { sname: schema/a, dname: api/schema/ }
+      - { sname: schema/b, dname: api/schema/ }
+      
+- name: move application directory
+    shell: |
+      mv /var/www/SugarCRM /var/www/html
+      
+ - name: post operations
+    shell: |
+      systemctl daemon-reload
+      grep config_environment.php /var/www/html/config_override.php > /dev/null ; \
+        ret=$? ; \
+        if [ $ret != 0 ]; \
+        then echo "require('config_environment.php');" \
+        >> /var/www/html/config_override.php; fi
+        
+        
+- name: add php-fpm settings
+    blockinfile:
+      dest: /var/www/html/include/entryPoint.php
+      block: |
+        //// for php-fpm
+        if (!function_exists('getallheaders')) {
+            function getallheaders() {
+            $headers = [];
+            foreach ($_SERVER as $name => $value) {
+                if (substr($name, 0, 5) == 'HTTP_') {
+                    $headers[str_replace(' ', '-', ucwords(strtolower(str_replace('_', ' ', substr($name, 5)))))] = $value;
+                }
+            }
+            return $headers;
+            }
+        }
+      marker: "//// {mark} ANSIBLE MANAGED BLOCK"
+
+- name: "set proxy: custom/service/v4_1_custom/APIHelper/pms_v2/ClassStandardPms.php"
+  lineinfile:
+    state: present
+    dest: '/var/www/html/custom/service/v4_1_custom/APIHelper/pms_v2/ClassStandardPms.php'
+    backrefs: yes
+    regexp: '{{ item.regexp }}'
+    line: '{{ item.line }}'
+  with_items:
+  - regexp: "CURLOPT_PROXY,"
+    line: "        curl_setopt($httpClient, CURLOPT_PROXY, 'http://PROXY_SERVER');"
+  - regexp: "CURLOPT_PROXYPORT,"
+    line: "        curl_setopt($httpClient, CURLOPT_PROXYPORT, 'PROXY_PORT');"
+    
+- block:
+  - name: create group
+    group:
+      name: apache_exporter
+      gid: 65521
+
+  - name: create user
+    user:
+      name: apache_exporter
+      group: apache_exporter
+      uid: 65521
+      shell: /sbin/nologin
+  - name: Download apache_exporter
+    get_url:
+      url: "https://github.com/Lusitaniae/apache_exporter/releases/download/v{{ apache_exporter_version }}/apache_exporter-{{ apache_exporter_version }}.linux-amd64.tar.gz"
+      dest: /usr/local/bin/
+
+  - name: Extract apache_exporter.tar.gz
+    unarchive:
+      src: /usr/local/bin/apache_exporter-{{ apache_exporter_version }}.linux-amd64.tar.gz
+      dest: /usr/local/bin
+      remote_src: yes
+
+  - name: start apache_exporter
+    systemd:
+      name: apache_exporter
+      state: started
+      enabled: yes
+      daemon_reload: yes
+
+
+
+
+
+
+
+
