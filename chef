@@ -1,0 +1,7 @@
+cookbook_file "/etc/yum.repos.d/CentOS-Vault.repo" do
+  source  "etc/yum.repos.d/CentOS-Vault.repo"
+  action  :create
+  owner   'root'
+  group   'root'
+  mode    '0644'
+end
