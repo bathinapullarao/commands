@@ -1,0 +1,10 @@
+aws ec2 describe-instances
+aws ec2 start-instances --instance-ids i-1348636c
+aws sns publish --topic-arn arn:aws:sns:us-east-1:546419318123:OperationsError --message "Script Failure"
+aws sqs receive-message --queue-url https://queue.amazonaws.com/546419318123/Test
+aws help
+aws autoscaling help
+aws autoscaling create-auto-scaling-group help
+aws s3 ls s3://mybucket
+aws s3 cp myfolder s3://mybucket/myfolder --recursive
+aws s3 sync myfolder s3://mybucket/myfolder --exclude *.tmp
