@@ -1,8 +1,11 @@
 # Dockerfile instructions that can use these parameters are 
 FROM, 
-ARG,ENV, <-- both can store values inside varibles but ENV varible value even can available after creating container.
+ARG,ENV, <-- Both can store values inside varibles but ENV varible value even can available after creating container.
+WORKDIR, <-- Instruction is used to set the working directory for all the subsequent Dockerfile instructions.  
+             Some frequently used instructions in a Dockerfile are RUN, ADD, CMD, ENTRYPOINT, and COPY.
+
 LABEL, COPY, ADD, CMD, ENTRYPOINT
-USER, WORKDIR, RUN, VOLUME, EXPOSE, STOPSIGNAL, and ONBUILD.
+USER, RUN, VOLUME, EXPOSE, STOPSIGNAL, and ONBUILD.
 
 # Command to login docker container
 docker exec -it 6a4f2dba71c2 /bin/bash
