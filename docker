@@ -1,10 +1,14 @@
-# Dockerfile instructions that can use these parameters are 
+# Dockerfile instructions 
 FROM, 
 ARG,ENV, <-- Both can store values inside varibles but ENV varible value even can available after creating container.
 WORKDIR, <-- Instruction is used to set the working directory for all the subsequent Dockerfile instructions.  
              Some frequently used instructions in a Dockerfile are RUN, ADD, CMD, ENTRYPOINT, and COPY.
 
-RUN, ADD, CMD, ENTRYPOINT, COPY,   
+RUN,  <--lets you execute commands inside of your Docker image. These commands get executed once at build time and get written into your Docker image as a new layer.
+CMD,  <--lets you define a default command to run when your container starts.
+ADD,  <--command is used to copy files/directories into a Docker image
+      ADD source destination
+ENTRYPOINT, COPY,   
 LABEL, USER, VOLUME, EXPOSE, STOPSIGNAL, and ONBUILD.
 
 # Command to login docker container
