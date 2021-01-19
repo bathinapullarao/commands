@@ -1,5 +1,8 @@
 # Dockerfile instructions that can use these parameters are 
-FROM, LABEL, COPY, ADD, ENV, USER, WORKDIR, RUN, VOLUME, EXPOSE, STOPSIGNAL, and ONBUILD.
+FROM, 
+ARG,ENV, <-- both can store values inside varibles but ENV varible value even can available after creating container.
+LABEL, COPY, ADD, CMD, ENTRYPOINT
+USER, WORKDIR, RUN, VOLUME, EXPOSE, STOPSIGNAL, and ONBUILD.
 
 # Command to login docker container
 docker exec -it 6a4f2dba71c2 /bin/bash
