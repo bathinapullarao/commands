@@ -1,4 +1,5 @@
 Ref: https://kubernetes.io/docs/concepts/services-networking/connect-applications-service/
+Ref: https://kubernetes.io/docs/reference/kubectl/kubectl/
 kubectl run hello-node --image=hello-node:v1 --port=8080
 kubectl describe pod
 kubectl delete pod hello-node
@@ -47,6 +48,7 @@ kubectl get secret
 kubeadm version
 kubeadm upgrade plan
 kubeadm upgrade apply v1.20.x
+
 kubeadm upgrade node
 kubeadm upgrade apply
 kubeadm certs check-expiration
@@ -62,3 +64,15 @@ minikube status
 kind: Service
 kind: Endpoints
 
+-------------------------------------------------------------------
+Install kustomize
+sudo -i
+curl -s "https://raw.githubusercontent.com/\
+> kubernetes-sigs/kustomize/master/hack/install_kustomize.sh"  | bash
+
+mv kustomize /usr/local/bin/kustomize
+
+default only
+kustomize build kustomize/overlays/dev/default | kubectl apply -f -
+canary only
+kustomize build kustomize/overlays/dev/canary | kubectl apply -f -
