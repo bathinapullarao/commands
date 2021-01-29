@@ -79,3 +79,18 @@ kustomize build kustomize/overlays/dev/canary | kubectl apply -f -
 
 * Note: By adding nfs to base, canary and default can no longer be deployed together. Deploy individually as above.
 kustomize build kustomize/overlays/dev | kubectl apply -f -
+
+
+kind: 
+ConfigMap
+Service
+StatefulSet
+StorageClass
+Deployment
+Ingress
+Secret
+Role
+ClusterRole
+RoleBinding
+ClusterRoleBinding
+ServiceAccount
