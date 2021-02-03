@@ -23,4 +23,4 @@ SHOW GLOBAL STATUS;
 SHOW ENGINE INNODB STATUS;
 set @@global.max_connections = 400;
 mysqldump -h 127.0.0.1 -u backup_sugar -pd7pjQhrV8e sugarcrm > /DBbackup/SugarcrmDB31_$(date +%Y%d%m).sql
-scp -i  ~/.ssh/dev_chef01.pem dev_chef01@dev-gcm-db33:/tmp/SugarcrmDB33_20182111.sql.zip /home/dev_chef01/DB-BACKUP/db33_bkp/
+scp -i  ~/.ssh/dev_chef01.pem dev_chef01@dev-mcm-db33:/tmp/SugarcrmDB33_20182111.sql.zip /home/dev_chef01/DB-BACKUP/db33_bkp/
