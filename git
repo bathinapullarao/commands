@@ -1,6 +1,6 @@
 - file too long -execute below command in bash or modify config file
 git config --system core.longpaths true
-git clone git@git/gcm-inf.git
+git clone git@git/mcm-inf.git
 git branch -a, git checkout feature/3-8-69/OC-299
 git add <--our files   git reset HEAD .   to unstage
 git commit -m "DF-3267 prepare cookbook for tomcat installation"
