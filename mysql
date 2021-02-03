@@ -5,15 +5,15 @@ GRANT SELECT ON *.* TO 'newuser'@'127.0.0.1';
 FLUSH PRIVILEGES;
 DROP USER 'newuser'@'127.0.0.1';
 select * from mysql.user;
-SET PASSWORD FOR 'sugarcrm'@'172.16.32.0/255.255.255.0' = PASSWORD('QYqKQxeWYR12!');
-SET PASSWORD FOR 'sugarcrm'@'172.16.30.28' = PASSWORD('QYqKQxeWYR12!');
-GRANT ALL PRIVILEGES ON *.* TO 'sugarcrm'@'172.16.32.0/255.255.255.0';
-GRANT ALL PRIVILEGES ON `sugarcrm`.* TO 'sugarcrm'@'172.16.32.0/255.255.255
+SET PASSWORD FOR 'sugar'@'172.16.32.0/255.255.255.0' = PASSWORD('QYqKQxeWYR12!');
+SET PASSWORD FOR 'sugar'@'172.16.30.28' = PASSWORD('QYqKQxeWYR12!');
+GRANT ALL PRIVILEGES ON *.* TO 'sugar'@'172.16.32.0/255.255.255.0';
+GRANT ALL PRIVILEGES ON `sugarcrm`.* TO 'sugar'@'172.16.32.0/255.255.255
 //show databases;  //use mysql;  //show tables;  //show schemas; //select * from tablename;
 CREATE TABLE users(user_id INT AUTO_INCREMENT PRIMARY KEY, username VARCHAR(40));
 INSERT INTO users VALUES (1001,'rao');
 show variables like '%log%';   
-SHOW GRANTS FOR 'ro_sugar'@'127.0.0.1';
+SHOW GRANTS FOR 'ro_s'@'127.0.0.1';
 select User,Host from mysql.user;
 status or STATUS                              <--to get the status of mysql after login
 mysqladmin -u root  -h 127.0.0.1 -p version   <--get status without login
@@ -22,5 +22,5 @@ SHOW GLOBAL VARIABLES;
 SHOW GLOBAL STATUS;
 SHOW ENGINE INNODB STATUS;
 set @@global.max_connections = 400;
-mysqldump -h 127.0.0.1 -u backup_sugar -pd7pjQhrV8e sugarcrm > /DBbackup/SugarcrmDB31_$(date +%Y%d%m).sql
-scp -i  ~/.ssh/dev_chef01.pem dev_chef01@dev-mcm-db33:/tmp/SugarcrmDB33_20182111.sql.zip /home/dev_chef01/DB-BACKUP/db33_bkp/
+mysqldump -h 127.0.0.1 -u backup_sugar -pd7pjQhrV8e sugar > /DBbackup/Sugar_$(date +%Y%d%m).sql
+scp -i  ~/.ssh/dev_chef01.pem dev_ch01@dev-mcm-db:/tmp/Sugar_20182111.sql.zip /home/dev_chef01/DB-BACKUP/db33_bkp/
