@@ -1,3 +1,4 @@
+SELECT user FROM mysql.user;                 <-- List all the users in mysql
 mysql -h 127.0.0.1 -u root -p                <--login to mysql server 
 mysql -u root -pq2LJXh4bFt -h 127.0.0.1
 CREATE USER 'newuser'@'127.0.0.1' IDENTIFIED BY 'password';
