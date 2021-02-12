@@ -75,10 +75,27 @@
     state: stopped
     enabled: no
 
+- name: Install package with multiple repos enabled
+  yum:
+    name: sos
+    enablerepo: "epel,ol7_latest"
+
+- name: Install package with multiple repos disabled
+  yum:
+    name: sos
+    disablerepo: "epel,ol7_latest"
+
+- name: Download the nginx package but do not install it
+  yum:
+    name:
+      - nginx
+    state: latest
+    download_only: true
+    
 - block:
   - name: git pull gc
     git:
-      repo: "https://{{ gc_user }}:{{ gc_pass }}@git.devgc-system.com/spo-gitlab/gc.git"
+      repo: "https://{{ gc_user }}:{{ gc_pass }}@git.devgc-system.com/spo1-gitlab/gc.git"
       dest: /tmp/crm
       version: "{{ gc_branch }}"
       
