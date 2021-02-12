@@ -15,8 +15,33 @@ PUBLISH,  <-- -p 8080  Publish individual port at eg(docker run -d -p 8080 an_im
               -P, --publish-all  Publish all exposed ports to random ports
 LABEL, USER, VOLUME,  STOPSIGNAL, and ONBUILD.
 
+eg:
+FROM centos:centos7
+RUN yum update -y \
+    && yum install -y \
+    epel-release \
+    gcc \
+    git \
+    httpd \
+    net-tools \
+    nmap-ncat \
+    openssh-clients \
+    psacct \
+    sysstat \
+    tcpdump \
+    telnet \
+    traceroute \
+    unzip \
+    wget
+RUN yum install -y http://---.rpm
+WORKDIR /tmp
+RUN ssh-keyscan -t rsa domainname > /root/.ssh/known_hosts
+
+
 # Command to login docker container
 docker exec -it 6a4f2dba71c2 /bin/bash
 # docker cp
 * docker cp containerId:/file/path/in/container/file /host/local/path/file
 * docker cp /host/local/path/file containerId:/file/path/in/container/file
+
+
