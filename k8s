@@ -72,10 +72,10 @@ curl -s "https://raw.githubusercontent.com/\
 
 mv kustomize /usr/local/bin/kustomize
 
-default only
-kustomize build kustomize/overlays/dev/default | kubectl apply -f -
-canary only
-kustomize build kustomize/overlays/dev/canary | kubectl apply -f -
+uat only
+kustomize build kustomize/overlays/dev/uat | kubectl apply -f -
+pro only
+kustomize build kustomize/overlays/dev/pro | kubectl apply -f -
 
 * Note: By adding nfs to base, canary and default can no longer be deployed together. Deploy individually as above.
 kustomize build kustomize/overlays/dev | kubectl apply -f -
