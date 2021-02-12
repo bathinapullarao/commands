@@ -20,6 +20,17 @@
       - mariadb
     state: latest
     lock_timeout: 180
+    
+- name: Upgrade all packages
+  yum:
+    name: '*'
+    state: latest
+
+- name: Upgrade all packages, excluding kernel & foo related packages
+  yum:
+    name: '*'
+    state: latest
+    exclude: kernel*,foo*
 
 - name: To install gcsfuse
   yum:
