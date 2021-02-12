@@ -6,10 +6,10 @@ GRANT SELECT ON *.* TO 'newuser'@'127.0.0.1';
 FLUSH PRIVILEGES;
 DROP USER 'newuser'@'127.0.0.1';
 select * from mysql.user;
-SET PASSWORD FOR 'sugar'@'172.16.32.0/255.255.255.0' = PASSWORD('QYqKQxeWYR12!');
-SET PASSWORD FOR 'sugar'@'172.16.30.28' = PASSWORD('QYqKQxeWYR12!');
-GRANT ALL PRIVILEGES ON *.* TO 'sugar'@'172.16.32.0/255.255.255.0';
-GRANT ALL PRIVILEGES ON `sugarcrm`.* TO 'sugar'@'172.16.32.0/255.255.255
+SET PASSWORD FOR 'bat'@'172.16.32.0/255.255.255.0' = PASSWORD('QYqKQxeWYR12!');
+SET PASSWORD FOR 'bat'@'172.16.30.28' = PASSWORD('QYqKQxeWYR12!');
+GRANT ALL PRIVILEGES ON *.* TO 'bat'@'172.16.32.0/255.255.255.0';
+GRANT ALL PRIVILEGES ON `bat`.* TO 'sugar'@'172.16.32.0/255.255.255
 //show databases;  //use mysql;  //show tables;  //show schemas; //select * from tablename;
 CREATE TABLE users(user_id INT AUTO_INCREMENT PRIMARY KEY, username VARCHAR(40));
 INSERT INTO users VALUES (1001,'rao');
@@ -23,5 +23,6 @@ SHOW GLOBAL VARIABLES;
 SHOW GLOBAL STATUS;
 SHOW ENGINE INNODB STATUS;
 set @@global.max_connections = 400;
-mysqldump -h 127.0.0.1 -u backup_sugar -pd7pjQhrV8e sugar > /DBbackup/Sugar_$(date +%Y%d%m).sql
-scp -i  ~/.ssh/dev_chef01.pem dev_ch01@dev-mcm-db:/tmp/Sugar_20182111.sql.zip /home/dev_chef01/DB-BACKUP/db33_bkp/
+mysqldump -h 127.0.0.1 -u backup_bat -pd7pjQhrV8e bat > /DBbackup/Sugar_$(date +%Y%d%m).sql
+scp -i  ~/.ssh/dev_chef01.pem dev_ch01@dev-mcm-db:/tmp/bat_20182111.sql.zip /home/dev_chef01/DB-BACKUP/db33_bkp/
+ALTER TABLE `accesslog` ADD PRIMARY KEY (`id`);COMMIT;
