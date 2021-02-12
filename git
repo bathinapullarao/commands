@@ -3,8 +3,8 @@ git config --system core.longpaths true
 git clone git@git/mcm-inf.git
 git branch -a, git checkout feature/3-8-69/OC-299
 git add <--our files   git reset HEAD .   to unstage
-git commit -m "DF-3267 prepare cookbook for tomcat installation"
+git commit -m "prepare cookbook for tomcat installation"
 git status
-git push  origin feature/3-8-69/DF-2998
+git push  origin feature/69/gk-998
 git pull   To pull a new branch from git lab
 
