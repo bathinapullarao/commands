@@ -35,7 +35,8 @@ RUN yum update -y \
     wget
 RUN yum install -y http://---.rpm
 WORKDIR /tmp
-RUN ssh-keyscan -t rsa domainname > /root/.ssh/known_hosts
+RUN ssh-keyscan -t rsa domainname > /root/.ssh/known_hosts    <--accept domain
+CMD ["/usr/sbin/httpd","-DFOREGROUND"]
 
 
 # Command to login docker container
