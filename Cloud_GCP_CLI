@@ -9,3 +9,9 @@
 * gcloud container clusters describe dev99-gke-gcp-cluster --region=asia-northeast1-a | grep maxNodeCount
 * gcloud container clusters list
 * gcloud components install kubectl
+
+##shell
+for project in $(gcloud projects list --format="value(project_id)")
+     do
+        gcloud compute instances list --project $project --format="table($project,id,name,status,EXTERNAL_IP)" >> external_ip_report_main2.csv
+done
