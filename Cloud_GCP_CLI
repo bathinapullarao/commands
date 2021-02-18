@@ -1,3 +1,4 @@
+Ref:  https://gist.github.com/pydevops/cffbd3c694d599c6ca18342d3625af97
 ## gcloud commands
 * gcloud compute instances list
 * gcloud compute forwarding-rules list
@@ -13,6 +14,10 @@
 * gcloud components install kubectl
 * gcloud beta compute ssl-certificates list
 * gcloud beta compute target-https-proxies list
+* gcloud services list
+* gcloud organizations list
+* gcloud beta billing accounts list
+
 
 gcloud services enable cloudapis.googleapis.com && \
 cloudresourcemanager.googleapis.com && \
