@@ -14,6 +14,10 @@
 * gcloud beta compute ssl-certificates list
 * gcloud beta compute target-https-proxies list
 
+gcloud services enable cloudapis.googleapis.com && \
+cloudresourcemanager.googleapis.com && \
+compute.googleapis.com 
+
 ##shell
 for project in $(gcloud projects list --format="value(project_id)")
      do
