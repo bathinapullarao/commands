@@ -12,6 +12,7 @@
 * gcloud container clusters list
 * gcloud components install kubectl
 * gcloud beta compute ssl-certificates list
+* gcloud beta compute target-https-proxies list
 
 ##shell
 for project in $(gcloud projects list --format="value(project_id)")
