@@ -5,3 +5,13 @@ Execute terraform module by module
 terraform plan -target=module.module_instances.google_compute_region_instance_group_manager.ig_esserver
 
 terraform apply -target=module.module_instances.google_compute_region_instance_group_manager.ig_esserver
+
+terraform init
+terraform validate
+terraform plan
+terraform apply
+terraform plan destroy 
+terraform refresh      <--This will refresh your state by comparing it to your cloud infrastructure.
+terraform output       <--output command is also useful for scripts to extract outputs from your configuration.
+terraform taint google_compute_instance.vm_instance   <-- to tell Terraform to recreate the instance.
+terraform show         <--
