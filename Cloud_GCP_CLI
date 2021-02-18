@@ -9,6 +9,7 @@
 * gcloud container clusters describe dev99-gke-gcp-cluster --region=asia-northeast1-a | grep maxNodeCount
 * gcloud container clusters list
 * gcloud components install kubectl
+* gcloud compute instances list --project gcm-devqa-pr-12345 --format="table(gcm-devqa-pr-12345,id,name,status,EXTERNAL_IP)"
 
 ##shell
 for project in $(gcloud projects list --format="value(project_id)")
