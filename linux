@@ -50,7 +50,14 @@ route -n
 netstat -rn
 route add -net 192.168.5.0 netmask 255.255.255.0 gw 192.168.0.1  eno16777
 route add -host 192.168.5.101 gw 192.168.5.1 eno1677
+route add -host 8.8.8.8 gw 192.168.5.1
+route del default gw 192.168.5.1
+route add default gw 192.168.5.1
 ps -aux | grep ssh
+kill -9 pid
+kill pid
+mtr 8.8.8.8   <--importenet
+mtr google.com
 
 # NETMASK
 # IP	            NETMASK	         DESCRIPTION
