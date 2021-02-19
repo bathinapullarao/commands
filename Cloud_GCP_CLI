@@ -34,6 +34,7 @@ compute.googleapis.com
 
 ##shell
 for project in $(gcloud projects list --format="value(project_id)")
-     do
-        gcloud compute instances list --project $project --format="table($project,id,name,status,EXTERNAL_IP)" >> external_ip_report_main2.csv
+do
+# List the instances which has serial port access enabled
+  gcloud compute instances list --project $project --filter="metadata.list(show="key"):serial-port-enable AND metadata.list(show="value"):True" >> report_serial_po_enabled_vm.csv
 done
