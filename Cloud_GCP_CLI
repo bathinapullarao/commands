@@ -5,6 +5,7 @@ Ref:  https://gist.github.com/pydevops/cffbd3c694d599c6ca18342d3625af97
 * gcloud compute routes list
 * gcloud compute operations list
 * gcloud compute firewall-rules list
+gcloud compute firewall-rules update allow-from-pullarao --source-ranges=223.238.28.78
 * gcloud compute instances move <instance_wanna_move> --destination-zone=us-central1-a --zone=us-central1-c
 * gcloud compute interconnects locations list   <--list Google Compute Engine interconnect locations
 * gcloud compute instances list --project gcm-devqa-pr-12345 --format="table(gcm-devqa-pr-12345,id,name,status,EXTERNAL_IP)"
