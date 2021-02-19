@@ -1,3 +1,4 @@
+Ref:https://haydenjames.io/linux-networking-commands-scripts/     <--networking commands
 chattr +i /etc/resolv.conf   <-- which will make the file immutable and won't be overwritten  Ref:https://www.tecmint.com/chattr-command-examples/
 lsattr                       <-- verify the immutable status of files using ‘lsattr‘ command.
 ## To list the software packages that constitute the EPEL repository, run the command.
@@ -56,7 +57,7 @@ route add default gw 192.168.5.1
 ps -aux | grep ssh
 kill -9 pid
 kill pid
-mtr 8.8.8.8   <--mtr stands for my trace route  cttrl +c or q to stop despay
+mtr 8.8.8.8   <--mtr stands for my trace route  cttrl +c or q to stop display
 mtr google.com
 
 # NETMASK
