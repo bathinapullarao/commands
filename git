@@ -1,4 +1,5 @@
 Ref:https://guides.github.com/features/mastering-markdown/   <-- to write .md files
+Ref:https://www.tutorialspoint.com/git/git_rename_operation.htm
 - file too long -execute below command in bash or modify config file
 git config --system core.longpaths true
 git clone git@git/mcm-inf.git
