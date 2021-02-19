@@ -45,6 +45,7 @@ iptables -t nat -A POSTROUTING -j MASQUERADE
 service iptables save
 
 # Routing table
+yum install net-tools   <--to work with network elated commands
 route -n
 netstat -rn
 route add -net 192.168.5.0 netmask 255.255.255.0 gw 192.168.0.1  eno16777
