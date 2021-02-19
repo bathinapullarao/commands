@@ -26,6 +26,9 @@ fi
 ## sed
 sed -i -e "s/MEMORY_STORE_IP/10.61.199.44/g" /etc/php.ini
 
+## tee
+packer build packer.json | tee packer.log
+
 ## mount
 mount -t gcsfuse -o implicit_dirs,uid=48,gid=48,allow_other qa01-mcm-uploads /var/www/html/upload
 ## umount
