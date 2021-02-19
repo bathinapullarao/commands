@@ -8,4 +8,10 @@ git commit -m "prepare cookbook for tomcat installation"
 git status
 git push  origin feature/69/gk-998
 git pull   To pull a new branch from git lab
+git log
+git diff
+git status -s
+git stash  <--Now, you want to switch branches for customer escalation, but you don’t want to commit what you’ve been working on yet; so you’ll stash the changes
+git stash list
+git stash pop  <--
 
