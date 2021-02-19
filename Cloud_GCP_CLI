@@ -10,6 +10,7 @@ Ref:  https://gist.github.com/pydevops/cffbd3c694d599c6ca18342d3625af97
 * gcloud compute instances list --project gcm-devqa-pr-12345 --format="table(gcm-devqa-pr-12345,id,name,status,EXTERNAL_IP)"
 * gcloud compute instances list --filter="metadata.list(show="key"):serial-port-enable AND metadata.list(show="value"):True"
 * gcloud compute instances list --format="json"  > a.txt
+* gcloud compute instances list --format=yaml
 * gcloud compute instances add-metadata INSTANCE --metadata serial-port-enable=1
 * gcloud compute connect-to-serial-port [INSTANCE_NAME]  <--Login from serial console
 * gcloud sql instances list
