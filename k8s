@@ -1,6 +1,6 @@
 Ref: https://kubernetes.io/docs/concepts/services-networking/connect-applications-service/
 Ref: https://kubernetes.io/docs/reference/kubectl/kubectl/
-kubectl run hello-node --image=hello-node:v1 --port=8080
+kubectl run hello-node --image=hello-node:v1 --port=8080           <--kubectl means cube control
 kubectl describe pod
 kubectl delete pod hello-node
 ## Test to ensure the version you installed is up-to-date:
@@ -9,7 +9,9 @@ kubectl version
 ## By default, kubectl configuration is located at ~/.kube/config.Check that kubectl is properly configured by getting the cluster state:
 kubectl cluster-info
 kubectl get all          <--shows all the componets inside cluster
-kubectl get nodes
+kubectl get nodes        <--To list all the nodes in the cluster
+kubectl get pods --all-namespaces         <-- list all the pods running inside your cluster
+kubectl get pods --all-namespaces -o wide <--to check where it is running
 kubectl get pod
 kubectl get service
 kubectl create -h        <---help on creaing
@@ -21,10 +23,11 @@ kubectl get pod          <--pod will be ready after deploymnet
 kubectl get replicaset   <--manages the replicas of a pod
 kubectl get rs           <--manages the replicas of a pod
 kubectl edit deployment nginx-deploy  <--you may edit version .. etc
-kubectl get pod 
+kubectl get pod (or) kubectl get po
 kubectl get replicaset
 kubectl logs podname                   <--get logs
 kubectl create deployment mongo-deploy --image=mongo
+kubectl create -f deploymnet.yaml
 kubectl get pod
 kubectl describe pod podname            <--get aditional information
 kubectl exec -it podname -- /bin/bash   <--enter in to terminal for debugging
