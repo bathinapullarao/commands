@@ -35,7 +35,8 @@ if [ $(echo qa01 | cut -c 1-3) != "dev" -a $(echo qa01 | cut -c 1-2) != "qa" ]; 
 fi
 
 ## sed
-sed -i -e "s/MEMORY_STORE_IP/10.61.199.44/g" /etc/php.ini
+sed -i -e "s/MEMORY_STORE_IP/10.61.199.44/g" /etc/php.ini               <-- replace MEMORY_STORE_IP
+sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config  <-- repace SELINUX=enforcing
 
 ## tee
 packer build packer.json | tee packer.log
