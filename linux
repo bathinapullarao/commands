@@ -112,3 +112,9 @@ ClientAliveInterval  1200
 ClientAliveCountMax 3
 systemctl reload sshd
 
+#Firewall
+firewall-cmd --state    <-- shows firewall is running or not
+systemctl stop firewalld  <--current runtime session only.
+systemctl stop firewalld
+systemctl disable firewalld <--perminently stop
+systemctl mask --now firewalld <--Mask the FirewallD service which will prevent the firewall from being started by other services
