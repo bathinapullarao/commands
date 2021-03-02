@@ -13,6 +13,8 @@ yum --disablerepo="*" --enablerepo="epel" list available | grep 'htop'
 yum --enablerepo="epel" install <package_name>
 yum --enablerepo=epel info htop
 yum --enablerepo=epel install htop
+hostnamectl set-hostname master-node
+
 ##To write content to a file
 cat <<EOF > /etc/yum.repos.d/kubernetes.repo
 [kubernetes]
