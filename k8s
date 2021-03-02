@@ -13,11 +13,11 @@ kubectl get nodes        <--To list all the nodes in the cluster
 kubectl get pods --all-namespaces         <-- list all the pods running inside your cluster
 kubectl get pods --all-namespaces -o wide <--to check where it is running
 ------------Namespace------------------------------------
-kubectl create –f namespace.yml ---------> 1
-kubectl get namespace -----------------> 2
-kubectl get namespace <Namespace name> ------->3
-kubectl describe namespace <Namespace name> ---->4
-kubectl delete namespace <Namespace name>
+kubectl create –f namespace.yml --------->         command to create a namespace
+kubectl get namespace ----------------->           list all the available namespace.
+kubectl get namespace <Namespace name> ------->    get a particular namespace whose name is specified in the command
+kubectl describe namespace <Namespace name> ---->  describe the complete details about the service.
+kubectl delete namespace <Namespace name>------->  delete a particular namespace present in the cluster.
 ---------------------------------------------------------
 kubectl get pod
 kubectl create service nodeport nameOfservice(nginx) --tcp=80:80      <--name of service should be same as deploymnet
