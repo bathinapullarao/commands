@@ -1,3 +1,4 @@
+Ref: https://phoenixnap.com/kb/how-to-install-kubernetes-on-centos
 Ref: https://kubernetes.io/docs/concepts/services-networking/connect-applications-service/
 Ref: https://kubernetes.io/docs/reference/kubectl/kubectl/
 kubectl run hello-node --image=hello-node:v1 --port=8080           <--kubectl means cube control
