@@ -2,6 +2,8 @@ Ref:https://haydenjames.io/linux-networking-commands-scripts/     <--networking 
 chattr +i /etc/resolv.conf   <-- which will make the file immutable and won't be overwritten  Ref:https://www.tecmint.com/chattr-command-examples/
 lsattr                       <-- verify the immutable status of files using ‘lsattr‘ command.
 ## To list the software packages that constitute the EPEL repository, run the command.
+yum check-update
+yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
 yum search epel-release
 yum info epel-release
 yum install epel-release
@@ -11,6 +13,10 @@ yum --disablerepo="*" --enablerepo="epel" list available | grep 'htop'
 yum --enablerepo="epel" install <package_name>
 yum --enablerepo=epel info htop
 yum --enablerepo=epel install htop
+##To write content to a file
+cat <<EOF > /etc/yum.repos.d/kubernetes.repo
+[kubernetes]
+EOF
 
 ## SCP
 * scp -r -i id_rsa -P61854 /tmp/sugar.zip dev_bathinapullarao@153.146.159.201:/tmp
