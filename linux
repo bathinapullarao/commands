@@ -55,6 +55,7 @@ route add -host 8.8.8.8 gw 192.168.5.1
 route del default gw 192.168.5.1
 route add default gw 192.168.5.1
 ps -aux | grep ssh
+ps –eaf      <--list all the running process inside a container.
 kill -9 pid
 kill pid
 mtr 8.8.8.8   <--mtr stands for my trace route  cttrl +c or q to stop display
