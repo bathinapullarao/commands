@@ -55,8 +55,16 @@ kubectl get deployment deploymnetname -o yaml > result.yml   <--can see etcd in 
 echo -n 'username' | base64             <-- to encript username or password to keep in secret
 kubectl apply -f secret.yml
 kubectl get secret
-//kubectl delete deployments,svc my-nginx; kubectl create -f ./nginx-secure-app.yam
+//kubectl delete deployments,svc my-nginx; kubectl create -f ./nginx-secure-app.yamL
+
+#Delete node from cluster.
+kubectl drain <node-name>
+kubectl drain <node-name> --ignore-daemonsets --delete-local-data
+kubectl delete node <node-name>
+kubeadm reset
 -------------------------
+kubeadm reset
+echo 1 > /proc/sys/net/ipv4/ip_forward    <--ip_forward content with 1
 kubeadm version
 kubeadm upgrade plan
 kubeadm upgrade apply v1.20.x
