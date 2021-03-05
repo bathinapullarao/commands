@@ -12,6 +12,9 @@ GRANT ALL PRIVILEGES ON *.* TO 'bat'@'172.16.32.0/255.255.255.0';
 GRANT ALL PRIVILEGES ON `bat`.* TO 'sugar'@'172.16.32.0/255.255.255
 //show databases;  //use mysql;  //show tables;  //show schemas; //select * from tablename;
 CREATE TABLE users(user_id INT AUTO_INCREMENT PRIMARY KEY, username VARCHAR(40));
+CREATE TABLE `current_s` (`seq_id` int(11) NOT NULL AUTO_INCREMENT,  `version` varchar(255) NOT NULL, `apply_datetime` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `id` int(36) NOT NULL,  PRIMARY KEY (`seq_id`)) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4
+
 INSERT INTO users VALUES (1001,'rao');
 show variables like '%log%';   
 SHOW GRANTS FOR 'ro_s'@'127.0.0.1';
