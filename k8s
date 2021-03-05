@@ -20,24 +20,21 @@ kubectl get namespace <Namespace name> ------->    get a particular namespace wh
 kubectl describe namespace <Namespace name> ---->  describe the complete details about the service.
 kubectl delete namespace <Namespace name>------->  delete a particular namespace present in the cluster.
 ---------------------------------------------------------
-kubectl get pod
 kubectl create service nodeport nameOfservice(nginx) --tcp=80:80      <--name of service should be same as deploymnet
 kubectl get service
 kubectl create -h        <---help on creaing
 kubectl create deployment nginx-deploy --image=nginx
 kubectl get deployment
 kubectl expose deployment/my-nginx
-kubectl get pod          <--pod will be ready after deploymnet
- kubectl get pods -l app=nginx
+kubectl get pod  (or) kubectl get po        <--pod will be ready after deploymnet
+kubectl get pods -l app=nginx
 kubectl get replicaset   <--manages the replicas of a pod
 kubectl get rs           <--manages the replicas of a pod
 kubectl edit deployment nginx-deploy  <--you may edit version .. etc
-kubectl get pod (or) kubectl get po
 kubectl get replicaset
 kubectl logs podname                   <--get logs
 kubectl create deployment mongo-deploy --image=mongo
 kubectl create -f deploymnet.yaml
-kubectl get pod
 kubectl describe pod podname            <--get aditional information
 kubectl exec -it podname -- /bin/bash   <--enter in to terminal for debugging
 exit                                    <--to exit from container
