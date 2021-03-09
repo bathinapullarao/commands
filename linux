@@ -17,6 +17,18 @@ hostnamectl set-hostname master-node
 
 sysctl --system   <--can run no issue
 
+##export  //To make your local shell variables global automatically, export them in your ~/.profile or ~/.bash_profile file under Unix like operating systems
+export PATH=$PATH:/usr/local/bin:~/bin
+export EDITOR=/usr/local/bin/vim
+export SHELL=/bin/ksh
+export LANG=En_US
+##To see a list of all exported variables and functions pass the -p option to the export command
+export -p           
+export -p | grep  something
+export -p | less
+export -p | more
+
+
 ##To write content to a file
 cat <<EOF > /etc/yum.repos.d/kubernetes.repo
 [kubernetes]
