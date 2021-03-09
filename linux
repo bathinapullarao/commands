@@ -5,6 +5,8 @@ lsattr                       <-- verify the immutable status of files using ‘l
 yum check-update
 yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
 yum search epel-release
+yum list kubelet
+yum list installed
 yum info epel-release
 yum install epel-release
 rpm -qa | grep epel
