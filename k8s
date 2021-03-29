@@ -74,6 +74,8 @@ kubectl certificate approve kubeadm-cert-kube-apiserver-ld526
 systemctl daemon-reload
 systemctl restart kubelet
 
+--------
+kubectl taint nodes backup1=backups-only:NoSchedule
 ---------------------------
 minikube start
 minikube status
