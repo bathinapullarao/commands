@@ -27,6 +27,7 @@ Restricting the use of images   <--https://cloud.google.com/compute/docs/images/
 * gcloud services list
 * gcloud services enable monitoring
 * gcloud organizations list
+* gcloud deployment-manager deployments delete quickstart-deployment
 
 gcloud services enable cloudapis.googleapis.com && \
 cloudresourcemanager.googleapis.com && \
