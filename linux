@@ -30,7 +30,8 @@ export -p | grep  something
 export -p | less
 export -p | more
 
-
+## print verision of centos
+cat /etc/redhat-release | '{print $4}' | awk -F'.' '{print $1}'
 ##To write content to a file
 cat <<EOF > /etc/yum.repos.d/kubernetes.repo
 [kubernetes]
