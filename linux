@@ -3,6 +3,7 @@ chattr +i /etc/resolv.conf   <-- which will make the file immutable and won't be
 lsattr                       <-- verify the immutable status of files using ‘lsattr‘ command.
 ## To list the software packages that constitute the EPEL repository, run the command.
 yum check-update
+yum check-update --security  <--Yum to install nothing but security updates
 yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
 yum search epel-release
 yum list kubelet
