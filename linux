@@ -16,7 +16,7 @@ yum --enablerepo="epel" install <package_name>
 yum --enablerepo=epel info htop
 yum --enablerepo=epel install htop
 hostnamectl set-hostname master-node
-
+systemctl list-units | grep service     <--To review active services
 sysctl --system   <--can run no issue
 
 ##export  //To make your local shell variables global automatically, export them in your ~/.profile or ~/.bash_profile file under Unix like operating systems
@@ -134,8 +134,9 @@ ClientAliveCountMax 3
 systemctl reload sshd
 
 #Firewall
-firewall-cmd --state    <-- shows firewall is running or not
-systemctl stop firewalld  <--current runtime session only.
+firewall-cmd --state           <-- shows firewall is running or not
+systemctl stop firewalld       <--current runtime session only.
 systemctl stop firewalld
-systemctl disable firewalld <--perminently stop
+systemctl disable firewalld    <--perminently stop
 systemctl mask --now firewalld <--Mask the FirewallD service which will prevent the firewall from being started by other services
+systemctl disable cups         <--if there are no printers installed on your computer, disable the cups service
