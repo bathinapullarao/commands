@@ -90,6 +90,8 @@ kill pid
 mtr 8.8.8.8   <--mtr stands for my trace route  cttrl +c or q to stop display
 mtr google.com
 
+nmap foo.example.com <--tests the most common network communication ports for listening or waiting services.
+
 # NETMASK
 # IP	            NETMASK	         DESCRIPTION
 192.168.55.161	255.255.255.255	 Only applies to 192.168.55.161
