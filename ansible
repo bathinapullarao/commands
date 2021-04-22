@@ -1,3 +1,7 @@
+ansible-playbook get_version.yml         <--- Execute this playbook with the command
+ansible-playbook get_version.yml -v      <--- Verbose flag, we see the data returned from the PowerShell module in the JSON format.
+ansible-playbook get_version.yml -vvv    <--- Very Very Verbose flag give more information, and oddly enough formats the JSON into a more readable format
+
 # to install packages
 - name: install epel-release
   yum:
