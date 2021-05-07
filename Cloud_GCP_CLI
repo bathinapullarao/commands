@@ -1,5 +1,6 @@
 Ref:  https://gist.github.com/pydevops/cffbd3c694d599c6ca18342d3625af97
 ## gcloud commands
+* gcloud auth activate-service-account --key-file terraform.json
 * gcloud compute instances list
 * gcloud compute forwarding-rules list
 * gcloud compute routes list
@@ -28,6 +29,7 @@ Restricting the use of images   <--https://cloud.google.com/compute/docs/images/
 * gcloud services enable monitoring
 * gcloud organizations list
 * gcloud deployment-manager deployments delete quickstart-deployment
+* gcloud iam service-accounts list
 
 gcloud services enable cloudapis.googleapis.com && \
 cloudresourcemanager.googleapis.com && \
