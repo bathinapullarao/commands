@@ -18,6 +18,8 @@ Ref:  https://gist.github.com/pydevops/cffbd3c694d599c6ca18342d3625af97
 * gcloud sql instances list
 * gsutil ls
 * gsutil cp -p gs://sugarsql/sugar.sql gs://dev-mcm-uploads/sugar.sql
+* gsutil rm -r gs://sugarsql/sugar.sql
+* gsutil mb -p PROJECT_name -l REGION -c STANDERD -b on gs://GCS_BUCKET_NAME   <--mb stands for makebucket
 * gcloud container clusters describe dev99-gke-gcp-cluster --region=asia-northeast1-a | grep maxNodeCount
 * gcloud container clusters list
 * gcloud components install kubectl
