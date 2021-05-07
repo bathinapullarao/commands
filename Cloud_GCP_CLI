@@ -1,6 +1,6 @@
 Ref:  https://gist.github.com/pydevops/cffbd3c694d599c6ca18342d3625af97
 ## gcloud commands
-* gcloud auth activate-service-account --key-file terraform.json
+* gcloud auth activate-service-account --key-file credentials.json
 * gcloud compute instances list
 * gcloud compute forwarding-rules list
 * gcloud compute routes list
