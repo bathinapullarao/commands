@@ -1,6 +1,14 @@
 Ref:  https://gist.github.com/pydevops/cffbd3c694d599c6ca18342d3625af97
 ## gcloud commands
 * gcloud auth activate-service-account --key-file credentials.json
+* gcloud beta compute ssl-certificates list
+* gcloud beta compute target-https-proxies list
+* gcloud beta billing accounts list
+Restricting the use of images   <--https://cloud.google.com/compute/docs/images/restricting-image-access
+* gcloud beta resource-manager org-policies describe compute.trustedImageProjects --effective --project projectid
+* gcloud container clusters describe dev99-gke-gcp-cluster --region=asia-northeast1-a | grep maxNodeCount
+* gcloud container clusters list
+* gcloud components install kubectl
 * gcloud compute instances list
 * gcloud compute forwarding-rules list
 * gcloud compute routes list
@@ -15,28 +23,29 @@ Ref:  https://gist.github.com/pydevops/cffbd3c694d599c6ca18342d3625af97
 * gcloud compute instances list --format=yaml
 * gcloud compute instances add-metadata INSTANCE --metadata serial-port-enable=1
 * gcloud compute connect-to-serial-port [INSTANCE_NAME]  <--Login from serial console
-* gcloud sql instances list
-* gsutil ls
-* gsutil cp -p gs://sugarsql/sugar.sql gs://dev-mcm-uploads/sugar.sql
-* gsutil rm -r gs://sugarsql/sugar.sql
-* gsutil mb -p PROJECT_name -l REGION -c STANDERD -b on gs://GCS_BUCKET_NAME   <--mb stands for makebucket
-* gcloud container clusters describe dev99-gke-gcp-cluster --region=asia-northeast1-a | grep maxNodeCount
-* gcloud container clusters list
-* gcloud components install kubectl
-* gcloud beta compute ssl-certificates list
-* gcloud beta compute target-https-proxies list
-* gcloud beta billing accounts list
-Restricting the use of images   <--https://cloud.google.com/compute/docs/images/restricting-image-access
-* gcloud beta resource-manager org-policies describe compute.trustedImageProjects --effective --project projectid
-* gcloud services list
-* gcloud services enable monitoring
-* gcloud organizations list
 * gcloud deployment-manager deployments delete quickstart-deployment
 * gcloud iam service-accounts list
-
+* gsutil mb -p PROJECT_name -l REGION -c STANDERD -b on gs://GCS_BUCKET_NAME   <--mb stands for makebucket
+* gcloud organizations list
+* gcloud services list
+* gcloud services enable monitoring
+* gcloud sql instances list
 gcloud services enable cloudapis.googleapis.com && \
 cloudresourcemanager.googleapis.com && \
 compute.googleapis.com 
+* gsutil cp -p gs://sugarsql/sugar.sql gs://dev-mcm-uploads/sugar.sql
+  gsutil rm -r gs://sugarsql/sugar.sql
+* gsutil ls
+
+
+
+
+
+
+
+
+
+
 
 ##shell
 for project in $(gcloud projects list --format="value(project_id)")
