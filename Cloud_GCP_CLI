@@ -34,8 +34,8 @@ Restricting the use of images   <--https://cloud.google.com/compute/docs/images/
 gcloud services enable cloudapis.googleapis.com && \
 cloudresourcemanager.googleapis.com && \
 compute.googleapis.com 
-* gsutil cp -p gs://sugarsql/sugar.sql gs://dev-mcm-uploads/sugar.sql
-  gsutil rm -r gs://sugarsql/sugar.sql
+* gsutil cp -p gs://sql/s.sql gs://dev-uploads/s.sql
+  gsutil rm -r gs://sql/s.sql
 * gsutil ls
 
 
