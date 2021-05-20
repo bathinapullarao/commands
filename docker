@@ -38,6 +38,8 @@ WORKDIR /tmp
 RUN ssh-keyscan -t rsa domainname > /root/.ssh/known_hosts    <--accept domain
 CMD ["/usr/sbin/httpd","-DFOREGROUND"]
 
+#To create a image form dockerfile,  you should execute below command from the folder which contain dockerfile
+docker build -t getting-started .
 
 # Command to login docker container
 docker exec -it 6a4f2dba71c2 /bin/bash
