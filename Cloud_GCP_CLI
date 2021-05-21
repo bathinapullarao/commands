@@ -1,4 +1,5 @@
 Ref:  https://gist.github.com/pydevops/cffbd3c694d599c6ca18342d3625af97
+Ref:  https://pnatraj.medium.com/how-to-run-gcloud-command-line-using-a-service-account-f39043d515b9
 ## gcloud commands
 * gcloud auth activate-service-account --key-file credentials.json
 * gcloud beta compute ssl-certificates list
