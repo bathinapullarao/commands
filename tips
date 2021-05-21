@@ -1,4 +1,17 @@
 For checking password 
 chrome://settings/passwords
-Run:
+
+Run commands:
 ncpa.cpl   <--Network Control Panel
+appwiz.cpl → Uninstall wizard
+hdwwiz.cpl → Hardware wizard
+timedate.cpl → Date and Time
+powercfg.cpl → Power options
+intl.cpl → Region settings
+desk.cpl → Resolution
+mmsys.cpl → Sound
+sysdm.cpl → System Properties
+firewall.cpl → Windows Firewall
+main.cpl → Mouse
+inetcpl.cpl → Internet options
+joy.cpl → Game controllers
