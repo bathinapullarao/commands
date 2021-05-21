@@ -34,6 +34,7 @@ export -p
 export -p | grep  something
 export -p | less
 export -p | more
+printenv                  <---command to Print all or part of environment.
 
 ## print verision of centos
 cat /etc/redhat-release | '{print $4}' | awk -F'.' '{print $1}'
