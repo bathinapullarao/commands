@@ -13,7 +13,8 @@ COPY, <-- COPY <src> … <dest>
 EXPOSE,  <--is used to map local port container port
 PUBLISH,  <-- -p 8080  Publish individual port at eg(docker run -d -p 8080 an_image)
               -P, --publish-all  Publish all exposed ports to random ports
-LABEL, USER, VOLUME,  STOPSIGNAL, and ONBUILD.
+LABEL maintainer="Bathina Pullarao"              
+USER, VOLUME,  STOPSIGNAL, and ONBUILD.
 
 eg:
 FROM centos:centos7
