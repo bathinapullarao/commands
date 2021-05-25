@@ -2,7 +2,8 @@ Ref:https://guides.github.com/features/mastering-markdown/   <-- to write .md fi
 Ref:https://www.tutorialspoint.com/git/git_rename_operation.htm
 - file too long -execute below command in bash or modify config file
 git config --system core.longpaths true
-git clone git@git/mcm-inf.git
+git clone git@git.system.com:spo-gitlab/project.git
+git clone -b release git@git.system.com:spo-gitlab/project.git
 git branch -a, git checkout feature/3-8-69/OC-299
 git add <--our files   git reset HEAD .   to unstage
 git commit -m "prepare cookbook for tomcat installation"
