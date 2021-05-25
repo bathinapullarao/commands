@@ -43,6 +43,14 @@ WORKDIR /tmp
 RUN ssh-keyscan -t rsa domainname > /root/.ssh/known_hosts    <--accept domain
 CMD ["/usr/sbin/httpd","-DFOREGROUND"]
 
+#Simple commands
+docker info                                  <-- gives information about the docker setup on your machine/vm
+docker rename big_hamilton big_hamilton_v1   <-- remane docker container
+docker rm `docker ps --no-trunc -aq`         <-- Removing all the Containers
+docker pause CONTAINER_NAME                  <-- Pause a Container
+docker unpause CONTAINER_NAME                <-- UnPaise a Paused Container
+docker logs CONTAINER_NAME                   <-- get a list of commands executed in the container.
+
 #To create a image form dockerfile,  you should execute below command from the folder which contain dockerfile
 docker build -t getting-started .
 DOCKER_BUILDKIT=1 docker build --secret id=ssh,src=~/.ssh/id_rsa   --build-arg GIT_BRANCH=release   -f Dockerfile   -t php-apache:1.0 .
@@ -58,6 +66,7 @@ docker-compose -f mongo.yaml up -d
 docker-compose -f mongo.yaml down
 
 #docker network
+docker network ls
 docker network create mongo-network
 #use network
 docker run -d \                             <--demen
