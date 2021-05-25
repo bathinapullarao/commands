@@ -1,3 +1,4 @@
+Ref:https://docs.docker.com/engine/reference/commandline/container_port/
 # Dockerfile instructions 
 FROM, 
 ARG,ENV, <-- Both can store values inside varibles but ENV varible value even can available after creating container.
@@ -46,18 +47,18 @@ CMD ["/usr/sbin/httpd","-DFOREGROUND"]
 #Simple commands
 docker info                                  <-- gives information about the docker setup on your machine/vm
 docker rename big_hamilton big_hamilton_v1   <-- remane docker container
+docker rm CONTAINER_NAME                     <-- Delete a Container
 docker rm `docker ps --no-trunc -aq`         <-- Removing all the Containers
 docker pause CONTAINER_NAME                  <-- Pause a Container
 docker unpause CONTAINER_NAME                <-- UnPaise a Paused Container
 docker logs CONTAINER_NAME                   <-- get a list of commands executed in the container.
-sudo docker run -i -t debian /bin/bash       <-- Create a Container and enter its shell, -i -t (interactive session with a tty attached)
-docker run -h CONTAINER1 -i -t debian /bin/bash                 <-- -h parameter to specify a container name
-docker run -h CONTAINER2 -i -t --net="bridge" debian /bin/bash  <-- Create a container with a Networking mode
 docker ps -a                                 <-- List of docker containers running
 docker inspect CONTAINER_NAME                <-- Inspect a Container  Output will be a JSON file.
 docker start [CONTAINER_NAME]                <-- Start a Stopped Container
 docker attach CONTAINER_NAME                 <-- Enter the Shell of a Started Container
-
+sudo docker run -i -t debian /bin/bash       <-- Create a Container and enter its shell, -i -t (interactive session with a tty attached)
+docker run -h CONTAINER1 -i -t debian /bin/bash                 <-- -h parameter to specify a container name
+docker run -h CONTAINER2 -i -t --net="bridge" debian /bin/bash  <-- Create a container with a Networking mode
 
 #To create a image form dockerfile,  you should execute below command from the folder which contain dockerfile
 docker build -t getting-started .
@@ -77,10 +78,10 @@ docker-compose -f mongo.yaml down
 docker network ls
 docker network create mongo-network
 #use network
-docker run -d \                             <--demen
--p 27017:27017 \
--e MONGO_INITDB_ROOT_USERNAME=admin \
+docker run -d \                             <-- d demen
+-p 27017:27017 \                            <-- p vmport:containerport
+-e MONGO_INITDB_ROOT_USERNAME=admin \       <-- e environmnet varible
 -e MONGO_INITDB_ROOT_PASSWORD=password \
---net mongo-network \
---name mongodb \
+--net mongo-network \                       <-- net network
+--name mongodb \                            <-- 
 mongo
