@@ -56,3 +56,14 @@ docker exec -it 6a4f2dba71c2 /bin/bash
 #docker compose
 docker-compose -f mongo.yaml up -d
 docker-compose -f mongo.yaml down
+
+#docker network
+docker network create mongo-network
+#use network
+docker run -d \                             <--demen
+-p 27017:27017 \
+-e MONGO_INITDB_ROOT_USERNAME=admin \
+-e MONGO_INITDB_ROOT_PASSWORD=password \
+--net mongo-network \
+--name mongodb \
+mongo
