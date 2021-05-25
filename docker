@@ -45,6 +45,7 @@ CMD ["/usr/sbin/httpd","-DFOREGROUND"]
 
 #To create a image form dockerfile,  you should execute below command from the folder which contain dockerfile
 docker build -t getting-started .
+DOCKER_BUILDKIT=1 docker build --secret id=ssh,src=~/.ssh/id_rsa   --build-arg GIT_BRANCH=release   -f Dockerfile   -t php-apache:1.0 .
 
 # Command to login docker container
 docker exec -it 6a4f2dba71c2 /bin/bash
@@ -52,4 +53,6 @@ docker exec -it 6a4f2dba71c2 /bin/bash
 * docker cp containerId:/file/path/in/container/file /host/local/path/file
 * docker cp /host/local/path/file containerId:/file/path/in/container/file
 
-
+#docker compose
+docker-compose -f mongo.yaml up -d
+docker-compose -f mongo.yaml down
