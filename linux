@@ -1,3 +1,4 @@
+adduser username --disabled-password --disabled-login --gecos ""
 Ref:https://haydenjames.io/linux-networking-commands-scripts/     <--networking commands
 chattr +i /etc/resolv.conf   <-- which will make the file immutable and won't be overwritten  Ref:https://www.tecmint.com/chattr-command-examples/
 lsattr                       <-- verify the immutable status of files using ‘lsattr‘ command.
