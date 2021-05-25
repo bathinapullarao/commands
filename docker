@@ -1,6 +1,6 @@
 Ref:https://docs.docker.com/engine/reference/commandline/container_port/
 # Dockerfile instructions 
-FROM, 
+FROM,    <-- FROM php:7.3-cli as php-cli
 ARG,ENV, <-- Both can store values inside varibles but ENV varible value even can available after creating container.
 WORKDIR, <-- Instruction is used to set the working directory for all the subsequent Dockerfile instructions.  
              Some frequently used instructions in a Dockerfile are RUN, ADD, CMD, ENTRYPOINT, and COPY.
