@@ -33,6 +33,10 @@ RUN yum update -y \
     traceroute \
     unzip \
     wget
+    Ref:https://www.geeksforgeeks.org/apt-get-command-in-linux-with-examples/#:~:text=%E2%80%93no%2Dinstall%2Drecommends%20%3A,as%20a%20dependency%20to%20install.&text=%2Dd%20or%20%E2%80%93download%2Donly,not%20unpack%20or%20install%20them.
+    --no-install-recommends      <--By passing this option, the user lets apt-get know not to consider recommended packages as a dependency to install.
+    -d or –download-only         <-- By passing this option, the user specifies that apt-get should only retrieve the packages, and not unpack or install them.
+    -y or –yes or –assume-yes    <-- it may sometimes prompt the user for a yes/no. With this option, it is specified that it should assume ‘yes’ for all prompts
 RUN yum install -y http://---.rpm
 WORKDIR /tmp
 RUN ssh-keyscan -t rsa domainname > /root/.ssh/known_hosts    <--accept domain
