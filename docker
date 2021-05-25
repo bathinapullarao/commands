@@ -50,6 +50,14 @@ docker rm `docker ps --no-trunc -aq`         <-- Removing all the Containers
 docker pause CONTAINER_NAME                  <-- Pause a Container
 docker unpause CONTAINER_NAME                <-- UnPaise a Paused Container
 docker logs CONTAINER_NAME                   <-- get a list of commands executed in the container.
+sudo docker run -i -t debian /bin/bash       <-- Create a Container and enter its shell, -i -t (interactive session with a tty attached)
+docker run -h CONTAINER1 -i -t debian /bin/bash                 <-- -h parameter to specify a container name
+docker run -h CONTAINER2 -i -t --net="bridge" debian /bin/bash  <-- Create a container with a Networking mode
+docker ps -a                                 <-- List of docker containers running
+docker inspect CONTAINER_NAME                <-- Inspect a Container  Output will be a JSON file.
+docker start [CONTAINER_NAME]                <-- Start a Stopped Container
+docker attach CONTAINER_NAME                 <-- Enter the Shell of a Started Container
+
 
 #To create a image form dockerfile,  you should execute below command from the folder which contain dockerfile
 docker build -t getting-started .
