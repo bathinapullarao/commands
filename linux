@@ -147,3 +147,6 @@ systemctl stop firewalld
 systemctl disable firewalld    <--perminently stop
 systemctl mask --now firewalld <--Mask the FirewallD service which will prevent the firewall from being started by other services
 systemctl disable cups         <--if there are no printers installed on your computer, disable the cups service
+
+#memory
+free -h                          <-- to check memory and swap -h humanredable
