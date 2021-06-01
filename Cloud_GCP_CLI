@@ -12,6 +12,7 @@ Restricting the use of images   <--https://cloud.google.com/compute/docs/images/
 * gcloud container clusters list
 * gcloud container images list
 * gcloud container images list-tags gcr.io/projectid
+* gcloud components list
 * gcloud components install kubectl
 * gcloud compute instances list
 * gcloud compute forwarding-rules list
@@ -37,7 +38,8 @@ Restricting the use of images   <--https://cloud.google.com/compute/docs/images/
 * gcloud sql instances list
 gcloud services enable cloudapis.googleapis.com && \
 cloudresourcemanager.googleapis.com && \
-compute.googleapis.com 
+compute.googleapis.com && \
+containerregistry.googleapis.com
 * gsutil cp -p gs://sql/s.sql gs://dev-uploads/s.sql
   gsutil rm -r gs://sql/s.sql
 * gsutil ls
