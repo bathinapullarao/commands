@@ -3,6 +3,7 @@ Ref:  https://pnatraj.medium.com/how-to-run-gcloud-command-line-using-a-service-
 * docker-credential-gcloud list
 ## gcloud commands
 * gcloud auth activate-service-account --key-file credentials.json
+**  gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://eu.gcr.io   <--create key in ~/.docker/config.json before executing delete the key
 * gcloud beta compute ssl-certificates list
 * gcloud beta compute target-https-proxies list
 * gcloud beta billing accounts list
