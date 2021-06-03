@@ -34,6 +34,8 @@ Restricting the use of images   <--https://cloud.google.com/compute/docs/images/
 * PROJECT=$(gcloud info --format='value(config.project)')
 * gsutil mb -p PROJECT_name -l REGION -c STANDERD -b on gs://GCS_BUCKET_NAME   <--mb stands for makebucket
 * gcloud projects get-iam-policy Project-ID
+* gcloud projects get-iam-policy $PROJECTID --flatten="bindings[].members" --format='table(bindings.role)' \
+   --filter="bindings.members:$ServiceaccountMAILID
 * gcloud organizations list
 * gcloud services list
 * gcloud services enable monitoring
