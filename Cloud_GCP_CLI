@@ -47,6 +47,7 @@ containerregistry.googleapis.com
 * gsutil cp -p gs://sql/s.sql gs://dev-uploads/s.sql
   gsutil rm -r gs://sql/s.sql
 * gsutil ls
+* gsutil ls gs://bucketname
 
 
 
