@@ -73,7 +73,10 @@ kubeadm certs renew apiserver --use-api &
 kubectl certificate approve kubeadm-cert-kube-apiserver-ld526
 systemctl daemon-reload
 systemctl restart kubelet
-
+---------
+kubectl cordon <Node name>
+kubectl drain <Node nae> --force
+gcloud container node-pools delete default-pool
 --------
 kubectl taint nodes backup1=backups-only:NoSchedule
 ---------------------------
