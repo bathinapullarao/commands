@@ -73,7 +73,7 @@ kubeadm certs renew apiserver --use-api &
 kubectl certificate approve kubeadm-cert-kube-apiserver-ld526
 systemctl daemon-reload
 systemctl restart kubelet
----------
+---------Migration with node pools----------
 kubectl cordon <Node name>
 kubectl drain <Node nae> --force
 gcloud container node-pools delete default-pool
