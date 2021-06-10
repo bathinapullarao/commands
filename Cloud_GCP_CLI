@@ -49,7 +49,12 @@ containerregistry.googleapis.com
 * gsutil ls
 * gsutil ls gs://bucketname
 
-
+gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://asia.gcr.io
+cat ~/.docker/config.json
+DOCKER_BUILDKIT=1 docker build --secret id=ssh,src=~/.ssh/id_rsa   --build-arg GIT_BRANCH=bug/Sprintnum   -f Dockerfile   -t php-apache:1.0 .
+DOCKER_BUILDKIT=1 docker build --secret id=ssh,src=~/.ssh/id_rsa   -f Dockerfile   -t elasticsearch-oss:6.8.13 .
+sudo docker tag php-apache:$TAG asia.gcr.io/ProjectID/${LOCAL_IMAGE}:$TAG
+docker push asia.gcr.io/ProjectID/${LOCAL_IMAGE}:$TAG
 
 
 
