@@ -13,4 +13,7 @@ terraform plan destroy
 terraform refresh      <--This will refresh your state by comparing it to your cloud infrastructure.
 terraform output       <--output command is also useful for scripts to extract outputs from your configuration.
 terraform taint google_compute_instance.vm_instance   <-- to tell Terraform to recreate the instance.
-terraform show         
+terraform show
+terraform workspace 
+terraform workspace  show
+terraform workspace  select
