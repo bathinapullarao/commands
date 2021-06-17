@@ -12,6 +12,7 @@ Restricting the use of images   <--https://cloud.google.com/compute/docs/images/
 * gcloud container clusters describe dev99-gke-gcp-cluster --region=asia-northeast1-a | grep maxNodeCount
 * gcloud container clusters list
 * gcloud container images list
+* gcloud container get-server-config      <--to get all gke versions
 * gcloud container images list-tags gcr.io/projectid
 * gcloud components list
 * gcloud components install kubectl
