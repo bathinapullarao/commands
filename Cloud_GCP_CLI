@@ -16,10 +16,11 @@ Restricting the use of images   <--https://cloud.google.com/compute/docs/images/
 * gcloud container clusters resize gkeclustername --node-pool default-pool --num-nodes 4  <--Resizing a Cluster
 * gcloud container clusters update clustername --enable-autoscaling -min-nodes 1 -max-nodes 10 --node-pool default-pool   <--Auto-scaling a Cluster
 * gcloud container clusters list
+* gcloud container clusters delete clustername                         <--Deleting a Cluster
 * gcloud container images list
-* gcloud container get-server-config      <--to get all gke versions
+* gcloud container get-server-config                                   <--to get all gke versions
 * gcloud container images list-tags gcr.io/projectid
-** gcloud container images list --repository=asia.gcr.io/projectid
+** gcloud container images list --repository=asia.gcr.io/projectid     <--listing the images
 * gcloud components list
 * gcloud components install kubectl
 * gcloud compute instances list
