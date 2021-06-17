@@ -12,7 +12,9 @@ Restricting the use of images   <--https://cloud.google.com/compute/docs/images/
 ** gcloud config set container/cluster gkeclustername     <-- to set default cluster
 * gcloud container clusters describe dev99-gke-gcp-cluster --region=asia-northeast1-a | grep maxNodeCount
 * gcloud container clusters get-credentials clustername --zone asia-south1-c --project projectid     <--Configuring cluster access for Kubectl
-* gcloud container clusters upgrade clustername --master   <-- upgrade the version of GKE cluster
+* gcloud container clusters upgrade clustername --master                                  <-- upgrade the version of GKE cluster
+* gcloud container clusters resize gkeclustername --node-pool default-pool --num-nodes 4  <--Resizing a Cluster
+* gcloud container clusters update clustername --enable-autoscaling -min-nodes 1 -max-nodes 10 --node-pool default-pool   <--Auto-scaling a Cluster
 * gcloud container clusters list
 * gcloud container images list
 * gcloud container get-server-config      <--to get all gke versions
