@@ -1,5 +1,6 @@
 adduser username --disabled-password --disabled-login --gecos ""          
 Ref:https://haydenjames.io/linux-networking-commands-scripts/             <--networking commands
+telnet 192.168.16.2 443
 chattr +i /etc/resolv.conf   <-- which will make the file immutable and won't be overwritten  Ref:https://www.tecmint.com/chattr-command-examples/
 lsattr                       <-- verify the immutable status of files using ‘lsattr‘ command.
 lsmod | grep kvm             <-- to determine which modules are loaded
