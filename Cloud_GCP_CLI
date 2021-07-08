@@ -7,6 +7,7 @@ Ref:  https://pnatraj.medium.com/how-to-run-gcloud-command-line-using-a-service-
 * gcloud beta compute ssl-certificates list
 * gcloud beta compute target-https-proxies list
 * gcloud beta billing accounts list
+* gcloud beta services vpc-peerings update --service=servicenetworking.googleapis.com --ranges=qa01db --network=qa01-gcp-vpc --project=PROJECTID --force
 Restricting the use of images   <--https://cloud.google.com/compute/docs/images/restricting-image-access
 * gcloud beta resource-manager org-policies describe compute.trustedImageProjects --effective --project projectid
 ** gcloud config set container/cluster gkeclustername     <-- to set default cluster
