@@ -1,6 +1,7 @@
 Ref: https://phoenixnap.com/kb/how-to-install-kubernetes-on-centos
 Ref: https://kubernetes.io/docs/concepts/services-networking/connect-applications-service/
 Ref: https://kubernetes.io/docs/reference/kubectl/kubectl/
+Ref: https://kubernetes.io/docs/reference/kubectl/cheatsheet/
 kubectl run hello-node --image=hello-node:v1 --port=8080           <--kubectl means cube control
 kubectl describe pod
 kubectl delete pod hello-node
