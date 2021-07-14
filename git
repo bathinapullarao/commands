@@ -17,4 +17,8 @@ git status -s
 git stash  <--Now, you want to switch branches for customer escalation, but you don’t want to commit what you’ve been working on yet; so you’ll stash the changes
 git stash list
 git stash pop  <--
+// To check if at least the clone works without checking said certificate, you can set:
+export GIT_SSL_NO_VERIFY=1
+#or
+git config --global http.sslverify false
 
