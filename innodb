@@ -1,0 +1,305 @@
+https://dev.mysql.com/doc/refman/8.0/en/group-replication-single-primary-mode.html
+https://mysqlserverteam.com/introducing-mysql-innodb-cluster-a-hands-on-tutorial/
+
+Connectivity from webap to db
+Yum update -y
+yum -y install https://dev.mysql.com/get/mysql57-community-release-el7-11.noarch.rpm
+yum install mysql-community-client mysql-community-common mysql-community-libs mysql-community-libs-compat mysql-community-server
+
+from webap servermysql -h 172.16.32.55 -u sugarcrm -p
+mysql -u root -p'Bj-R)Jt3'
+show variables like '%group_replication%';
+SELECT * FROM performance_schema.replication_group_members;
+SET GLOBAL group_replication_bootstrap_group=ON;
+START GROUP_REPLICATION;
+SET GLOBAL group_replication_bootstrap_group=OFF;
+STOP GROUP_REPLICATION;
+SHOW PLUGINS;
+show processlist;
+netstat  –at
+set global group_replication_member_weight=100;
+mysql -h 127.0.0.1 -u gcm_cluster_admin --password='r$X2P3&G'
+RESET MASTER;
+START GROUP_REPLICATION;
+mysql -h 127.0.0.1 -u gcm_cluster_operator --password='+U8ish#!'
+SELECT MEMBER_HOST FROM performance_schema.replication_group_members WHERE MEMBER_ID = (SELECT VARIABLE_VALUE FROM performance_schema.global_status WHERE VARIABLE_NAME="group_replication_primary_member" );
+SELECT * FROM performance_schema.replication_group_members;
+mysql -h 127.0.0.1 -u replication_user --password='hq9Y#M/4'
+
+SHOW GLOBAL STATUS;   shows number of times the client unexpectedly disconnected
+SELECT * FROM INFORMATION_SCHEMA.ENGINES;    or
+SHOW ENGINES;   shows all the engines
+SHOW PLUGINS;  shows all the plugins which was installed in mysql.
+SHOW BINLOG EVENTS;   all events in my sql (like complete history of all commands in mysql)
+When primary:
+mysql -h 127.0.0.1 -u gcm_cluster_admin --password='r$X2P3&G'
+SET GLOBAL group_replication_bootstrap_group=ON;
+START GROUP_REPLICATION;
+SET GLOBAL group_replication_bootstrap_group=OFF;
+
+Confirm_Group_Replication(Primary)
+mysql> SELECT MEMBER_HOST FROM performance_schema.replication_group_members WHERE MEMBER_ID = (SELECT VARIABLE_VALUE FROM performance_schema.global_status WHERE VARIABLE_NAME="group_replication_primary_member" );
+SHOW MASTER STATUS;
+SELECT * FROM performance_schema.replication_connection_status;
+When readonly:
+select plugin_name, plugin_status from information_schema.plugins where plugin_name like 'group_%';
+Confirm_Group_Replication (Read-Only)
+mysql -h 127.0.0.1 -u gcm_cluster_operator --password='+U8ish#!'
+SELECT MEMBER_STATE FROM performance_schema.replication_group_members WHERE MEMBER_HOST = "dev-gcm-db03";
+SHOW MASTER STATUS;
+SELECT @@global.read_only;    shows read only server as 1
+When slave
+mysql -h 127.0.0.1 -u replication_user --password='hq9Y#M/4'       
+CHANGE MASTER TO MASTER_HOST='172.16.32.55', MASTER_USER='replication_user', MASTER_PASSWORD='hq9Y#M/4', MASTER_PORT=3306, MASTER_AUTO_POSITION=1 for channel 'master1';         
+CHANGE MASTER TO MASTER_HOST='172.16.32.43', MASTER_USER='replication_user', MASTER_PASSWORD='hq9Y#M/4', MASTER_PORT=3306, MASTER_AUTO_POSITION=1 for channel 'master2';         
+CHANGE MASTER TO MASTER_HOST='172.16.32.163', MASTER_USER='replication_user', MASTER_PASSWORD='hq9Y#M/4', MASTER_PORT=3306, MASTER_AUTO_POSITION=1 for channel 'master3';         
+start slave for channel 'master1';         
+start slave for channel 'master2';         
+start slave for channel 'master3';
+
+
+confirm _SLAVE_Status:
+mysql -h 127.0.0.1 -u ro_sugar --password= 'Gj-t0D0!'  
+use sugarcrm; 
+show tables;
+
+SHOW PROCESSLIST \G;
+show engine innodb status;
+SELECT DATABASE();   to check which database we are using
+status;  gives very useful information
+
+PHP 5.6.36 (cli) (built: Apr 25 2018 10:02:39)
+Copyright (c) 1997-2016 The PHP Group
+Zend Engine v2.6.0, Copyright (c) 1998-2016 Zend Technologies
+
+systemctl stop mysqld
+yum remove mysql
+rm -rvf /etc/my.cnf*
+rm -rvf /var/lib/mysql/*
+cd /var/lib/mysql	
+rm -rvf /usr/local/mysql/.mysqlinitial
+rm -rvf /usr/local/mysql/mysql-keyring
+rm -rvf /usr/lib64/mysql/plugin/libaudit_plugin.so
+rm -rvf /var/log/mysql/mysqld-audit.json
+rm -rvf etc/logrotate.d/mysql
+rm -rvf /root/.my.cnf
+rm -rvf /usr/local/mysql/.mysqlslave	
+rm -rvf /etc/my.cnf
+rm -rvf /root/secure_install.sql
+rm -rvf /usr/local/mysql/.groupreplication
+rm -rvf /usr/local/mysql/.mysqlslave
+
+
+
+yum remove mysql* 
+
+in slave
+systemctl stop mysqld
+yum remove aide
+rm /etc/aide.conf
+rm /var/scripts/aide_scan.sh
+rm -f /var/scripts/aide_db_update.sh
+yum remove mysql
+yum remove mysql-shell
+rm -rvf /var/lib/mysql/data
+rm -rvf /var/lib/mysql/log
+rm -rvf /usr/local/mysql
+rm -rvf /var/log/mysql
+rm -rvf /etc/my.cnf
+rm -rvf /usr/local/mysql/mysql-keyring
+rm -rvf /usr/lib64/mysql/plugin/libaudit_plugin.so
+rm -rvf /var/log/mysql/mysqld-audit.json
+rm -rvf /var/log/mysql/mysqld.log
+rm -rvf /etc/logrotate.d/mysql
+rm -rvf /etc/logrotate.d/mysql.audit
+rm -rvf /etc/security/limits.d/mysql.conf
+rm -rvf /root/.my.cnf
+rm -rvf /root/secure_install.sql
+rm -rvf /usr/local/mysql/.mysqlslave
+rm -rvf /etc/my.cnf.tmp
+
+	
+
+yum remove mysql*
+
+
+mysql cluster creation and router config [fail over test]
+mysql -u gcm_cluster_admin -h 127.0.0.1 -P 6446 -p
+select @@port;
+SELECT * FROM performance_schema.replication_group_members;
+SELECT MEMBER_HOST FROM performance_schema.replication_group_members WHERE MEMBER_ID = (SELECT VARIABLE_VALUE FROM performance_schema.global_status WHERE VARIABLE_NAME="group_replication_primary_member" );
+SELECT MEMBER_HOST FROM performance_schema.replication_group_members WHERE MEMBER_ID = (SELECT VARIABLE_VALUE FROM performance_schema.global_status WHERE VARIABLE_NAME="group_replication_primary_member" );
+SELECT MEMBER_HOST FROM performance_schema.replication_group_members WHERE MEMBER_ID = (SELECT VARIABLE_VALUE FROM performance_schema.global_status WHERE VARIABLE_NAME="group_replication_primary_member" );
+[root@dev-gcm-webap53 ~]# mysqlsh
+MySQL Shell 8.0.15
+
+Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+Oracle is a registered trademark of Oracle Corporation and/or its affiliates.
+Other names may be trademarks of their respective owners.
+
+Type '\help' or '\?' for help; '\quit' to exit.
+
+
+
+ MySQL  JS > \c gcm_cluster_admin@172.16.32.55:3306
+Creating a session to 'gcm_cluster_admin@172.16.32.55:3306'
+Fetching schema names for autocompletion... Press ^C to stop.
+Your MySQL connection id is 83651
+Server version: 5.7.21-log MySQL Community Server (GPL)
+No default schema selected; type \use <schema> to set one.
+
+
+
+ MySQL  172.16.32.55:3306 ssl  JS >  cluster = dba.createCluster('gcm_innodb_cluster')
+You are connected to an instance that belongs to an unmanaged replication group.
+Do you want to setup an InnoDB cluster based on this replication group? [Y/n]: Y
+A new InnoDB cluster will be created based on the existing replication group on instance 'gcm_cluster_admin@172.16.32.55:3306'.
+
+Creating InnoDB cluster 'mycluster' on 'gcm_cluster_admin@172.16.32.55:3306'...
+Adding Seed Instance...
+Adding Instance 'dev-gcm-db03:3306'...
+Adding Instance 'dev-gcm-db02:3306'...
+
+Cluster successfully created based on existing replication group.
+
+<Cluster:mycluster>
+
+
+
+[root@dev-gcm-webap53 ~]# mysqlrouter --bootstrap gcm_cluster_admin@172.16.32.55:3306 --user=mysqlrouter --force
+Please enter MySQL password for gcm_cluster_admin:
+
+Bootstrapping system MySQL Router instance...
+Checking for old Router accounts
+Creating account mysql_router1_d01z9t6uxa3q@'%'
+MySQL Router  has now been configured for the InnoDB cluster 'mycluster'.
+
+The following connection information can be used to connect to the cluster after MySQL Router has been started with generated configuration..
+
+Classic MySQL protocol connections to cluster 'mycluster':
+- Read/Write Connections: localhost:6446
+- Read/Only Connections: localhost:6447
+X protocol connections to cluster 'mycluster':
+- Read/Write Connections: localhost:64460
+- Read/Only Connections: localhost:64470
+
+Existing dynamic state backed up to '/var/lib/mysqlrouter/state.json.bak'
+
+
+
+[root@dev-gcm-webap53 mysqlrouter]# mysqlsh --uri gcm_cluster_admin@172.16.32.55:3306
+MySQL Shell 8.0.15
+
+Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+Oracle is a registered trademark of Oracle Corporation and/or its affiliates.
+Other names may be trademarks of their respective owners.
+
+Type '\help' or '\?' for help; '\quit' to exit.
+Creating a session to 'gcm_cluster_admin@172.16.32.55:3306'
+Fetching schema names for autocompletion... Press ^C to stop.
+Your MySQL connection id is 1359
+Server version: 5.7.21-log MySQL Community Server (GPL)
+No default schema selected; type \use <schema> to set one.
+
+ MySQL  172.16.32.55:3306 ssl  JS > cluster=dba.getCluster()
+<Cluster:mycluster>
+
+ MySQL  172.16.32.55:3306 ssl  JS > cluster.status()
+{
+    "clusterName": "mycluster",
+    "defaultReplicaSet": {
+        "name": "default",
+        "primary": "dev-gcm-db01:3306",
+        "ssl": "DISABLED",
+        "status": "OK",
+        "statusText": "Cluster is ONLINE and can tolerate up to ONE failure.",
+        "topology": {
+            "dev-gcm-db01:3306": {
+                "address": "dev-gcm-db01:3306",
+                "mode": "R/W",
+                "readReplicas": {},
+                "role": "HA",
+                "status": "ONLINE"
+            },
+            "dev-gcm-db02:3306": {
+                "address": "dev-gcm-db02:3306",
+                "mode": "R/O",
+                "readReplicas": {},
+                "role": "HA",
+                "status": "ONLINE"
+            },
+            "dev-gcm-db03:3306": {
+                "address": "dev-gcm-db03:3306",
+                "mode": "R/O",
+                "readReplicas": {},
+                "role": "HA",
+                "status": "ONLINE"
+            }
+        },
+        "topologyMode": "Single-Primary"
+    },
+    "groupInformationSourceMember": "dev-gcm-db01:3306"
+}
+
+
+In the above given output I have login to the cluster as cluster admin with router port 6446 
+I have verified the cluster instance port with select @@port 3306
+I have verified the status of the replication members with 
+SELECT * FROM performance_schema.replication_group_members;
+It shows all the member instaces are online
+Then I verified the master server it show db01
+
+
+[root@dev-gcm-webap53 ~]# mysql -u sugarcrm -h 127.0.0.1 -P 3306 -p                 ##login from webap mysql router                   
+mysql> SELect * FROM performance_schema.replication_group_members;
+mysql sugarcrm53 -u sugarcrm -h 127.0.0.1 -P 6446 -pdY3+W4+b < /tmp/SugarcrmDB53_20190606.sql                                                                               ##To restore backup
+https://mydbops.wordpress.com/2017/12/17/disabling-multi-source-replication-in-mysql-5-7/
+https://www.percona.com/blog/2013/02/08/how-to-createrestore-a-slave-using-gtid-replication-in-mysql-5-6/
+reset master;
+show global variables like 'GTID_EXECUTED';     copy from R/W
+SET @@GLOBAL.GTID_PURGED='04f8b000-ea2f-48c7-87a7-2c5a8d6b8168:1-11103752';  past
+show slave status;
+start slave;
+mysql -u any_user -p -h $master_ip_address   check from slave
+select User,Host from mysql.user;
+show master logs;
+https://dev.mysql.com/doc/refman/8.0/en/mysql-innodb-cluster-working-with-cluster.html#super-read-only-on-instance
+-->systemctl stop mysqld
+-->systemctl set-environment MYSQLD_OPTS="--skip-grant-tables"
+-->systemctl start mysqld
+-->mysql -u root
+-->USE mysql;
+-->UPDATE user SET password=PASSWORD('YourNewPasswordHere') WHERE User='root' AND Host = 'localhost';
+If Above Command Not work --> update user set authentication_string=PASSWORD(“7heiuefuife778shjscjh”) when user =’root’;
+-->FLUSH PRIVILEGES;
+I did
+We followed below steps
+1.Took backup's from master server without gtids
+mysqldump --databases sugarcrm31 apilog --flush-logs --single-transaction --set-gtid-purged=OFF --master-data=2 --opt -h 127.0.0.1 -u backup_sugar -p > /tmp/sugarcrm31.sql
+2.dba.dropMetadataSchema()   <-- drop metadata
+3.#group_replication_auto_increment_increment=1 <–uncomment and restarted mysql in db01~db04
+4 drop sugarcrm* DB's & created sugarcrm* DB's
+5. made all db01~db04 to replication group
+6.dba.createCluster('gcm_innodb_cluster')  <–created cluster
+7.applyed the backups on sugarcrm*  in master (DB01) which we took at step1.
+8.Bootstrap as gcm_cluster_admin in all webap* servers.
+9.updated mysqlrouter conf file and restered mysql router in webap*
+10.verified the application in browser
+Yoshidasan 
+We can apply more easily.
+(e.g. apply db02)
+1. get db backup from db01
+2. stop group replication
+3. drop sugarcrm/apilg database & create sugarcrm/apilg database
+4. reset master
+5. modify my.cnf
+6. restart mysqld
+7. apply backup file
+8. start group replication
+I didn't need mysql-router re-configure un UAT environment.
+
+show processlist;
+SELECT * FROM INFORMATION_SCHEMA.PROCESSLIST;
+ SHOW BINARY LOGS;
+PURGE BINARY LOGS TO 'mysqld-bin.000042';
+
