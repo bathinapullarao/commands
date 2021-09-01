@@ -73,8 +73,12 @@ mount -t gcsfuse -o implicit_dirs,uid=48,gid=48,allow_other qa01-mcm-uploads /va
 sudo fusermount -u /var/www/html/upload
 
 # /etc/crontab
-echo "# Sugar Sucheduled JOB (DF-106)" >> /etc/crontab
+echo "# Sugar Sucheduled JOB (D-106)" >> /etc/crontab
 echo "* * * * * apache cd /var/www/html; php -f cron.php > /dev/null 2>&1" >> /etc/crontab
+if [ $(grep "filename.sh" /etc/crontab 1>> /dev/null 2>> /dev/null; echo $?) != 0 ]; then
+    echo "# Discription" >> /etc/crontab
+    echo "* * * * * apache cd /usr/local/src; sh filename.sh > /dev/null 2>&1" >> /etc/crontab
+fi
 
 ## IPTABLE-redirect an incoming connection to a different IP address
 https://my.esecuredata.com/index.php?/knowledgebase/article/49/how-to-redirect-an-incoming-connection-to-a-different-ip-address-on-a-specific-port-using-iptables/
