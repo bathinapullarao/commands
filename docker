@@ -45,6 +45,7 @@ RUN ssh-keyscan -t rsa domainname > /root/.ssh/known_hosts    <--accept domain
 CMD ["/usr/sbin/httpd","-DFOREGROUND"]
 
 #Simple commands
+docker pull docker.elastic.co/elasticsearch/elasticsearch:7.9.0   <--pull the image from registry
 docker info                                  <-- gives information about the docker setup on your machine/vm
 docker rename big_hamilton big_hamilton_v1   <-- remane docker container
 docker rm CONTAINER_NAME                     <-- Delete a Container
