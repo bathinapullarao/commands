@@ -1,7 +1,113 @@
-cookbook_file "/etc/yum.repos.d/CentOS-Vault.repo" do
-  source  "etc/yum.repos.d/CentOS-Vault.repo"
-  action  :create
-  owner   'root'
-  group   'root'
-  mode    '0644'
+package "epel-release" do
+  action :install
+end
+
+service "sshd" do
+  action :nothing
+end
+
+execute "vmware-tools install" do
+  command "./tmp/vmware-tools-distrib/vmware-install.pl -d"
+  only_if { File.exist?("/tmp/vmware-tools-distrib/vmware-install.pl") }
+end
+
+link "/etc/clamd.conf" do
+  to "/etc/clamd.d/scan.conf"
+end
+
+file "/etc/cron.daily/clamav" do
+  mode '0755'
+  action :create
+end
+
+template "sshd_config" do
+  path   "/etc/ssh/sshd_config"
+  source "etc/ssh/sshd_config.erb"
+  owner "root"
+  group "root"
+  mode  "0600"
+end
+
+directory "#{u['home']}/.ssh" do
+      owner  u['uid']
+      group  u['gid']
+      mode   '0700'
+      action :create
+end
+
+cookbook_file "#{u['home']}/.ssh/authorized_keys" do
+      source  "#{u['home']}/.ssh/#{u['name']}_authorized_keys"
+      action  :create
+      owner   u['uid']
+      group   u['gid']
+      mode    '0600'
+end
+
+%w[
+  /var/export
+  /var/export/beluga
+  /var/scripts
+].each do |path|
+  directory path do
+    owner 'root'
+    group 'root'
+    mode '0777'
+  end
+end
+
+#Setting_service.rb
+node[:common][:install_packages].each do |rpms|
+ package rpms do
+  action :install
+ end
+end
+
+node[:common][:remove_packages].each do |rpms|
+ package rpms do
+  action :remove
+ end
+end
+
+node[:common][:start_services].each do |sv|
+  service sv do
+    action [:enable, :start]
+  end
+end
+
+execute "Installed kernel tools" do
+  command "yum update -y kernel-tools-#{node[:common][:kernel_version]} kernel-tools-libs-#{node[:common][:kernel_version]}"
+  user  "root"
+  group "root"
+  not_if "rpm -qa |grep kernel-#{node[:common][:kernel_version]}"
+end
+
+execute "Set Timezone" do
+  command "timedatectl set-timezone Etc/UTC"
+  user  "root"
+  group "root"
+end
+
+
+# set jenkins user
+if node[:hostname][-6..-3] == "step"
+  cookbook_file "/home/gcm_jenslv/.ssh/config" do
+    case node[:hostname][0..2]
+      when 'dev'
+        source  "home/gcm_jenslv/.ssh/dev_config"
+      when 'uat'
+        source  "home/gcm_jenslv/.ssh/uat_config"
+      when 'gcm'
+        source  "home/gcm_jenslv/.ssh/gcm_config"
+    end
+    action  :create
+    owner   'gcm_jenslv'
+    group   'gcm_jenslv'
+    mode    '0600'
+  end
+else
+  group 'wheel' do
+    group_name 'wheel'
+    members  [node[:common][:wheel_user]]
+    action :modify
+  end
 end
