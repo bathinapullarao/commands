@@ -7,7 +7,7 @@ git config --global user.name "BathinaPullarao"
 git config --global user.email "bathina.pullarao@gmail.com"
 
 #Create a new repository
-git clone git@git.devgcm-system.com:spo-gitlab/gcm-uat.git
+git clone git@git
 cd gcm-uat
 git switch -c main
 touch README.md
