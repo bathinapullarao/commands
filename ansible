@@ -36,6 +36,13 @@ ansible-playbook get_version.yml -vvv    <--- Very Very Verbose flag give more i
     state: latest
     exclude: kernel*,foo*
 
+- name: enable CentOS-CR Repo
+  replace: >-
+    dest='/etc/yum.repos.d/CentOS.repo'
+    regexp='enabled=0'
+    replace='enabled=1'
+
+
 - name: To install gcsfuse
   yum:
     name:
