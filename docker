@@ -5,7 +5,7 @@ ARG,ENV, <-- Both can store values inside varibles but ENV varible value even ca
 WORKDIR, <-- Instruction is used to set the working directory for all the subsequent Dockerfile instructions.  
              Some frequently used instructions in a Dockerfile are RUN, ADD, CMD, ENTRYPOINT, and COPY.
 
-RUN,  <--lets you execute commands inside of your Docker image. These commands get executed once at build time and get written into your Docker image as a ## new layer.
+RUN,  <--lets you execute commands inside of your Docker image. These commands get executed once at build time and get written into your Docker image as a # new layer.
 CMD,  <--sets default command and/or parameters, which can be overwritten from command line when docker container runs.
 ENTRYPOINT, <--configures a container that will run as an executable
 ADD,  <--command is used to copy files/directories into a Docker image
@@ -14,9 +14,9 @@ COPY, <-- COPY <src> … <dest>
 EXPOSE,  <--is used to map local port container port
 PUBLISH,  <-- -p 8080  Publish individual port at eg(docker run -d -p 8080 an_image)
               -P, --publish-all  Publish all exposed ports to random ports
-1) If you specify neither EXPOSE nor -p, the service in the container will only be accessible from inside the container itself.
-2) If you EXPOSE a port, the service in the container is not accessible from outside Docker, but from inside other Docker containers. So this is good for inter-container communication.
-3) If you EXPOSE and -p a port, the service in the container is accessible from anywhere, even outside Docker.
+           1) If you specify neither EXPOSE nor -p, the service in the container will only be accessible from inside the container itself.
+           2) If you EXPOSE a port, the service in the container is not accessible from outside Docker, but from inside other Docker containers. So this is good for inter-container communication.
+           3) If you EXPOSE and -p a port, the service in the container is accessible from anywhere, even outside Docker.
 LABEL maintainer="Bathina Pullarao"              
 USER, VOLUME,  STOPSIGNAL, and ONBUILD.
 
