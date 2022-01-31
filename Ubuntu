@@ -1,2 +1,8 @@
 #To check version of ubuntu
 dpkg -l libgtk[0-9]* | grep ^i
+
+#To chekc which packes have updates
+apt list --upgradable
+
+# To upgrade ubentu to latest relese
+do-release-upgrade
