@@ -1,8 +1,4 @@
-#To check version of ubuntu
-dpkg -l libgtk[0-9]* | grep ^i
-
-#To chekc which packes have updates
-apt list --upgradable
-
-# To upgrade ubentu to latest relese
-do-release-upgrade
+dpkg -l libgtk[0-9]* | grep ^i  #To check version of ubuntu
+apt list --upgradable           #To chekc which packes have updates
+do-release-upgrade              # To upgrade ubentu to latest relese
+sudo apt-mark hold firefox      #Prevent Ubuntu from upgrading to the latest version
