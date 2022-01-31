@@ -1,0 +1,2 @@
+#To check version of ubuntu
+dpkg -l libgtk[0-9]* | grep ^i
