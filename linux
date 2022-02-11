@@ -5,6 +5,7 @@ chattr +i /etc/resolv.conf   <-- which will make the file immutable and won't be
 lsattr                       <-- verify the immutable status of files using ‘lsattr‘ command.
 lsmod | grep kvm             <-- to determine which modules are loaded
 lsof /lib64/libwrap.so.0     <-- to determine which running applications link against the libwrap.so.0 library
+hostnamectl set-hostname nexus  <--sethostname
 ## To list the software packages that constitute the EPEL repository, run the command.
 yum check-update
 yum check-update --security  <--Yum to install nothing but security updates
