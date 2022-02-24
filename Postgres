@@ -62,3 +62,10 @@ select * from pg_stat_activity
 http://fishbowl.pastiche.org/2004/02/26/finding_open_locks_on_postgresql/
 http://www.postgresql.org/docs/current/static/explicit-locking.html
 http://stackoverflow.com/questions/1153364/postgresql-exclusive-lock-stops-application
+
+create table newtablename as (select * from table);               <--create exact copy of table
+create table newtablename as (select * from users) with no data;  <--table with structure only
+CREATE INDEX idx_name on tablename(columnname);                   <--to create index
+EXPLAN SELECT columname from tablename where columname='value';   <--to verify index on the specific column mustly should give value
+select now () as time;                                            <--gives timestamp with time zone
+select date_part('year', columname) from tablename limit 2;       <--It will give only year yyyy from yyyy-mm-dd limit 2 will give only two records
