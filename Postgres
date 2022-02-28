@@ -69,3 +69,5 @@ CREATE INDEX idx_name on tablename(columnname);                   <--to create i
 EXPLAN SELECT columname from tablename where columname='value';   <--to verify index on the specific column mustly should give value
 select now () as time;                                            <--gives timestamp with time zone
 select date_part('year', columname) from tablename limit 2;       <--It will give only year yyyy from yyyy-mm-dd limit 2 will give only two records
+CREATE TEMP TABLE customers(customer_id INT);                     <--To create a temp table
+DROP TABLE temp_table_name;                                       <--delete table or temp table
