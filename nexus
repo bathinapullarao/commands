@@ -1,0 +1,35 @@
+deploy jar/war/ear through curl
+-------------------------------
+curl --fail -u admin:admin123 --upload-file foo.jar 'http://my-nexus-server.com:8081/repository/my-raw-repo/'
+
+Deploy through maven
+--------------------
+mvn deploy:deploy-file -DgroupId=my.group.id \
+    -DartifactId=my-artifact-id \
+    -Dversion=1.0.0.1 \
+    -Dpackaging=jar \
+    -Dfile=foo.jar \
+    -DgeneratePom=true \
+    -DrepositoryId=my-repo \
+    -Durl=http://my-nexus-server.com:8081/repository/maven-releases/
+ 
+But I have add server config in my maven (~/.m2/settings.xml).
+<servers>
+  <server>
+    <id>my-repo</id>
+    <username>admin</username>
+    <password>admin123</password>
+  </server>
+</servers>
+
+
+Pull artifacts from nexus
+-------------------------
+wget http://$NEXUS_URL/repository/mfi-snapshots/com/mf/productService/1.0.9-SNAPSHOT/productService-1.0.9-20210329.141405-11.war
+
+where
+$NEXUS_URL: is the nexus URL
+mfi-snapshots: is the snapshot repo
+com.mf: is the group
+productService is the artefact
+1.0.9 SNAPSHOT the version of the artefact
