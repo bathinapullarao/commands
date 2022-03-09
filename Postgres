@@ -66,6 +66,7 @@ http://stackoverflow.com/questions/1153364/postgresql-exclusive-lock-stops-appli
 create table newtablename as (select * from table);               <--create exact copy of table
 create table newtablename as (select * from users) with no data;  <--table with structure only
 CREATE INDEX idx_name on tablename(columnname);                   <--to create index
+drop index indexname;
 EXPLAN SELECT columname from tablename where columname='value';   <--to verify index on the specific column mustly should give value
 select now () as time;                                            <--gives timestamp with time zone
 select date_part('year', columname) from tablename limit 2;       <--It will give only year yyyy from yyyy-mm-dd limit 2 will give only two records
