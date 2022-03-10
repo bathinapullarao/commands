@@ -159,3 +159,686 @@ systemctl disable cups         <--if there are no printers installed on your com
 
 #memory
 free -h                          <-- to check memory and swap -h humanredable
+
+
+
+Linux zoom---------------------------------------------------------------------------------------------------------------------
+########## TO  BLOCK ALL  INCOMING  TRAFFIC  #######
+# vi firewall
+iptables -F 
+iptables -A INPUT  -j  REJECT
+:wq!
+and check from client
+########## TO  ALLOW  A  IP     ####
+#vi firewall
+iptables -F 
+iptables  -A  INPUT -s  192.168.1.20  -j   ACCEPT 
+iptables -A INPUT  -j  REJECT
+:wq!
+and check from client
+########## TO  BLOCK A PORT     #######
+#vi firewall
+iptables -F 
+iptables -A INPUT -p  tcp   --dport  22  -j  REJECT
+:wq!
+and check from client
+########## TO  BLOCK A PORT     #######
+# vi firewall
+iptables -F 
+iptables -A INPUT  -s  192.168.1.10 -p tcp --dport 22 -j ACCEPT
+iptables -A INPUT -p  tcp   --dport  22  -j  REJECT
+:wq!
+and check from client
+
+########## TO  BLOCK THE MULTIPLE PORT     #######
+#vi firewall
+iptables -F 
+iptables -A  INPUT -m   multiport  -p  tcp --dport  22,80  -j REJECT 
+:wq!
+and check from client
+
+########## TO  BLOCK THE MULTIPLE PORT     #######
+#vi firewall
+iptables -F 
+iptables -A  INPUT -m   multiport  -s 192.168.1.20 -p  tcp --dport  22,80  -j ACCEPT
+iptables -A  INPUT -m   multiport  -p  tcp --dport  22,80  -j REJECT 
+:wq!
+and check from client
+
+To  configure the  ipv6 using ip tool
+-------------------------------------
+1.	To assign the ipv6
+ip -6 addr  add  dev eth0 2001::1/64
+
+2.	To check the ipv6 
+ip -6 addr  show dev eth0
+ 
+3.	 To assign the gateway
+ip -6 route add dev eth0 2001::5
+
+4.	 To  check the gateway
+ip -6 route show dev eth0    
+
+5.	 To remove the gateway 
+ip -6  route del dev eth0 2001::5
+ip -6  route show dev eth0  ( to check )
+
+6.	 To remove the ip 
+Ip -6 addr del dev eth0 2001::1/64
+Ip -6 addr show dev eth0  ( to check )
+
+7.	 To assign  the dns ipv6  
+vi  /etc/resolv.conf
+nameserver 2001::10
+:wq ( save &  quit )
+
+8.	 To check the ping 
+ping6 2001::1
+
+9.	To browser the website
+http://[2001::8]
+
+To configure the  ipv6  using ifconfig tool
+
+1.	To assign the ipv6
+Ifconfig eth0 inet6 add 2001::1/64
+
+2.	To check the ipv6
+Ifconfig eth0 
+
+3.	To remove the ipv6
+Ifconfig eth0 inet6  del 2001::1/64
+Ifconfig eth0  ( to check the ip )
+
+#######################KERNEL UPGRADING############################
+# uname -a
+#cd /opt
+#scp -rv  192.168.50.250:/opt/kernel*
+#cd /opt
+#rpm -ivh kernel*  --nodeps 
+#reboot 
+# select new kernel
+# uname -a
+
+####### TO CONFIGURE THE  SYSLOG SERVER #####
+#yum install rsyslog*
+#rpm   -q  rsyslog   ( to query the  pkg )
+#vim  /etc/rsyslog.conf  (  to open the m.c.f )
+go to line  15 16 19 &  20 
+then remove the  #    
+:wq  ( save &  quit )
+#service   rsyslog restart ( to start the service )
+
+##### TO CONFIGURE THE  SYSLOG CLIENT ####
+#vim /etc/rsyslog.conf  ( to open the m.c.f )
+ go  to line  90 &  remove  the # 
+then assign the  syslog server ip 
+replace remote_host to  192.168.50.48
+:wq ( to save &  quit )
+
+#service rsyslog restart  ( to start the service )
+#useradd   jack  ( to create a  user )
+#su - jack
+$exit
+#### THEN CHECK FROM  SYSLOG SERVER ####
+#tail -f  /var/log/secure  
+
+Configuration of  ipv6
+1.	Check for ipv6 support in the current running kernel
+          #test -f /proc/net/if_inet6 && echo "Running kernel is IPv6 ready”
+  
+2.	 To try to load ipv6 module
+
+You can try to load the IPv6 module executing
+# modprobe ipv6
+If this is successful, this module should be listed, testable with following auto-magically line:
+# lsmod |grep -w 'ipv6' && echo "IPv6 module successfully loaded"
+And the check shown above should now run successfully.
+Note: unloading the module is currently not supported and can result, under some circumstances, in a kernel
+
+3.	Ipv6 testing & debugging programms
+To check the pinging
+            # ping6 2001::1
+               To check the traceroute 
+             # traceroute6  www.google.com
+               To check the tracepath
+             # tracepath6 www.google.com
+                To check the tcpdump 
+#tcpdump -t -n -i eth0 -s 512 -vv ip6 or proto ipv6
+
+     To  check the dns 
+# host -t AAAA www.zoom.com
+
+     To check the telnet 
+# telnet www.zoom.com  80
+
+To check the ssh
+# ssh -6 2001::1
+
+To check the browser
+#http://[2001::1]
+
+4.	To disable the nic card using the ip tool
+# ip link set dev eth0 up
+
+5.	To enable the nic card using the ip tool
+# ip link set dev eth0 down
+
+6.	To disable the nic card using the ifconfig tool
+# ifdown eth0
+
+7.	To enable the nic card using the ifconfig tool
+# ifup eth0
+
+8.   To  access the /proc filesystem
+#CONFIG_PROC_FS=y
+# cat 	/proc	/sys/net/ipv6/conf/all/forwarding
+# echo  “1”  > /proc/sys/net/ipv6/conf/all/forwarding
+
+
+To configure the webserver on ipv6 
+ Vim  /etc/httpd/conf/httpd.conf ( to open the m.c.f )
+Come end of file 
+<VirtualHost [2001::1]:80>
+ServerAdmin root@zoom.com
+DocumentRoot /var/www/html
+DirectoryIndex zoom.html
+ServerName  www.zoom.com
+</VirtualHost>
+:wq  ( save & quit )
+# service  httpd restart ( to start the service )
+          # firefox http://[2001::1]
+
+To configure the dns server on  ipv6
+ /etc/named.conf
+listen-on-v6    { any; };
+
+:wq (  save &  quit )
+
+Cd  /var/named  ( to enter the dir )
+Vi  zoom.for  ( to configure the f.l.z )
+$TTL   1D
+@            IN  SOA  dns.zoom.com.  rname.invalid.  (
+0	;  serial
+1D  ;  refresh
+1H  ;  retry
+1W ;  expire
+3H  ) ; minimum
+                                      NS              dns.zoom.com.
+  dns                    AAAA         2001::1 
+:wq  ( save & quit )
+service  named restart ( to start the service )
+
+#dig  dns.zoom.com   ( to check the f.l.z )
+#host -t aaaa dns.zoom.com 2001::1
+
+Then check from client side 
+vi /etc/resolv.conf ( to provide the dns ip )
+nameserver  2001::1
+:wq ( save & quit )
+Ping6  dns.zoom.com
+
+To configure the dhcp  server
+
+1.	  Vi  /etc/dhcp
+interface eth0 {
+server-preference 255;
+renew-time 60;
+rebind-time 90;
+prefer-life-time 130;
+valid-life-time 200;
+allow rapid-commit;
+option dns_servers 2001:db8:0:f101::1 sub.domain.example;
+link AAA {
+range 2001:db8:0:f101::1000 to 2001:db8:0:f101::ffff/64;
+prefix 2001:db8:0:f101::/64;
+                                               };
+};
+
+
+##### TO CONFIGURE THE NTP SERVER ######
+first  check the date &  time of  pc  
+syste-config-date ( to check the date &  time )
+it should  be  correct according our time zone  ist
+ 
+#### Step 1 #### TO  ASSIGN  THE HOSTNAME  #####
+#hostname  ntp.zoom.com
+#hostname  ( To check the hostname )
+#ifconfig  ( to check the ip )
+#vi  /etc/hosts  ( to provide the ip & hostname )
+192.168.0.1  ntp.zoom.com  ntp  
+:wq  ( save &  quit )
+
+vi  /etc/hostname  ( to make permanent )
+ntp.zoom.com
+:wq  ( save &  quit )
+
+
+#### Step 2 ### TO  INSTALL THE PACKAGE ####
+yum  install  ntp*  -y  
+rpm  -qa  ntp*  ( To query the pkg )
+
+### Step 3 ### TO CONFIGURE THE  M.C.F  #####
+vi  /etc/ntp.conf ( to open the m.c.f )
+go to line  18   
+18 restrict 192.168.50.0 mask 255.255.255.0 nomodify notrap  nopeer 
+server 127.127.1.0 iburst
+:wq ( save &  quit )
+
+#### Step 4 ### TO START THE SERVICE ####
+#service ntpd restart 
+######## THEN  CHECK  FROM  CLIENT SIDE ####
+#date 
+#ntpdate -u  192.168.0.1  ( To assign the ntp server ip)
+   ##### STEP1   ASSIGN  ISP DNS  #####
+#vi  /etc/resolv.conf
+nameserver  192.168.50.250
+:wq!
+####  STEP 2 CHECK  AND  INSTALL  THE  PACKAGES  ##########
+#rpm  -qa  squid*
+#yum  install  squid*   -y
+####  step 3  EDIT  THE  CONFIGURATION  FILE ##############
+
+#vim  /etc/squid/squid.conf
+go  to  line  no  13  add  your  rule 
+acl  zoom_network   src  192.168.50.0/24
+http_access   allow  zoom_network 
+:wq(save &  quit )
+
+#service squid restart
+###################GO TO CLIENT SIDE#################################
+OPEN  WEB SERVER  
+firefox  &
+go  to  EDIT  ---> PREFERENCES--->ADVANCE--->NETWORK--->SETTINGS
+check manually  proxy  tab
+assign  proxy  server  ipaddress  and  port no 3128  
+
+####  STEP 4 TO  BLOCK A  PARTICULAR  WEB SITE #####
+
+again  open  configuaration file 
+"open  again  configuration file and  add  above  of  the  previous  rules"
+
+acl  zoom1   url_regex  www.yahoo.com
+http_access  deny  zoom1
+:wq!
+
+#service squid restart
+##################GO TO CLIENT SIDE AND CHECK IT#############################
+open browser
+http://www.yahoo.com
+
+####  STEP 5  TO  BLOCK PARTICULAR  IP ADDRESS  ###########
+"open  again  configuration file and  add  above  of  the  previous  rules"
+acl  zoom2  src  192.168.50.10
+http_access  deny zoom2
+:wq!
+
+#service squid restart
+##################GO TO CLIENT SIDE AND CHECK IT#############################
+open browser
+http://www.yahoo.com, gmail,bmw
+
+############BLOCK THE MULTIPLE IPS######################
+vi /ip
+192.168.50.10
+192.168.50.11
+192.168.50.12
+:wq!
+"open  again  configuration file and  add  above  of  the  previous  rules"
+
+#vi /etc/squid/squid.conf
+acl zoom3  src  "/ip"
+http_access deny  zoom3
+:wq!
+
+#service squid  resart
+
+##################GO TO CLIENT SIDE AND CHECK IT#############################
+
+open browser
+http://www.yahoo.com, gmail,bmw
+
+##############BLOCK THE MULTIPLE WEBSITE#############
+
+#vi /web
+
+www.yahoo.com
+www.gmail.com
+www.zooom.com
+:wq!
+
+"open  again  configuration file and  add  above  of  the  previous  rules"
+
+#vi /etc/squid/squid.conf
+acl zoom4  url_regex "/web"
+http_access deny zoom4
+:wq!
+
+#service squid restart
+
+##################GO TO CLIENT SIDE AND CHECK IT#############################
+
+open browser
+http://www.yahoo.com, gmail,bmw
+
+###############TO BLOCK THE PORT #####################
+
+acl rule5 port 80 
+http_access deny rule5
+:wq!
+
+#service squid  restart
+
+##################GO TO CLIENT SIDE AND CHECK IT#############################
+
+open browser
+http://www.yahoo.com, gmail,bmw
+ftp://192.168.50.250
+
+
+###  Step 4  CHECK THE  OUTPUT  AT  CLIENT SIDE ######
+
+#################TO ALLOW PARTICULAR TIME##########################3
+
+#vi /etc/squid/squid.conf
+acl zoom6 time S M T W H F A 9:30-17:30
+http_access allow zoom6
+:wq!
+
+#service squid restart
+
+##################GO TO CLIENT SIDE AND CHECK IT#############################
+open browser
+http://www.yahoo.com, gmail,bmw
+####################TO BLOCK THE PARTICULAR TIME########################
+
+#vi /etc/squid/squid.conf
+acl rule7 time S M T W H F A 13:00-14:30
+http_access deny rule7
+:wq!
+
+# service squid restart
+##################GO TO CLIENT SIDE AND CHECK IT#############################
+open browser
+http://www.yahoo.com, gmail,bmw
+###################TO BLOCK PARTICULAR MAC ADDRESS########################3
+#vi /etc/squid/squid.conf
+acl rule8 arp 00:DA:23:98:CA:11
+http_access deny rule8
+:wq!
+#service squid restart
+######################GO TO CLIENT SIDE############################
+open the browser
+http://www.zoomgroup.com
+####### TO  CONFIGURE THE  PXE SERVER  ######
+yum  install  dhcp  tftp tftp-server  syslinux *tftpboot*  wget vsftpd   
+##### TO  CONFIGURE THE DHCP SERVER ####
+vim  /etc/dhcp/dhcpd.conf
+# DHCP Server Configuration file.
+ #   see /usr/share/doc/dhcp*/dhcpd.conf.example
+ #   see dhcpd.conf(5) man page
+ #
+ # option definitions common to all supported networks...
+
+ ddns-update-style interim;
+ ignore client-updates;
+ authoritative;
+ allow booting;
+ allow bootp;
+ allow unknown-clients;
+
+ # A slightly different configuration for an internal subnet.
+
+ subnet 192.168.0.0 netmask 255.255.255.0 {
+ range 192.168.0.50 192.168.0.253;
+ option domain-name-servers 192.168.0.199;
+ option domain-name "server1.example.com";
+ option routers 192.168.0.199;
+ option broadcast-address 10.5.5.31; #not important
+ default-lease-time 600;
+ max-lease-time 7200;
+ 
+ # PXE SERVER IP
+
+ next-server 192.168.50.199; #  DHCP server ip
+ filename "pxelinux.0";
+ }
+:wq   ( save &  quit )
+
+##### TO CONFIGURE THE  TFTP SERVER #####
+
+#vi  /etc/xinetd.d/tftp
+
+service tftp
+ {
+ socket_type             = dgram
+ protocol                = udp
+ wait                    = yes
+ user                    = root
+ server                  = /usr/sbin/in.tftpd
+ server_args             = -s /tftpboot
+ disable                 = no
+ per_source              = 11
+ cps                     = 100 2
+ flags                   = IPv4
+ }
+:wq  ( save &  quit )
+
+##### TO CONFIGURE THE  TFTP SERVICE FOR NETWORK BOOT FILES ###
+#mkdir  /tftpboot/pxelinux.cfg  ( to create a dir )
+#mkdir   /tftpboot/netboot  
+#cd  /tftpboot  ( to enter the dir )
+#ls  ( to check the dirs )
+then  copy the  os  into  /var/ftp/pub
+##### COPY INTRD.IMG &  VMLINUZ  INTO  /TFTPBOOT/NETBOOT ###
+#cp  /var/ftp/pub/centos7/images/pxeboot/vmlinuz  /tftpboot/netboot
+#cp  /var/ftp/pub/centos7/images/pxeboot/initrd.img  /tftpboot/netboot
+####  CREATE A NEW  KICKSTART FILE ####
+#vi  /var/ftp/pub/centos7/ks7auto.cfg
+#platform=x86, AMD64, or Intel EM64T
+#version=DEVEL
+# Firewall configuration
+firewall --disabled
+# Install OS instead of upgrade
+install
+# Use network installation
+url --url="ftp://192.168.50.250/pub/centos7"
+# Root password
+rootpw --iscrypted $1$.Wn.ZraS$NMLCQlEDlwXkkYEUaoT1P0
+# System authorization information
+auth  --useshadow  --passalgo=sha512
+# Use graphical install
+graphical
+firstboot --disable
+# System keyboard
+keyboard us
+# System language
+lang en_US
+# SELinux configuration
+selinux --disabled
+firewall --disabled
+# Installation logging level
+logging --level=info
+# Reboot after installation
+reboot
+# System timezone
+timezone  Asia/Kolkata
+# Network information
+network  --bootproto=dhcp  --onboot=on
+# System bootloader configuration
+bootloader --location=mbr
+# Partition clearing information
+clearpart --all
+# Disk partitioning information
+#part /boot --fstype="ext4" --size=200
+#part / --fstype="ext4" --size=12000
+#part /home --fstype="ext4" --size=2000
+#part /var --fstype="ext4" --size=12000
+#part /usr --fstype="ext4" --size=10000
+#part swap --fstype="swap" --size=4000
+
+%packages
+
+@base
+@core
+@desktop-debugging
+@dial-up
+@directory-client
+@fonts
+@gnome-desktop
+@guest-agents
+@guest-desktop-agents
+@input-methods
+@internet-browser
+@multimedia
+@network-file-system-client
+@x11
+chrony
+%end
+%post
+
+%end
+:wq   (  save &  quit )
+
+##### TO  CREATE  PXE  MENU  FILE  #####
+
+# cd /tftpboot/pxelinux.cfg
+
+vi  default
+
+default menu.c32
+ prompt 0
+ timeout 30
+ MENU TITLE unixme.com PXE Menu
+
+ LABEL centos7_x64
+ MENU LABEL CentOS 7 X64
+ KERNEL /netboot/vmlinuz
+ APPEND  initrd=/netboot/initrd.img  inst.repo=ftp://192.168.50.250/pub/centos7  ks=ftp://192.168.50.250/pub/centos7/ks7auto.cfg
+
+###########Give full permission#############
+
+#chmod 777 -R /tftpboot
+
+
+##### TO  START THE SERVICE ####
+#service dhcpd restart
+#service xinetd restart
+#service vsftpd restart
+#### THEN CHECK FROM CLIENT SIDE ###
+boot the client pc from  nic card  
+###### TO CONFIGURE THE SAMBA SERVER #####
+#useradd tom  ( to create a user )
+#tail  /etc/passwd  (  to check the user )
+#mkdir  /zoom  ( to create a dir )
+#cd  /zoom  ( to enter the dir )
+#touch  linux  unix ccna ccnp  ( to create the files )
+#ls  ( to check )
+#### Step 1 ##### TO ASSIGN THE HOSTNAME ####
+#hostname samba.zoom.com
+vi  /etc/hostname    ( to open the file )
+samba.zoom.com    
+:wq ( save &  quit )
+vi  /etc/hosts  ( to provide  the  ip &  hostname )
+192.168.0.1  samba.zoom.com samba
+:wq ( save & quit )
+
+#### Step 2  #### TO INSTALL THE PACKAGE ####
+yum  install samba*  
+rpm  -qa samba*  ( to  query the pkg )
+#### Step 3 ### TO CONFIGURE THE M.C.F #####
+vim  /etc/samba/smb.conf ( to open the m.c.f )
+come end of file &  copy the last 7  lines & paste
+then remove the  ; 
+ [linux]
+        comment = Public Stuff
+        path = /zoom
+        valid users =  tom  jerry
+        public = yes
+        writable = yes
+        printable = no
+        write list = +staff
+:wq   ( save &  quit )
+
+#### Step 4 #### TO  START THE SERVICE #####
+#service smb restart 
+##### Step 5 #### TO  ASSIGN THE SAMBA PASSWORD ####
+#smbpasswd -a  tom  
+#### Step 6 #### TO CHECK THE TESTING TOOL ###
+#testparm
+##### Step 7 #### TO CHECK FROM WINDOWS  CLIENT ##
+click  > start > run  
+\\192.168.50.1\linux  ( to assign the samba server ip &  sharname  )
+then provide the  username & password of samba server
+#### Step 8 ### TO  SHARE BETWEEN WINDOWS TO LINUX #
+create a folder &  create the files inside 
+then provide the sharing permission 
+#### Step 9 ### TO CHECK FROM LINUX  MACHINE ###
+#mount  //192.168.50.120/windows   /mnt -o username=administrator  ( to provide the  windows ip  &  sharename &  username with m.p  )
+#mount  ( to check the  m.p )
+#cd  /mnt  ( to enter the  m.p  )
+#ls  ( to check the files )
+#### Step 10 ### TO SHARE FILE LINUX TO LINUX ###
+#mount  //192.168.50.1/linux  /mnt -o username=tom ( to provide the samba server  ip & sharename &  username with  m.p  )
+#mount  ( to check the  m.p  )
+#cd  /mnt  ( to enter the m.p  )
+#ls  ( to check the file )
+
+##### TO INSTALL THE  PACKAGE ####
+yum  install targetcli*  -y
+##### TO CONFIGURE THE  ISCSI  TARGET ####
+mkdir  /iscsi_disks  ( to create a dir )
+#### TO ENTER THE ADMIN  CONSOLE #####
+targetcli   
+#### TO  CREATE A DISK IMAGE ####
+cd   backstores/fileio   ( to enter the dir )
+create disk01  /iscsi_disks/disk01.img 20G
+cd   /iscsi   ( to enter the dir )
+##### TO CREATE A TARGET #####
+create   iqn.2015-08.zoom.com:target1
+cd   /iscsi/iqn.2015-08.zoom.com:target1/tpg1/portals
+create 192.168.50.1  ( set the ip to target )
+cd  ../luns 
+
+##### TO CREATE A  LUN ####
+create /backstores/fileio/disk01
+cd  ../acls
+#### TO CREATE A  ACL #####
+create iqn.2015-08.zoom.com:acl
+cd  iqn.2015-08.zoom.com:acl    ( to enter the dir )
+#### TO PROVIDE THE AUTHENTICATION ###
+set  auth userid=tom
+set  auth password=a
+exit  ( to come out )
+#### TO CHECK THE SAN ####
+netstat  -lnp |  grep  3260
+###### TO CHECK FROM CLIENT SIDE #####
+yum  install *scsi*  -y
+##### TO PROVIDE THE ISCSI SERVICE #####
+vi  /etc/iscsi/initiatorname.iscsi
+InitiatorName=iqn.2015-08.zoom.com:acl
+:wq!
+
+#### TO PROVIDE THE  ISCSI AUTHENTICATION ####
+vi  /etc/iscsi/iscsid.conf  
+# line 54 :   uncomment 
+uncomment  line 58  59  & assign the username &  password 
+node.session.auth.username = tom
+node.session.auth.password = a
+:wq ( save &  quit )
+
+#### TO START THE SERVICE ####
+systemctl start  iscsid  
+##### TO  DISCOVERY THE ISCSI SERVER ####
+iscsiadm -m discovery -t sendtargets -p  192.168.0.1
+###### TO CONFIRM STATUS AFTER DISCOVERY ####
+iscsiadm -m node -o show
+##### TO  LOGIN THE TARGET ####
+iscsiadm -m  node  --login
+##### TO CONFIRM THE ESTABLISHED SESSION ####
+iscsiadm  -m session  -o show
+#### TO CONFIRM THE SAN PARTITION ####
+fdisk -l
+then  create the partition 
+then format the partition
+then  assign the mount point 
