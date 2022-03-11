@@ -39,3 +39,7 @@ mfi-snapshots: is the snapshot repo
 com.mf: is the group
 productService is the artefact
 1.0.9 SNAPSHOT the version of the artefact
+
+
+create nexus token by using command line
+echo -n "user:passwd" url | open sal base64
