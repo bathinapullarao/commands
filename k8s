@@ -2,6 +2,23 @@ Ref: https://phoenixnap.com/kb/how-to-install-kubernetes-on-centos
 Ref: https://kubernetes.io/docs/concepts/services-networking/connect-applications-service/
 Ref: https://kubernetes.io/docs/reference/kubectl/kubectl/
 Ref: https://kubernetes.io/docs/reference/kubectl/cheatsheet/
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Kind: Service, ServiceAccount, ingress, Deploymnet, ConfigMap, StorageClass, StatefulSet, HorizontalPodAutoscaler, PersistentVolume, PersistentVolumeClaim, PodDisruptionBudget,
+      Role, RoleBinding, ClusterRole, ClusterRoleBinding, DaemonSet,  
+pdb(pod distribution budget): A Pod Disruption Budget (PDB) allows you to limit the disruption to your application when its pods need to be rescheduled for some reason 
+                              such as upgrades or routine maintenance work on the Kubernetes nodes.
+hpa(HorizontalPodAutoscaler): A HorizontalPodAutoscaler (HPA for short) automatically updates a workload resource (such as a Deployment or StatefulSet), with the aim of 
+                              automatically scaling the workload to match demand.Horizontal scaling means that the response to increased load is to deploy more Pods. 
+                              This is different from vertical scaling, which for Kubernetes would mean assigning more resources (for example: memory or CPU) to the Pods that 
+                              are already running for the workload.
+nginx ingress controller:     A HorizontalPodAutoscaler (HPA for short) automatically updates a workload resource (such as a Deployment or StatefulSet), with the aim of 
+                              automatically scaling the workload to match demand.Horizontal scaling means that the response to increased load is to deploy more Pods. 
+                              This is different from vertical scaling, which for Kubernetes would mean assigning more resources (for example: memory or CPU) to the Pods 
+                              that are already running for the workload.
+nfs(network file sharing)(PersistentVolume)(PersistentVolumeClaim): is a request for storage by a user.It is similar to a Pod.
+                              Pods consume node resources and PVCs consume PV resources. Pods can request specific levels of resources (CPU and Memory).
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 kubectl run hello-node --image=hello-node:v1 --port=8080           <--kubectl means cube control
 kubectl describe pod
 kubectl delete pod hello-node
