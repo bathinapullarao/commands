@@ -1,0 +1,3 @@
+## How to mount Blob storage as a file system with blobfuse
+yum install blobfuse
+sudo mount -t tmpfs -o size=16g tmpfs /mnt/ramdisk
