@@ -2,7 +2,8 @@ ansible-playbook get_version.yml         <--- Execute this playbook with the com
 ansible-playbook get_version.yml -v      <--- Verbose flag, we see the data returned from the PowerShell module in the JSON format.
 ansible-playbook get_version.yml -vvv    <--- Very Very Verbose flag give more information, and oddly enough formats the JSON into a more readable format
 ansible-playbook -e \"ansible_user=packer ansible_password={{ .WinRMPassword }} ansible_become_pass={{ .WinRMPassword }} ansible_port=5986 ansible_connection=winrm ansible_winrm_server_cert_validation=ignore\" ./ansible/setup.yml
-
+sh "ansible-playbook -e \"ansible_user=bathina_oracle1 ansible_password=raosiri@2806 ansible_become_pass=raosiri@2806 ansible_winrm_transport=ntlm ansible_connection=winrm ansible_winrm_server_cert_validation=ignore\" -i hosts ./setup.yml"
+             
 # to install packages
 - name: install epel-release
   yum:
