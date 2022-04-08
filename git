@@ -5,6 +5,7 @@ Ref:https://www.tutorialspoint.com/git/git_rename_operation.htm
 git config --system core.longpaths true
 git config --global user.name "BathinaPullarao"
 git config --global user.email "bathina.pullarao@gmail.com"
+git config --global http.proxy 127.0.0.1:8087
 
 #Create a new repository
 git clone git@git
