@@ -8,3 +8,5 @@ aws autoscaling create-auto-scaling-group help
 aws s3 ls s3://mybucket
 aws s3 cp myfolder s3://mybucket/myfolder --recursive
 aws s3 sync myfolder s3://mybucket/myfolder --exclude *.tmp
+s3fs-fuse  <--s3fs is a FUSE filesystem that allows you to mount an Amazon S3 bucket as a local filesystem(yum install s3fs-fuse)
+s3fs mybucket /path/to/mountpoint -o passwd_file=${HOME}/.passwd-s3fs   <--mounting a dir to bucket
