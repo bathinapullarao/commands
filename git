@@ -43,23 +43,22 @@ git branch -a, git checkout feature/3-8-69/OC-299
 git add <--our files   git reset HEAD .   to unstage
 git commit -m "prepare cookbook for tomcat installation"
 git commit -a --author="Author" --message="Issue title #id"
-git status
+git status -s  <--shows modified files
 git push  origin feature/69/gk-998
 git pull   <-- To pull the updated code from gitlab to local, it will not work if any new files available in local
 git fetch  <-- If any new branchs availabe at gitlab it will be fetched to local
 git log
 git diff
-git status -s
 git stash      <--Now, you want to switch branches for customer escalation, but you don’t want to commit what you’ve been working on yet; so you’ll stash the changes
 git stash list
 git stash pop = git stash apply + git stash drop
 git stash pop  <-- we can get back the changes which we not commited after we switching to old branch.
 git merge      <--Git merge is a command that allows you to merge branches from Git
-git rebase     <--Git rebase is a command that allows developers to integrate changes from one branch to another. 
-git cherrypick <--is a powerful command that enables arbitrary Git commits to be picked by reference and appended to the current working HEAD. 
-                  Cherry picking is the act of picking a commit from a branch and applying it to another. git cherry-pick can be useful for undoing changes
 git merge --squash branchname <-- Squash merging is a merge option that allows you to condense the Git history of topic branches when you complete a pull request. 
                   Instead of each commit on the topic branch being added to the history of the default branch, a squash merge adds all the file changes to a 
                   single new commit on the default branch.
+git rebase     <--Git rebase is a command that allows developers to integrate changes from one branch to another. 
+git cherrypick <--is a powerful command that enables arbitrary Git commits to be picked by reference and appended to the current working HEAD. 
+                  Cherry picking is the act of picking a commit from a branch and applying it to another. git cherry-pick can be useful for undoing changes
 
 main.yml#L208-217   <--to higlight specific lines in gitlab here inthis case line 208 to 217
