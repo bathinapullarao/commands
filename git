@@ -6,6 +6,10 @@ git config --system core.longpaths true
 git config --global user.name "BathinaPullarao"
 git config --global user.email "bathina.pullarao@gmail.com"
 git config --global http.proxy 127.0.0.1:8087
+// To check if at least the clone works without checking said certificate, you can set:
+export GIT_SSL_NO_VERIFY=1
+#or
+git config --global http.sslverify false
 
 #Create a new repository
 git clone git@git
@@ -37,6 +41,7 @@ git clone -b release git@git.systm.com:spo-gitlab/project.git
 git branch -a, git checkout feature/3-8-69/OC-299
 git add <--our files   git reset HEAD .   to unstage
 git commit -m "prepare cookbook for tomcat installation"
+git commit -a --author="Author" --message="Issue title #id"
 git status
 git push  origin feature/69/gk-998
 git pull   To pull a new branch from git lab
@@ -53,11 +58,5 @@ git cherrypick <--is a powerful command that enables arbitrary Git commits to be
 git merge --squash branchname <-- Squash merging is a merge option that allows you to condense the Git history of topic branches when you complete a pull request. 
                   Instead of each commit on the topic branch being added to the history of the default branch, a squash merge adds all the file changes to a 
                   single new commit on the default branch.
-git commit -a --author="Author" --message="Issue title #id"
-// To check if at least the clone works without checking said certificate, you can set:
-export GIT_SSL_NO_VERIFY=1
-#or
-git config --global http.sslverify false
 
 main.yml#L208-217   <--to higlight specific lines in gitlab here inthis case line 208 to 217
-
