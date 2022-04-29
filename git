@@ -2,6 +2,7 @@ Ref:https://guides.github.com/features/mastering-markdown/   <-- to write .md fi
 Ref:https://www.tutorialspoint.com/git/git_rename_operation.htm
 - file too long -execute below command in bash or modify config file
 #Git global setup
+git config --list
 git config --system core.longpaths true
 git config --global user.name "BathinaPullarao"
 git config --global user.email "bathina.pullarao@gmail.com"
@@ -44,7 +45,8 @@ git commit -m "prepare cookbook for tomcat installation"
 git commit -a --author="Author" --message="Issue title #id"
 git status
 git push  origin feature/69/gk-998
-git pull   To pull a new branch from git lab
+git pull   <-- To pull the updated code from gitlab to local, it will not work if any new files available in local
+git fetch  <-- If any new branchs availabe at gitlab it will be fetched to local
 git log
 git diff
 git status -s
