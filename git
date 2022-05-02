@@ -20,6 +20,9 @@ touch README.md
 git add README.md
 git commit -m "add README"
 git push -u origin main
+git branch -d <branch-name>    <--delete branch localy, If the branch contains unmerged changes, though, Git will refuse to delete it.
+git branch -D <branch-name>    <--force the deletion by replacing the -d parameter with an uppercase D:
+git push --delete <remote name> <branch name>  <--You don’t use the git branch command to delete a remote branch.
 
 #Push an existing folder
 cd existing_folder
