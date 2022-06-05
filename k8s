@@ -2,6 +2,7 @@ Ref: https://phoenixnap.com/kb/how-to-install-kubernetes-on-centos
 Ref: https://kubernetes.io/docs/concepts/services-networking/connect-applications-service/
 Ref: https://kubernetes.io/docs/reference/kubectl/kubectl/
 Ref: https://kubernetes.io/docs/reference/kubectl/cheatsheet/
+https://www.cnblogs.com/zhenyuyaodidiao/p/6502171.html
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Kind: Service, ServiceAccount, ingress, Deploymnet, ConfigMap, StorageClass, StatefulSet, HorizontalPodAutoscaler, PersistentVolume, PersistentVolumeClaim, PodDisruptionBudget,
       Role, RoleBinding, ClusterRole, ClusterRoleBinding, DaemonSet,  
