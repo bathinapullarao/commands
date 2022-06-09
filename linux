@@ -24,6 +24,7 @@ yum --enablerepo=epel info htop
 yum --enablerepo=epel install htop
 hostnamectl set-hostname master-node
 systemctl list-units | grep service     <--To review active services
+service --status-all    <--To see all the active services
 sysctl --system         <--can run no issue
 chage <username>        <--chage command in interactive mode to modify multiple password aging and account details.
 chage -d 0 username     <--Force immediate password expiration by running the following command as root
