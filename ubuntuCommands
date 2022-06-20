@@ -5,3 +5,4 @@ do-release-upgrade              # To upgrade ubentu to latest relese
 sudo apt-mark hold firefox      # Prevent Ubuntu from upgrading to the latest version
 sudo apt-get --purge remove packagename*   # To remove packages
 sudo apt-get autoremove         # should use along with above command
+sudo a2enmod rewrite
