@@ -1,3 +1,4 @@
+https://www.techbeginner.in/2021/01/how-to-install-php-using-ansible.html  <--install php with ansible
 dpkg -l libgtk[0-9]* | grep ^i  # To check version of ubuntu
 apt list --installed | grep package_name  #To check installed packages
 apt list --upgradable           # To chekc which packes have updates
