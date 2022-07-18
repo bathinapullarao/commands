@@ -11,7 +11,7 @@ git config --global http.proxy 127.0.0.1:8087
 export GIT_SSL_NO_VERIFY=1
 #or
 git config --global http.sslverify false
-git rev-parse $(git log --oneline -n 1 . | cut -d " " -f 1) > a.txt
+git rev-parse $(git log --oneline -n 1 . | cut -d " " -f 1) > a.txt   <--To get full commit id form short commit id
 #Create a new repository
 git clone git@git
 cd gcm-uat
