@@ -73,7 +73,7 @@ docker push asia.gcr.io/ProjectID/${LOCAL_IMAGE}:$TAG
 
 
 
-
+gcloud info --format='value(config.project)'      <-- To get project ID
 ##shell
 for project in $(gcloud projects list --format="value(project_id)")
 do
