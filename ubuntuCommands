@@ -5,8 +5,9 @@ apt list --installed | grep package_name  #To check installed packages
 apt list --upgradable           # To chekc which packes have updates
 do-release-upgrade              # To upgrade ubentu to latest relese
 sudo apt-mark hold firefox      # Prevent Ubuntu from upgrading to the latest version
+apt-get install vim             # install package in ubuntu
 sudo apt-get --purge remove packagename*   # To remove packages
+sudo apt remove packagename     # To remove package
 sudo apt-get autoremove         # should use along with above command
 sudo a2enmod rewrite
-apt-get install vim             # install package in ubuntu
 sudo apt update                 # update the package index
