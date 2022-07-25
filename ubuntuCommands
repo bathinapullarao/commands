@@ -3,6 +3,7 @@ unminimize                      #  convert a Minimal instance to a standard Serv
 dpkg -l libgtk[0-9]* | grep ^i  # To check version of ubuntu
 apt list --installed | grep package_name  #To check installed packages
 apt list --upgradable           # To chekc which packes have updates
+sudo apt upgrade                # To update all the packages
 do-release-upgrade              # To upgrade ubentu to latest relese
 sudo apt-mark hold firefox      # Prevent Ubuntu from upgrading to the latest version
 apt-get install vim             # install package in ubuntu
