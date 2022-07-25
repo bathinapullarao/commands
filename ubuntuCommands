@@ -12,3 +12,4 @@ sudo apt remove packagename     # To remove package
 sudo apt-get autoremove         # should use along with above command
 sudo a2enmod rewrite
 sudo apt update                 # update the package index
+sudo usermod -aG docker ${USER} # To give sudo permisions to a user
