@@ -1,4 +1,7 @@
 Ref:https://docs.docker.com/engine/reference/commandline/container_port/
+#stateless application is one that neither reads nor stores information about its state from one time that it is run to the next.
+
+
 # Dockerfile instructions 
 FROM,    <-- FROM php:7.3-cli as php-cli
 ARG,ENV, <-- Both can store values inside varibles but ENV varible value even can available after creating container.
