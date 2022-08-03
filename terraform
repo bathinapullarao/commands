@@ -9,6 +9,7 @@ terraform validate
 terraform plan
 terraform apply
 terraform plan -lock=false
+terraform force-unlock -force IDcanbeshowninlockerror
 terraform plan destroy 
 terraform refresh      <--This will refresh your state by comparing it to your cloud infrastructure.
 terraform output       <--output command is also useful for scripts to extract outputs from your configuration.
@@ -17,3 +18,4 @@ terraform show
 terraform workspace 
 terraform workspace  show
 terraform workspace  select
+terraform import       <-- command is used to import existing resources into Terraform.
