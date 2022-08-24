@@ -19,3 +19,32 @@ terraform workspace
 terraform workspace  show
 terraform workspace  select
 terraform import       <-- command is used to import existing resources into Terraform.
+
+##### Instance without autoscalar
+resource "google_compute_instance" "instance_name"
+resource "google_compute_address" "globalip_of_instance"
+##### Instance with autosclaer
+resource "google_compute_region_autoscaler" "autoscaler_apserver"
+resource "google_compute_region_instance_group_manager" "instancegroup_apserver"
+resource "google_compute_instance_template" "template_apserver"
+resource "google_compute_health_check" "hc_apserver"
+#### Loadbalancer
+resource "google_compute_global_forwarding_rule" "forwardingrule_aplb"
+resource "google_dns_record_set" "dns_aplb"
+resource "google_compute_global_address" "globalip_aplb"
+resource "google_compute_target_https_proxy" "target_httpsproxy_aplb"
+resource "google_compute_managed_ssl_certificate" "certificate_aplb"
+resource "google_compute_url_map" "lb_apserver_urlmap"
+resource "google_compute_backend_service" "backend_aplb"
+resource "google_compute_health_check" "healthcheck_aplb"
+##### Network
+resource "google_compute_network" "vpc_name"
+resource "google_compute_subnetwork" "subnet_name"
+resource "google_compute_global_address" "subnet_private"
+resource "google_service_networking_connection" "private_service_connection"
+#####DB
+resource "google_sql_database_instance" "deabase_instance_name"
+resource "google_sql_database" "databasename"
+resource "google_sql_user" "database_username"
+#####Firewall
+resource "google_compute_firewall" "allow_fm_bastion"
