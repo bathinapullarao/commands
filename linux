@@ -76,6 +76,9 @@ packer build packer.json | tee packer.log
 mount -t gcsfuse -o implicit_dirs,uid=48,gid=48,allow_other qa01-mcm-uploads /var/www/html/upload
 ## umount
 sudo fusermount -u /var/www/html/upload
+## To relase the lisning port shown in netstat -tulpn
+fuser 8080/tcp                          <--will print you PID of process bound on that port
+fuser -k 8080/tcp                       <-- will kill that process
 
 # /etc/crontab
 echo "# Sugar Sucheduled JOB (D-106)" >> /etc/crontab
