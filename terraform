@@ -48,3 +48,7 @@ resource "google_sql_database" "databasename"
 resource "google_sql_user" "database_username"
 #####Firewall
 resource "google_compute_firewall" "allow_fm_bastion"
+
+#####GKE###########
+resource "google_container_cluster" "cluster1"
+resource "google_container_node_pool" "pools"
