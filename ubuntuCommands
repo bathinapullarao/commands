@@ -1,6 +1,7 @@
 https://www.techbeginner.in/2021/01/how-to-install-php-using-ansible.html  <--install php with ansible
 unminimize                      #  convert a Minimal instance to a standard Server 
 dpkg -l libgtk[0-9]* | grep ^i  # To check version of ubuntu
+lsb_release -a                  # To check ubuntu version
 apt list --installed | grep package_name  #To check installed packages
 apt list --upgradable           # To chekc which packes have updates
 sudo apt upgrade                # To update all the packages
