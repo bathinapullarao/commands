@@ -1,3 +1,6 @@
+javac filename.java
+java -cp . filename   ##To execute java program
+
 For checking password 
 chrome://settings/passwords
 
