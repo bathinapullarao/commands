@@ -26,6 +26,9 @@ ansible-playbook -i inventory playbook-12.yml -u sammy -K
 *************************************************************
 ssh-keygen
 ssh-copy-id -i ~/.ssh/mykey user@hostIP
+vi /etc/ansible/hosts
+[webserver]
+XXX.XXX.XXX.XXX
 
 ansible-galaxy init nginx
 vi invoke.yml
