@@ -4,6 +4,7 @@ ansible-playbook get_version.yml -vvv    <--- Very Very Verbose flag give more i
 ansible-playbook -e \"ansible_user=packer ansible_password={{ .WinRMPassword }} ansible_become_pass={{ .WinRMPassword }} ansible_port=5986 ansible_connection=winrm ansible_winrm_server_cert_validation=ignore\" ./ansible/setup.yml
 sh "ansible-playbook -e \"ansible_user=bathina_oracle1 ansible_password=raosiri@2806 ansible_become_pass=raosiri@2806 ansible_winrm_transport=ntlm ansible_connection=winrm ansible_winrm_server_cert_validation=ignore\" -i hosts ./setup.yml"
 ansible-playbook -i inventory playbook-12.yml -u sammy -K
+
 *******a handler is just like any other task but only runs when called or notified***************
 ---
 - hosts: staging
@@ -23,6 +24,18 @@ ansible-playbook -i inventory playbook-12.yml -u sammy -K
                     name:  apache2
                     state: restarted
 *************************************************************
+ssh-keygen
+ssh-copy-id -i ~/.ssh/mykey user@hostIP
+
+ansible-galaxy init nginx
+vi invoke.yml
+- name: nginx
+  hosts: all  or webservers
+  become: yes
+  roles:
+    - nginx
+
+vi nginx/tasks/main.yml
 # to install packages
 - name: install epel-release
   yum:
@@ -30,6 +43,8 @@ ansible-playbook -i inventory playbook-12.yml -u sammy -K
     state: present
     lock_timeout: 180
 
+ansible-playbook invoke.yml
+************************************************************
 - name: Install remi-release-7
   yum:
     name: http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
