@@ -87,6 +87,9 @@ if [ $(grep "filename.sh" /etc/crontab 1>> /dev/null 2>> /dev/null; echo $?) != 
     echo "# Discription" >> /etc/crontab
     echo "* * * * * apache cd /usr/local/src; sh filename.sh > /dev/null 2>&1" >> /etc/crontab
 fi
+if [ $(grep pullarao /etc/passwd > /dev/null; echo $?) != 0 ]; then         ##if pullarao is there in passwd then exit status 0 else 1
+    useradd -m pullarao
+fi
 
 ## IPTABLE-redirect an incoming connection to a different IP address
 https://my.esecuredata.com/index.php?/knowledgebase/article/49/how-to-redirect-an-incoming-connection-to-a-different-ip-address-on-a-specific-port-using-iptables/
