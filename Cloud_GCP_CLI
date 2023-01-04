@@ -13,6 +13,7 @@ Restricting the use of images   <--https://cloud.google.com/compute/docs/images/
 * gcloud beta resource-manager org-policies describe compute.trustedImageProjects --effective --project projectid
 ** gcloud config set container/cluster gkeclustername     <-- to set default cluster
 ** gcloud config set project projectid
+** gcloud config set custom_ca_certs_file ~/combined_certs.pem
 * gcloud container clusters describe dev99-gke-gcp-cluster --region=asia-northeast1-a | grep maxNodeCount
 * gcloud container clusters get-credentials clustername --zone asia-south1-c --project projectid     <--Configuring cluster access for Kubectl
 * gcloud container clusters upgrade clustername --master                                  <-- upgrade the version of GKE cluster
