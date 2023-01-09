@@ -53,7 +53,8 @@ EOF
 ##To change pwenership like currunt user
 sudo chown $(id -u):$(id -g) $HOME/.kube/config
 
-## SCP
+## SCP & SSH
+* ssh -i /var/lib/jenkins/workspace/id_rsa -oStrictHostKeyChecking=no siri@10.128.0.4 rm -rf /usr/share/nginx/html/index.html
 * scp -r -i id_rsa -P61854 /tmp/sugar.zip dev_bathinapullarao@153.146.159.201:/tmp
 * scp -r -i ~/.ssh/dev_chef01.pem /tmp/sugar.sql dev_ch01@dev-mcm-db04:/tmp
 * scp -i ~/.ssh/dev_chef01.pem dev_chef01@dev-db99:/tmp/* /home/dev_chef01/DB-BACKUP/
