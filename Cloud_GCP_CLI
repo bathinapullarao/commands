@@ -61,8 +61,8 @@ containerregistry.googleapis.com
   gsutil rm -r gs://sql/s.sql
 * gsutil ls
 * gsutil ls gs://bucketname
-showmount -e filesoreip
-mount Filestoreipaddress:/givenname /path/ofdirin/computeengine
+showmount -e filesoreip                                                    //To check mountname 
+mount Filestoreipaddress:/givenmountname /path/ofdirin/computeengine   
 
 
 gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://asia.gcr.io
