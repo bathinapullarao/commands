@@ -1,5 +1,7 @@
 Ref:  https://gist.github.com/pydevops/cffbd3c694d599c6ca18342d3625af97
 Ref:  https://pnatraj.medium.com/how-to-run-gcloud-command-line-using-a-service-account-f39043d515b9
+gcloud services disable file.googleapis.com    //To disable service form cli
+gcloud services enable file.googleapis.com
 * docker-credential-gcloud list
 ## gcloud commands
 * gcloud auth activate-service-account --key-file credentials.json
@@ -42,6 +44,7 @@ Restricting the use of images   <--https://cloud.google.com/compute/docs/images/
 * gcloud compute instances list --format=yaml
 * gcloud compute instances add-metadata INSTANCE --metadata serial-port-enable=1
 * gcloud compute connect-to-serial-port [INSTANCE_NAME]  <--Login from serial console
+* gcloud filestore instances list
 * gcloud deployment-manager deployments delete quickstart-deployment
 * gcloud iam service-accounts list
 * PROJECT=$(gcloud info --format='value(config.project)')
@@ -62,8 +65,9 @@ containerregistry.googleapis.com
 * gsutil ls
 * gsutil ls gs://bucketname
 showmount -e filesoreip                                                    //To check mountname 
-mount Filestoreipaddress:/givenmountname /path/ofdirin/computeengine   
-
+mount Filestoreipaddress:/givenmountname /path/ofdirin/computeengine       //To mount filestore
+mount -t gcsfuse -o implicit_dirs,uid=48,gid=48,allow_other qa01-mcm-uploads /var/www/html/upload  //mount gcs bucket
+sudo fusermount -u /var/www/html/upload                                     //umount gcs bucket
 
 gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://asia.gcr.io
 cat ~/.docker/config.json
