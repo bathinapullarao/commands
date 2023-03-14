@@ -1,0 +1,39 @@
+Compute-----------
+GCE
+GKE
+VMware Engine
+ServerLess-----
+App Engine
+Endpoints
+APIgateway
+CloudRun
+DB------------
+CloudSql
+MemoryStore
+Firestore
+Datastore
+Bigtable
+
+Storage
+GCS
+Filestore
+Networking------------
+VPC network - Firewalls, VPC network peering
+Network services- Loadbalancing, Cloud DNS, Cloud NAT, 
+Hybread connectivity- Cloud VPN, Interconnect, Cloud Routers
+Network security- Cloud Armor, SSL Policies
+CI/CD----------------
+Cloud Build
+Cloud Deploy
+Cloud Registory
+Artifact Registery
+
+Analytics----------
+Pub/Sub
+Dataproc
+IoT
+BigQuery
+Dataplex
+Artificial Intelligence-------------
+Vertex AI- Datasets, workbench, pipelines, Endpoints, Training, Labiling tasks.
+
