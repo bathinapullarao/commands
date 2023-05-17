@@ -5,6 +5,7 @@ gcloud services enable file.googleapis.com
 * docker-credential-gcloud list
 ## gcloud commands
 * gcloud auth activate-service-account --key-file credentials.json
+* DISPLAY=":0" gcloud auth login    <-- from wsl
 * gcloud auth application-default login
 **  gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://asia.gcr.io   <--create key in ~/.docker/config.json before executing delete that json file
 * gcloud beta compute ssl-certificates list
