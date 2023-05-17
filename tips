@@ -5,6 +5,9 @@ For checking password
 chrome://settings/passwords
 https://www.apowersoft.com/free-online-screen-recorder              ##sreen recoder
 
+Visual studio
+Ctl+shift+p
+
 Run commands:
 ncpa.cpl   <--Network Control Panel
 appwiz.cpl → Uninstall wizard
