@@ -3,4 +3,6 @@ Ref:  https://github.com/inspec/inspec-gcp                                      
 gcloud auth login
 gcloud auth application-default login
 inspec init profile --platform gcp my-profile         <--To create structure
-inspec exec . -t gcp:// -input-file inputs.yml        <--To execute guardrail
+inspec exec . -t gcp:// -input-file inputs.yml        <--To execute guardrail OR
+inspec exec my-profile --input-file=my-profile/inputs.yml -t gcp://
+
