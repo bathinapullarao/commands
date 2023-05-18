@@ -2,4 +2,5 @@ Ref:  https://github.com/inspec/inspec-gcp                                      
       https://mitre-inspec-developer.netlify.app/installation/LinuxInstall.html#after-install
 gcloud auth login
 gcloud auth application-default login
-inspec exec . -t gcp:// -input-file inputs.yml
+inspec init profile --platform gcp my-profile         <--To create structure
+inspec exec . -t gcp:// -input-file inputs.yml        <--To execute guardrail
