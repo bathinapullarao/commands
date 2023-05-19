@@ -5,10 +5,8 @@ API Ref:  https://github.com/googleapis/google-api-ruby-client/blob/main/generat
 gcloud auth login
 gcloud auth application-default login
 inspec init profile --platform gcp my-profile         <--To create structure
+inspec exec . -t gcp:// -input gcp_project_id=projectid
 inspec exec . -t gcp:// -input-file inputs.yml        <--To execute guardrail OR
 inspec exec my-profile --input-file=my-profile/inputs.yml -t gcp://
 // inspec detect -t gcp://                            <--It will give platform details
 // inspec check examples/profile                      <--verify the implementation of a profile
-
-
-
