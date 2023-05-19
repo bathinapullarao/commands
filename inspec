@@ -1,5 +1,7 @@
 Ref:  https://github.com/inspec/inspec-gcp                                                    <--installtion
       https://mitre-inspec-developer.netlify.app/installation/LinuxInstall.html#after-install
+API Ref:  https://github.com/googleapis/google-api-ruby-client/blob/main/generated/google-apis-artifactregistry_v1/OVERVIEW.md
+
 gcloud auth login
 gcloud auth application-default login
 inspec init profile --platform gcp my-profile         <--To create structure
