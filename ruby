@@ -4,6 +4,7 @@ if $? == 0                                  <-- $? is a global varible in ruby t
 if !varaiblename.empty?                     <-- if not varible value empty
 if !variablename.inclue?("Error:_____")     <-- check for that value
 if !variblename.nil?
+if variablename.match?(/^bathinapu.*rao/)   <--to search for file starts and ends with
 v2 = JSON.parse(variablename)                
 puts "discription:   ", varible             <-- It will print the value of the variable
 varible = service.http(:get, "https://...")
