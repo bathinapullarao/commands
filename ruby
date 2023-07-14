@@ -6,6 +6,7 @@ if !variablename.inclue?("Error:_____")     <-- check for that value
 if !variblename.nil?
 if variablename.match?(/^bathinapu.*rao/)   <--to search for file starts and ends with
 v2 = JSON.parse(variablename)                
+variable = %x{gcloud command --project=#{gcp_project_id} --format json 2>&1}
 puts "discription:   ", varible             <-- It will print the value of the variable
 varible = service.http(:get, "https://...")
 
