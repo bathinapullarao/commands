@@ -32,6 +32,7 @@ chage -d 0 username     <--Force immediate password expiration by running the fo
 find / -type f -name 
 rm -f /var/lib/rpm/__db.[0-9][0-9]*   <-- delets __db.anysinglenumanysinglenum*
 ##export  //To make your local shell variables global automatically, export them in your ~/.profile or ~/.bash_profile file under Unix like operating systems
+##unset PATH or VARIBLE
 export PATH=$PATH:/usr/local/bin:~/bin
 export EDITOR=/usr/local/bin/vim
 export SHELL=/bin/ksh
