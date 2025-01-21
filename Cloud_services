@@ -2,10 +2,14 @@
 
 | **Category**              | **AWS**                              | **GCP**                              |
 |---------------------------|--------------------------------------|--------------------------------------|
-| **Compute**               | **EC2**, **Lambda**, **ECS**, **EKS**, **Fargate** | **Compute Engine**, **Cloud Functions**, **GKE**, **Cloud Run**, **App Engine** |
-| **Storage**               | **S3**, **EBS**, **Glacier**, **EFS**, **FSx** | **Cloud Storage**, **Persistent Disks**, **Filestore**, **Nearline/Coldline** |
-| **Databases**             | **RDS** (MySQL, PostgreSQL, Oracle, SQL Server, MariaDB), **Aurora**, **DynamoDB**, **Redshift**, **ElastiCache** | **Cloud SQL** (MySQL, PostgreSQL, SQL Server), **Cloud Spanner**, **BigQuery**, **Firestore**, **Memorystore** |
-| **Networking**            | **VPC**, **Route 53**, **ELB**, **Direct Connect**, **Global Accelerator** | **VPC**, **Cloud DNS**, **Load Balancing**, **Interconnect**, **Cloud CDN** |
+| **Compute**               | **EC2**, **Lambda**, **ECS**,        |
+|                           |                 **EKS**, **Fargate** | **Compute Engine**, **Cloud Functions**, **GKE**, **Cloud Run**, **App Engine** |
+| **Storage**               | **S3**, **EBS**, **Glacier**,        |
+|                           | **EFS**, **FSx**                     | **Cloud Storage**, **Persistent Disks**, **Filestore**, **Nearline/Coldline** |
+| **Databases**             | **RDS** (MySQL, PostgreSQL, Oracle,  |
+                            |    SQL Server, MariaDB), **Aurora**, |
+                            |  *DynamoDB*,*Redshift*,*ElastiCache* | **Cloud SQL** (MySQL, PostgreSQL, SQL Server), **Cloud Spanner**, **BigQuery**, **Firestore**, **Memorystore** |
+| **Networking**            | VPC,Route 53,ELB,Direct Connect, **Global Accelerator** | **VPC**, **Cloud DNS**, **Load Balancing**, **Interconnect**, **Cloud CDN** |
 | **Machine Learning**      | **SageMaker**, **Rekognition**, **Polly**, **Lex**, **Comprehend** | **AI Platform**, **AutoML**, **Vision AI**, **Dialogflow**, **Natural Language API** |
 | **Security**              | **IAM**, **KMS**, **Shield**, **WAF**, **Macie** | **IAM**, **KMS**, **Cloud Armor**, **DLP**, **Cloud Identity** |
 | **Monitoring & Logging**  | **CloudWatch**, **CloudTrail**, **X-Ray** | **Cloud Monitoring**, **Cloud Logging**, **Cloud Trace**, **Error Reporting** |
