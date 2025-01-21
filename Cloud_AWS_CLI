@@ -1,3 +1,18 @@
+aws configure
+ AWS Access Key ID: Your AWS access key.
+ AWS Secret Access Key: Your secret access key.
+ Default region: Specify the default AWS region (e.g., us-west-2).
+ Output format: Choose the default output format (e.g., json, text, table).
+ ---
+ export AWS_ACCESS_KEY_ID=<your-access-key-id>
+ export AWS_SECRET_ACCESS_KEY=<your-secret-access-key>
+ export AWS_DEFAULT_REGION=<your-region>
+ ---
+ AWS Credentials File:Stored in ~/.aws/credentials and automatically used by AWS SDKs and CLI.
+ [default]
+ aws_access_key_id = <your-access-key-id>
+ aws_secret_access_key = <your-secret-access-key>
+----
 aws ec2 describe-instances
 aws ec2 start-instances --instance-ids i-1348636c
 aws sns publish --topic-arn arn:aws:sns:us-east-1:546419318123:OperationsError --message "Script Failure"
