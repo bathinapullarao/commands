@@ -1,3 +1,4 @@
+GCP
 Cloudfunctions
 CloudBuild
 Data data fusion
@@ -42,3 +43,20 @@ Dataplex
 Artificial Intelligence-------------
 Vertex AI- Datasets, workbench, pipelines, Endpoints, Training, Labiling tasks.
 
+AWS:
+Amazon EC2 (Elastic Compute Cloud)
+Amazon S3 (Simple Storage Service)
+Amazon RDS (Relational Database Service)
+AWS Lambda
+Amazon VPC (Virtual Private Cloud)
+Amazon EKS (Elastic Kubernetes Service)
+AWS IAM (Identity and Access Management)
+Amazon CloudWatch
+AWS Route 53
+Amazon SNS (Simple Notification Service)
+AWS CloudTrail
+AWS Elastic Load Balancing (ELB)
+Amazon DynamoDB
+Amazon SQS (Simple Queue Service)
+AWS CloudFormation
+AWS CloudFront
