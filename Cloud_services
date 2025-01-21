@@ -60,3 +60,94 @@ Amazon DynamoDB
 Amazon SQS (Simple Queue Service)
 AWS CloudFormation
 AWS CloudFront
+Amazon Aurora
+AWS Elastic Beanstalk
+AWS Systems Manager
+
+1. Amazon EC2 (Elastic Compute Cloud)
+Description: Provides resizable compute capacity in the cloud, allowing users to launch virtual servers (instances).
+Use Cases: Hosting websites, running applications, and batch processing.
+
+2. Amazon S3 (Simple Storage Service)
+Description: Object storage service offering scalable storage for data, such as backups, archives, and media.
+Use Cases: Storing files, data backups, static website hosting, and big data storage.
+
+3. Amazon RDS (Relational Database Service)
+Description: Managed relational database service supporting various database engines (MySQL, PostgreSQL, Oracle, etc.).
+Use Cases: Running relational databases in the cloud with ease, such as for websites and applications.
+
+4. AWS Lambda
+Description: Serverless compute service that automatically runs code in response to events.
+Use Cases: Event-driven applications, microservices, and serverless architectures.
+
+5. Amazon VPC (Virtual Private Cloud)
+Description: Virtual network in the AWS cloud that allows users to launch AWS resources in a logically isolated network.
+Use Cases: Networking and managing security, controlling IP ranges, and defining subnets.
+
+6. Amazon EKS (Elastic Kubernetes Service)
+Description: Managed Kubernetes service to run containerized applications in AWS.
+Use Cases: Deploying and managing containerized applications with Kubernetes.
+
+7. Amazon SNS (Simple Notification Service)
+Description: Fully managed messaging service for sending notifications and messages to users.
+Use Cases: Sending push notifications, email alerts, and SMS messages.
+
+8. Amazon SQS (Simple Queue Service)
+Description: Fully managed message queue service that enables decoupling of microservices, distributed systems, and serverless applications.
+Use Cases: Message queuing between microservices and systems.
+
+9. AWS CloudFormation
+Description: Infrastructure as code (IaC) service that allows users to define and provision AWS infrastructure resources using templates.
+Use Cases: Automating the provisioning of cloud resources.
+
+10. AWS IAM (Identity and Access Management)
+Description: Manages users, groups, and permissions to control access to AWS resources.
+Use Cases: Granting specific permissions to users and controlling access to resources.
+
+11. Amazon CloudWatch
+Description: Monitoring service that collects metrics, logs, and sets alarms to provide insight into AWS resources and applications.
+Use Cases: Monitoring application performance, setting alerts, and logging.
+
+12. AWS CloudTrail
+Description: Service that logs and monitors API calls made on your AWS account, providing a detailed account of user activity.
+Use Cases: Security auditing, compliance monitoring, and resource tracking.
+
+13. AWS Sagemaker
+Description: Managed service for building, training, and deploying machine learning models.
+Use Cases: AI and machine learning model development.
+
+14. AWS Elastic Load Balancing (ELB)
+Description: Automatically distributes incoming application traffic across multiple targets (e.g., EC2 instances).
+Use Cases: Load balancing traffic across multiple web servers to ensure high availability.
+
+15. Amazon DynamoDB
+Description: Fully managed NoSQL database service that provides fast and predictable performance with seamless scalability.
+Use Cases: Real-time applications, gaming, IoT, and mobile apps.
+
+16. AWS Route 53
+Description: Scalable DNS and domain name registration service.
+Use Cases: Domain registration, DNS routing, and health checks.
+
+17. AWS CloudFront
+Description: Content delivery network (CDN) service that caches copies of your content in edge locations worldwide for faster delivery.
+Use Cases: Improving website speed, serving static and dynamic content, and delivering media files.
+
+18. Amazon Aurora
+Description: High-performance managed relational database compatible with MySQL and PostgreSQL.
+Use Cases: Running high-availability applications that need scalable database services.
+
+19. AWS Elastic Beanstalk
+Description: Platform as a Service (PaaS) for deploying and managing applications without managing infrastructure.
+Use Cases: Quickly deploying web apps and APIs with minimal configuration.
+
+20. AWS Systems Manager
+Description: Service for automating and managing cloud and hybrid environments.
+Use Cases: Managing instances, automating patching, and maintaining systems compliance.
+
+Additional Popular Services:
+AWS CodePipeline (CI/CD service for automating release pipelines)
+Amazon Redshift (Data warehousing service)
+Amazon Kinesis (Real-time data streaming service)
+AWS Batch (Batch processing and job scheduling)
+AWS Step Functions (Orchestrating workflows)
+Amazon QuickSight (Business intelligence and data visualization)
