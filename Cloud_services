@@ -1,3 +1,5 @@
+# AWS vs GCP Services Comparison
+
 | **Category**              | **AWS**                              | **GCP**                              |
 |---------------------------|--------------------------------------|--------------------------------------|
 | **Compute**               | **EC2**, **Lambda**, **ECS**, **EKS**, **Fargate** | **Compute Engine**, **Cloud Functions**, **GKE**, **Cloud Run**, **App Engine** |
@@ -16,7 +18,6 @@
 | **Big Data & Analytics**  | **Redshift**, **Athena**, **EMR**    | **BigQuery**, **Dataproc**           |
 | **Backup & Recovery**     | **AWS Backup**, **Glacier**         | **Cloud Storage (Nearline, Coldline)**|
 | **Edge Computing**        | **Outposts**, **Wavelength**        | **Anthos**, **Edge TPU**             |
-
 
 
 GCP
