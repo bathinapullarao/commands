@@ -135,3 +135,131 @@ ClusterRole
 RoleBinding
 ClusterRoleBinding
 ServiceAccount
+
+resource "kubernetes_config_map" "ai-gateway-config" {
+  metadata {
+    name      = "ai-gateway-config"
+    namespace = "api"
+  }
+
+  data = {
+    # Define your config key-value pairs here
+    "SPRING_PROFILES_ACTIVE" = "app10-b"
+  }
+}
+
+resource "kubernetes_deployment" "ai-gateway" {
+  metadata {
+    name      = "ai-gateway"
+    namespace = "api"
+  }
+  spec {
+    replicas = 1
+
+    selector {
+      match_labels = {
+        app = "ai-gateway"
+      }
+    }
+
+    template {
+      metadata {
+        labels = {
+          app = "ai-gateway"
+        }
+      }
+
+      spec {
+        container {
+          name              = "ai-gateway"
+          image             = "gcr.io/purplegrid/aigateway:app10-b"
+          image_pull_policy = "Always"
+          port {
+            container_port = 80
+          }
+
+
+          env {
+            # Inject config map data as environment variables
+            name = "SPRING_PROFILES_ACTIVE"
+            value_from {
+              config_map_key_ref {
+                name = "ai-gateway-config"
+                key  = "SPRING_PROFILES_ACTIVE"
+              }
+            }
+          }
+          resources {
+            limits = {
+              cpu    = "2"
+              memory = "8Gi"
+            }
+            requests = {
+              cpu    = "1"
+              memory = "6Gi"
+            }
+          }
+        }
+      }
+    }
+  }
+}
+------------------------
+apiVersion: cloud.google.com/v1
+kind: BackendConfig
+metadata:
+  name: ai-gatewaybackendconfig
+  namespace: api
+spec:
+  securityPolicy:
+    name: "allowtheseguysonly"
+  timeoutSec: 300
+  healthCheck:
+    checkIntervalSec: 15
+    timeoutSec: 15
+    healthyThreshold: 1
+    unhealthyThreshold: 10
+    type: HTTP
+    requestPath: /aiservices/actuator/health
+---------------------------------------------
+apiVersion: v1
+kind: Service
+metadata:
+  name: ai-gateway-service
+  namespace: api
+  annotations:
+    cloud.google.com/backend-config: '{"default": "ai-gatewaybackendconfig"}'
+spec:
+  type: NodePort
+  selector:
+    app: ai-gateway
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
+-----------------------------------------------
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: app10-b-external-lb
+  namespace: api
+  annotations:
+    #kubernetes.io/spec.ingressClassName: "gce"
+    kubernetes.io/ingress.allow-http: "true"
+    networking.gke.io/v1beta1.FrontendConfig: lb-frontend-config
+spec:
+  defaultBackend:
+    service:
+      name: jello-service
+      port:
+        number: 80
+  rules:
+  - http:
+      paths:
+      - path: /aigateway/*
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: analytics-service
+            port:
+              number: 80
