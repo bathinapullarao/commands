@@ -13,6 +13,15 @@ aws configure
  aws_access_key_id = <your-access-key-id>
  aws_secret_access_key = <your-secret-access-key>
 ----
+aws eks update-kubeconfig --region <region> --name <cluster-name>
+kubectl config get-contexts
+CURRENT   NAME                    CLUSTER                 AUTHINFO                NAMESPACE
+*         my-eks-cluster-context  arn:aws:eks:us-west-2:123456789012:cluster/my-eks-cluster  aws:eks-user
+          another-cluster-context arn:aws:eks:us-west-2:123456789012:cluster/another-cluster  aws:eks-user
+kubectl config use-context <context-name>   //NAME column has context-name
+kubectl config current-context
+kubectl get nodes
+----
 aws ec2 describe-instances
 aws ec2 start-instances --instance-ids i-1348636c
 aws sns publish --topic-arn arn:aws:sns:us-east-1:546419318123:OperationsError --message "Script Failure"
