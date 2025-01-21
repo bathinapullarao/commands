@@ -10,7 +10,11 @@ WORKDIR, <-- Instruction is used to set the working directory for all the subseq
 
 RUN,  <--lets you execute commands inside of your Docker image. These commands get executed once at build time and get written into your Docker image as a # new layer.
 CMD,  <--sets default command and/or parameters, which can be overwritten from command line when docker container runs.
-ENTRYPOINT, <--configures a container that will run as an executable
+ENTRYPOINT, <--If ENTRYPOINT is specified, CMD will provide default arguments to it. If no ENTRYPOINT is defined, CMD will be the command that is executed when the container starts.
+          ENTRYPOINT ["python", "app.py"]
+          CMD ["--help"]
+          This sets python app.py as the base command.
+          If you run the container without arguments, it will execute python app.py --help
 ADD,  <--command is used to copy files/directories into a Docker image
       ADD source(even URL) destination
 COPY, <-- COPY <src> … <dest> 
