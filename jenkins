@@ -4,8 +4,7 @@ RUN /usr/local/bin/install-plugins.sh $(cat /usr/share/jenkins/plugins.txt | tr 
 The Declarative Pipeline is more structured and easier to read, making it the recommended approach for most cases. It introduces the concept of stages and steps in a clear and concise way.
 
 Example of a Declarative Pipeline:
-groovy
-Copy
+
 pipeline {
     agent any  // Defines where the pipeline should run (in this case, any available agent)
 
@@ -62,8 +61,7 @@ post: Specifies actions to run after the pipeline completes (e.g., success, fail
 The Scripted Pipeline provides more flexibility and is written using Groovy scripts. It's ideal when you need to implement complex logic or conditions in your pipeline.
 
 Example of a Scripted Pipeline:
-groovy
-Copy
+
 node {
     // Define environment variables
     def myEnvVar = 'value'
