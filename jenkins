@@ -1,1 +1,113 @@
 RUN /usr/local/bin/install-plugins.sh $(cat /usr/share/jenkins/plugins.txt | tr '\n' ' ')    <--install jenkins plugins from txt file
+
+1. Declarative Pipeline Example
+The Declarative Pipeline is more structured and easier to read, making it the recommended approach for most cases. It introduces the concept of stages and steps in a clear and concise way.
+
+Example of a Declarative Pipeline:
+groovy
+Copy
+pipeline {
+    agent any  // Defines where the pipeline should run (in this case, any available agent)
+
+    environment {
+        // Define environment variables for the pipeline
+        MY_ENV_VAR = 'value'
+    }
+
+    stages {
+        stage('Build') {
+            steps {
+                echo 'Building the application...'
+                // You can run build commands like Maven, Gradle, or npm here
+                sh 'echo "Build completed"'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                echo 'Running tests...'
+                // Run your test commands here
+                sh 'echo "Tests completed"'
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                echo 'Deploying the application...'
+                // Deployment commands like kubectl, scp, or ssh can be run here
+                sh 'echo "Deployment completed"'
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'The pipeline was successful!'
+        }
+        failure {
+            echo 'The pipeline failed.'
+        }
+        always {
+            echo 'This will always run, regardless of success or failure.'
+        }
+    }
+}
+Explanation:
+pipeline { ... }: Defines the entire pipeline.
+agent any: Specifies where the pipeline should run (here, any available agent).
+stages: Contains individual stages (e.g., Build, Test, Deploy).
+steps: The commands or scripts executed in each stage.
+post: Specifies actions to run after the pipeline completes (e.g., success, failure, or always).
+2. Scripted Pipeline Example
+The Scripted Pipeline provides more flexibility and is written using Groovy scripts. It's ideal when you need to implement complex logic or conditions in your pipeline.
+
+Example of a Scripted Pipeline:
+groovy
+Copy
+node {
+    // Define environment variables
+    def myEnvVar = 'value'
+    
+    try {
+        stage('Build') {
+            echo 'Building the application...'
+            // Run build commands like Maven, Gradle, or npm
+            sh 'echo "Build completed"'
+        }
+
+        stage('Test') {
+            echo 'Running tests...'
+            // Run your test commands here
+            sh 'echo "Tests completed"'
+        }
+
+        stage('Deploy') {
+            echo 'Deploying the application...'
+            // Deployment commands like kubectl, scp, or ssh
+            sh 'echo "Deployment completed"'
+        }
+
+    } catch (Exception e) {
+        currentBuild.result = 'FAILURE'
+        throw e
+    } finally {
+        // Always runs after the pipeline execution
+        echo 'This will always run, regardless of success or failure.'
+    }
+}
+Explanation:
+node { ... }: Defines a Jenkins node where the pipeline will run. The node block is where the pipeline code is executed.
+stage('Build'), stage('Test'), stage('Deploy'): These are the stages of the pipeline.
+sh: Executes a shell command.
+try-catch-finally: Handles errors and ensures certain actions are executed, even in case of failure (like sending notifications or performing cleanup).
+Key Differences Between Declarative and Scripted Pipelines:
+Aspect	Declarative Pipeline	Scripted Pipeline
+Structure	Structured, easier to read and maintain	More flexible but less structured
+Syntax	Uses pipeline {} block with clearly defined stages	Uses Groovy scripting with more complex control flow
+Ease of Use	Simpler for most use cases	Provides more flexibility and control
+Error Handling	Built-in error handling via post {} block	Uses try-catch-finally for custom error handling
+Flexibility	Less flexible, but sufficient for most jobs	Highly flexible, allows complex workflows
+When to Use Each:
+Declarative Pipeline is best for most use cases where you want a simple, maintainable, and readable pipeline.
+Scripted Pipeline is useful when you need more complex logic, such as conditionals, loops, or when you need more control over the pipeline flow.
+Both types of pipelines allow you to automate your CI/CD process, but Declarative Pipelines are generally easier to maintain and understand, especially for teams or projects that want clear and structured pipelines.
