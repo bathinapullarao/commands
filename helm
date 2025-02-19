@@ -2,8 +2,12 @@ helm create mychart                <--create folder structure
 helm package mychart               <--packges to filename.tgz file
 helm install myrelease mychart     <--deploys
 helm list                          <--Check the Helm releases
-
-
+helm upgrade myrelease mychart     <--To update the deployment with changes to the chart or values
+helm rollback myrelease 1          <--revertback to previous version
+helm uninstall myrelease           <--delete the release and its resources
+helm install myrelease mychart -f custom-values.yaml
+helm history <release-name> --namespace <namespace>
+helm rollback <release-name> <revision> --namespace <namespace>
 
 To package and deploy applications using Helm, you need to create a Helm chart and use it to manage the Kubernetes resources for your application. Here's a step-by-step guide:
 
