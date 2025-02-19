@@ -30,59 +30,37 @@ Add or edit other templates as needed (e.g., ConfigMaps, Secrets, Ingress).
 4. Package the Helm Chart
 To package the Helm chart into a .tgz file:
 
-bash
-helm package mychart
+**helm package mychart**
 This creates a file like mychart-0.1.0.tgz.
 
 5. Deploy the Application
 Use the following command to deploy your Helm chart:
+**helm install myrelease mychart**
 
-bash
-Copy code
-helm install myrelease mychart
 myrelease is the release name.
 mychart is the path to your chart directory or the .tgz file.
 6. Verify the Deployment
 Check the Helm releases:
-
-bash
-Copy code
-helm list
+**helm list**
 Check the Kubernetes resources created:
+**kubectl get all**
 
-bash
-Copy code
-kubectl get all
 7. Update the Deployment
 To update the deployment with changes to the chart or values, use:
-
-bash
-Copy code
-helm upgrade myrelease mychart
+**helm upgrade myrelease mychart**
 8. Rollback a Release
 If something goes wrong, you can roll back to a previous version:
-
-bash
-Copy code
-helm rollback myrelease 1
+**helm rollback myrelease 1**
 1 is the revision number to roll back to.
 9. Delete the Deployment
 To delete the release and its resources:
-
-bash
-Copy code
-helm uninstall myrelease
+**helm uninstall myrelease**
 Additional Notes:
 Using Custom Values: You can override default values in values.yaml using a custom file or inline:
 
-bash
-Copy code
-helm install myrelease mychart -f custom-values.yaml
+**helm install myrelease mychart -f custom-values.yaml**
 or
-
-bash
-Copy code
-helm install myrelease mychart --set key=value
+**helm install myrelease mychart --set key=value**
 Helm Repository: If you want to share your chart, you can host it in a Helm repository.
 
 helm history <release-name> --namespace <namespace>
