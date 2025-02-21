@@ -1,3 +1,96 @@
+1. ifconfig
+Displays or configures network interfaces.
+View interfaces: ifconfig
+To view specific interface: ifconfig eth0
+To disable an interface: sudo ifconfig eth0 down
+To enable an interface: sudo ifconfig eth0 up
+
+2. ip
+Used for IP address management and routing.
+View all interfaces: ip a
+Show routing table: ip route
+Add IP address: sudo ip addr add 192.168.1.10/24 dev eth0
+Remove IP address: sudo ip addr del 192.168.1.10/24 dev eth0
+Show IP address of a specific interface: ip addr show eth0
+
+3. ping
+Tests network connectivity.
+Basic ping: ping google.com
+Specify the number of packets: ping -c 4 google.com
+Ping with specific source IP: ping -I 192.168.1.1 google.com
+
+4. traceroute
+Traces the route packets take to reach a destination.
+Basic traceroute: traceroute google.com
+Set a maximum number of hops: traceroute -m 10 google.com
+
+5. netstat
+Displays network connections, routing tables, interface statistics, etc.
+Show all active connections: netstat -a
+Show open ports: netstat -tuln
+Show routing table: netstat -r
+
+6. ss
+A modern alternative to netstat, used for socket statistics.
+List all listening ports: ss -tuln
+Show all TCP connections: ss -tn
+Show process using the port: ss -tulnp
+
+7. nslookup
+Queries DNS to resolve domain names to IP addresses.
+Lookup a domain: nslookup google.com
+Specify a DNS server: nslookup google.com 8.8.8.8
+
+8. dig
+Another tool for querying DNS information.
+Lookup a domain: dig google.com
+Query a specific record type: dig google.com A
+
+9. route
+Displays or modifies the IP routing table.
+Show the routing table: route -n
+Add a new route: sudo route add -net 192.168.1.0/24 gw 192.168.1.1
+Delete a route: sudo route del -net 192.168.1.0/24
+
+10. hostname
+Displays or sets the system's hostname.
+Show hostname: hostname
+Set hostname: sudo hostname newhostname
+
+11. nmcli
+A command-line interface for NetworkManager.
+Show connection status: nmcli connection show
+Connect to a Wi-Fi network: nmcli dev wifi connect "SSID" password "password"
+Show network interfaces: nmcli device
+
+12. iptables
+Utility for configuring network packet filtering rules.
+View current rules: sudo iptables -L
+Add a rule: sudo iptables -A INPUT -p tcp --dport 22 -j ACCEPT
+Delete a rule: sudo iptables -D INPUT -p tcp --dport 22 -j ACCEPT
+
+13. curl
+Transfers data from or to a server.
+Fetch a webpage: curl http://example.com
+Get headers: curl -I http://example.com
+Test an HTTP connection: curl -v http://example.com
+
+14. wget
+Downloads files from the web.
+Download a file: wget http://example.com/file.zip
+Download a file with a specific name: wget -O newname.zip http://example.com/file.zip
+
+15. mtr
+Combines the functionality of ping and traceroute to provide continuous network diagnostic information.
+Run a diagnostic: mtr google.com
+
+16. ethtool
+Displays or changes network interface settings.
+
+Show interface information: ethtool eth0
+Change the speed of an interface: sudo ethtool -s eth0 speed 1000 duplex full
+Let me know if you need explanations on any of these commands!
+
 adduser username --disabled-password --disabled-login --gecos ""  
 useradd --system --no-create-home nexus
 Ref:https://haydenjames.io/linux-networking-commands-scripts/             <--networking commands
