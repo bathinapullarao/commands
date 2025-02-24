@@ -1,9 +1,3 @@
-Ref: https://phoenixnap.com/kb/how-to-install-kubernetes-on-centos
-Ref: https://kubernetes.io/docs/concepts/services-networking/connect-applications-service/
-Ref: https://kubernetes.io/docs/reference/kubectl/kubectl/
-Ref: https://kubernetes.io/docs/reference/kubectl/cheatsheet/
-https://www.cnblogs.com/zhenyuyaodidiao/p/6502171.html
------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Kind: Service, ServiceAccount, ingress, Deploymnet, ConfigMap, StorageClass, StatefulSet, HorizontalPodAutoscaler, PersistentVolume, PersistentVolumeClaim, PodDisruptionBudget,
       Role, RoleBinding, ClusterRole, ClusterRoleBinding, DaemonSet,  
 pdb(pod distribution budget): A Pod Disruption Budget (PDB) allows you to limit the disruption to your application when its pods need to be rescheduled for some reason 
@@ -19,6 +13,57 @@ nginx ingress controller:     A HorizontalPodAutoscaler (HPA for short) automati
 nfs(network file sharing)(PersistentVolume)(PersistentVolumeClaim): is a request for storage by a user.It is similar to a Pod.
                               Pods consume node resources and PVCs consume PV resources. Pods can request specific levels of resources (CPU and Memory).
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+AWS-------EKS-------AWS-------EKS-------AWS-------EKS-------AWS-------EKS-------AWS-------EKS-------AWS-------EKS-------AWS-------EKS-------
+Prerequisites
+AWS CLI installed and configured (aws configure)
+kubectl installed
+eksctl (optional but helpful for EKS management)
+aws configure  <--Ensure you are logged into AWS
+aws configure --profile my-profile <--if using a specific profile
+aws eks update-kubeconfig --region <AWS_REGION> --name <EKS_CLUSTER_NAME>  <-- to update your kubeconfig with your EKS cluster ~/.kube/config
+eg:  aws eks update-kubeconfig --region us-west-2 --name my-cluster
+#below command adds the cluster configuration to ~/.kube/config
+aws eks update-kubeconfig --region us-west-2 --name my-cluster --profile my-profile   <--using a different AWS profile
+kubectl config get-contexts  <--List available contexts
+kubectl config current-context  <--Check the current context
+kubectl config use-context <CONTEXT_NAME> <--Switch to a different EKS cluster
+eg: kubectl config use-context arn:aws:eks:us-west-2:123456789:cluster/my-other-cluster
+kubectl config set-context --current --namespace=my-namespace  <--By default, kubectl uses the default namespace. Set a preferred namespace for your cluster
+kubectl config view --minify | grep namespace  <--Verify the namespace
+---------------------------------------------------------------------------------------------------------
+aws eks update-kubeconfig  <--If you need to manage multiple EKS clusters, repeat aws eks update-kubeconfig for each cluster.
+export KUBECONFIG=~/.kube/config:/path/to/another-kubeconfig  <--Alternatively, you can merge multiple kubeconfig files
+kubectl cluster-info  <--Check cluster info
+kubectl get nodes   <--List nodes
+---------------------------------------------------------------------------------------------------------
+GCP-----GKE------GCP-----GKE------GCP-----GKE------GCP-----GKE------GCP-----GKE------GCP-----GKE------GCP-----GKE------GCP-----GKE------
+### (~/.kube/config) kubectl configuration to determine which Kubernetes cluster to deploy to.
+###if you have multiple projects follow below steps
+gcloud auth login   <--Ensure you are authenticated with GCP
+gcloud auth activate-service-account --key-file=<key-file.json>      <--using service account credentials
+gcloud container clusters get-credentials <CLUSTER_NAME> --region <REGION> --project <PROJECT_ID>   <--For each project and cluster, run
+eg: 
+gcloud container clusters get-credentials my-cluster-1 --region europe-west2 --project my-project-1
+gcloud container clusters get-credentials my-cluster-2 --region us-central1 --project my-project-2  <--This updates ~/.kube/config with the new cluster contexts
+kubectl config get-contexts    <---kubectl config get-contexts
+----------------------------------------------------------------------------------------------------------
+CURRENT   NAME                          CLUSTER            AUTHINFO            NAMESPACE
+*         gke_my-project-1_europe-west2_my-cluster-1  gke_my-project-1_europe-west2_my-cluster-1  my-user
+          gke_my-project-2_us-central1_my-cluster-2   gke_my-project-2_us-central1_my-cluster-2   my-user
+----------------------------------------------------------------------------------------------------------
+kubectl config use-context <context-name>    <--to switch to a different cluster
+kubectl config use-context gke_my-project-2_us-central1_my-cluster-2   <--Switch context
+#kubectl config current-context   <--can check your current cluster context
+kubectl config set-context --current --namespace=my-namespace <--By default, kubectl uses the default namespace. To set a preferred namespace for a context
+kubectl config view --minify | grep namespace   <--Verify the namespace
+----------------------------------------------------------------------------------------------------------
+#Instead of modifying ~/.kube/config, you can use separate kubeconfig files.
+export KUBECONFIG=/path/to/kubeconfig1         <--Set environment variable for a specific file
+kubectl config use-context gke_my-project-1_europe-west2_my-cluster-1
+export KUBECONFIG=~/.kube/config:/path/to/other/kubeconfig   <--Merge multiple kubeconfig files
+kubectl cluster-info   <--Check which cluster you’re connected to
+kubectl config current-context  <--Check active context
+
 
 kubectl run hello-node --image=hello-node:v1 --port=8080           <--kubectl means cube control
 kubectl describe pod
