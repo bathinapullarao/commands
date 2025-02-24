@@ -1,3 +1,12 @@
+Option 1: Get from IAM Console (Recommended)
+Log in to AWS Console---->Go to AWS IAM Console---->Navigate to Users--->In the IAM dashboard, click Users in the left panel.
+Select your user or create a new IAM user---->Create Access Keys:Click the Security credentials tab.
+Under Access keys, click Create access key.Copy & Save the Access Key ID and Secret Access Key. ⚠️ You will not be able to see the Secret Access Key again after this step!
+Option 2: Get Using AWS CLI
+If you already have an AWS CLI session with sufficient permissions, you can create an access key using:
+aws iam create-access-key --user-name <YOUR_IAM_USER>
+aws iam create-access-key --user-name my-user
+--------------------------------------------------------------------------------------------------------
 aws configure
  AWS Access Key ID: Your AWS access key.
  AWS Secret Access Key: Your secret access key.
