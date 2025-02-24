@@ -1,3 +1,8 @@
+Why Use 'data' in Terraform?
+Does not create resources,only reads existing ones.To fetch existing resources (e.g., an existing VPC, IAM role, or image).
+To avoid hardcoding values and make configurations more dynamic.
+To reference resources created outside of Terraform.
+
 Execute terraform module by module
 ----------------------------------
 ##sample
