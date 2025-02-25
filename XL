@@ -2,7 +2,10 @@
 =DATEVALUE(A2)    <--value of A2 is '02/19/2025 and it returns 19-Feb-2025
 =TEXT(B2,"yyyy-mm-dd")   <--value of B2 is 19-Feb-2025 and it returns 2025-02-19
 =Text(B2,"yy_mm_mmm")    <--value of B2 is 19-Feb-2025 and it returns 25_02_Feb
+=TEXT(A5,"MMM YYYY")     <--value of A5 is '02/19/2025 and it returns Feb 2025
+="WB"&" "&F4             <--value of F4 is 17 Feb and it returns WB 17 Feb 
 ="WK "&Text(WEEKNUM(B2,2),"00")  <--value of B2 is 19-Feb-2025 and it returns WK 08
 =TEXT(B2-WEEKDAY(B2,2)+1,"dd mmm") <--value of B2 is 19-Feb-2025 and it returns 17 Feb
 =TEXT(B2-WEEKDAY(B2,2)+1,"dd mmm")&TEXT(B2-WEEKDAY(B2,2)+7," to dd mmm") <--value of B2 is 19-Feb-2025 and it returns 
 =VLOOKUP(Q2,'# Setup'!$B$3:$D$25,3,0) <--search Q2 value in setup sheet from range b3 to d25 when exact mach of Q2 print exact row cell value of the 3 column value here d series is 3rd column 
+=If(T6="null","",VALUE(T6))  <--If T6 contains the text "null", return an empty string ("").Otherwise, convert the value in T6 to a number using VALUE(T6).
