@@ -1,2 +1,7 @@
-Formula to combine tow cells
-=A1&" "&B1
+=A1&" "&B1        <--Formula to combine tow cells
+=DATEVALUE(A2)    <--value of A2 is '02/19/2025 and it returns 19-Feb-2025
+=TEXT(B2,"yyyy-mm-dd")   <--value of B2 is 19-Feb-2025 and it returns 2025-02-19
+=Text(B2,"yy_mm_mmm")    <--value of B2 is 19-Feb-2025 and it returns 25_02_Feb
+="WK "&Text(WEEKNUM(B2,2),"00")  <--value of B2 is 19-Feb-2025 and it returns WK 08
+=TEXT(B2-WEEKDAY(B2,2)+1,"dd mmm") <--value of B2 is 19-Feb-2025 and it returns 17 Feb
+=TEXT(B2-WEEKDAY(B2,2)+1,"dd mmm")&TEXT(B2-WEEKDAY(B2,2)+7," to dd mmm") <--value of B2 is 19-Feb-2025 and it returns 
