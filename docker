@@ -3,29 +3,44 @@ Ref:https://docs.docker.com/engine/reference/commandline/container_port/
 
 
 # Dockerfile instructions 
-FROM,    <-- FROM php:7.3-cli as php-cli
-ARG,ENV, <-- Both can store values inside varibles but ENV varible value even can available after creating container.
-WORKDIR, <-- Instruction is used to set the working directory for all the subsequent Dockerfile instructions.  
-             Some frequently used instructions in a Dockerfile are RUN, ADD, CMD, ENTRYPOINT, and COPY.
-
-RUN,  <--lets you execute commands inside of your Docker image. These commands get executed once at build time and get written into your Docker image as a # new layer.
+FROM,  <-- FROM php:7.3-cli as php-cli, Specifies the base image for the container. 
+           Every Dockerfile must start with a FROM instruction.
+ARG,   <-- Defines build-time variables (values can be passed via docker build --build-arg).
+           Used only during the build process (not available in the final container).
+           eg:ARG APP_VERSION=1.0
+ENV,   <-- Defines environment variables available inside the container. These persist when the container is running.
+           eg: ENV APP_ENV=production
+           Both ARG and ENV can store values inside varibles but ENV varible value even can available after creating container.
+WORKDIR, <-- Sets the working directory for subsequent RUN, CMD, ENTRYPOINT, COPY, and ADD instructions.
+             eg: WORKDIR /app
+RUN,  <--These commands get executed once at build time and get written into your Docker image as a # new layer.
+         eg:RUN apt-get update && apt-get install -y curl
 CMD,  <--sets default command and/or parameters, which can be overwritten from command line when docker container runs.
+         eg: CMD ["python", "app.py"] 
+             CMD python app.py
 ENTRYPOINT, <--If ENTRYPOINT is specified, CMD will provide default arguments to it. If no ENTRYPOINT is defined, CMD will be the command that is executed when the container starts.
           ENTRYPOINT ["python", "app.py"]
           CMD ["--help"]
           This sets python app.py as the base command.
           If you run the container without arguments, it will execute python app.py --help
-ADD,  <--command is used to copy files/directories into a Docker image
-      ADD source(even URL) destination
+ADD,  <--Copies files from the host system into the container. command is used to copy files/directories into a Docker image
+          ADD source(even URL) destination
 COPY, <-- COPY <src> … <dest> 
-EXPOSE,  <--is used to map local port container port
-PUBLISH,  <-- -p 8080  Publish individual port at eg(docker run -d -p 8080 an_image)
+EXPOSE,  <--Informs Docker that the container listens on a specific port.
+            This does not automatically publish the port; -p must be used when running the container.
+PUBLISH,  <-- This is used with docker run -p to map container ports to the host.
+              -p 8080  Publish individual port at eg(docker run -d -p 8080 an_image)
               -P, --publish-all  Publish all exposed ports to random ports
            1) If you specify neither EXPOSE nor -p, the service in the container will only be accessible from inside the container itself.
            2) If you EXPOSE a port, the service in the container is not accessible from outside Docker, but from inside other Docker containers. So this is good for inter-container communication.
            3) If you EXPOSE and -p a port, the service in the container is accessible from anywhere, even outside Docker.
 LABEL maintainer="Bathina Pullarao"              
-USER, VOLUME,  STOPSIGNAL, and ONBUILD.
+USER, <--Sets the user under which the container will run.
+         eg: USER appuser
+VOLUME, <--Defines a mount point for persistent storage.
+           eg: VOLUME /data
+           docker run -v /host/path:/data myapp
+STOPSIGNAL, and ONBUILD.
 
 eg:
 FROM centos:centos7
