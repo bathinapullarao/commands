@@ -1,7 +1,21 @@
-Ref:https://docs.docker.com/engine/reference/commandline/container_port/
 #stateless application is one that neither reads nor stores information about its state from one time that it is run to the next.
-
-
+gcloud auth login
+gcloud config set project [PROJECT_ID]
+gcloud services enable containerregistry.googleapis.com
+gcloud auth configure-docker     <--Authenticate Docker with GCR
+docker login -u _json_key --password-stdin https://gcr.io  <--Verify Authentication
+docker tag myapp:latest gcr.io/[PROJECT_ID]/myapp:latest
+docker push gcr.io/[PROJECT_ID]/myapp:latest
+gcloud container images list
+-------------------------------------------------------------------------------------
+aws configure  <--You will be prompted to enter:AWS Access Key ID-->AWS Secret Access Key-->Default region (e.g., us-east-1)-->Output format (leave as json or none)
+aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin [AWS_ACCOUNT_ID].dkr.ecr.[REGION].amazonaws.com
+aws ecr create-repository --repository-name myapp  <--Create an ECR Repository
+docker tag myapp:latest [AWS_ACCOUNT_ID].dkr.ecr.[REGION].amazonaws.com/myapp:latest
+docker push [AWS_ACCOUNT_ID].dkr.ecr.[REGION].amazonaws.com/myapp:latest
+aws ecr list-images --repository-name myapp
+docker pull [AWS_ACCOUNT_ID].dkr.ecr.[REGION].amazonaws.com/myapp:latest
+---------------------------------------------------------------------------------------
 # Dockerfile instructions 
 FROM,  <-- FROM php:7.3-cli as php-cli, Specifies the base image for the container. 
            Every Dockerfile must start with a FROM instruction.
