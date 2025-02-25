@@ -5,3 +5,4 @@
 ="WK "&Text(WEEKNUM(B2,2),"00")  <--value of B2 is 19-Feb-2025 and it returns WK 08
 =TEXT(B2-WEEKDAY(B2,2)+1,"dd mmm") <--value of B2 is 19-Feb-2025 and it returns 17 Feb
 =TEXT(B2-WEEKDAY(B2,2)+1,"dd mmm")&TEXT(B2-WEEKDAY(B2,2)+7," to dd mmm") <--value of B2 is 19-Feb-2025 and it returns 
+=VLOOKUP(Q2,'# Setup'!$B$3:$D$25,3,0) <--search Q2 value in setup sheet from range b3 to d25 when exact mach of Q2 print exact row cell value of the 3 column value here d series is 3rd column 
