@@ -1,7 +1,11 @@
+**Helm uses the current Kubernetes context from your kubeconfig file (usually ~/.kube/config).
+kubectl config current-context
+kubectl config use-context <context-name>
 helm create mychart                <--create folder structure
 helm package mychart               <--packges to filename.tgz file
 helm install myrelease mychart     <--deploys, myrelease: The name you are giving to this Helm release. Helm uses this name to track and manage the deployment.
 helm list                          <--Check the Helm releases
+helm list --all-namespaces
 helm upgrade myrelease mychart     <--To update the deployment with changes to the chart or values
 helm rollback myrelease 1          <--revertback to previous version, 1: The target revision number to roll back to.
 helm uninstall myrelease           <--delete the release and its resources
