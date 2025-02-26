@@ -8,6 +8,7 @@ helm uninstall myrelease           <--delete the release and its resources
 helm install myrelease mychart -f custom-values.yaml  <--mychart: The Helm chart to install (should be in the local directory 
                                     or a Helm repository).
                                   -f custom-values.yaml: Specifies a custom values.yaml file to override default values in the chart.
+helm history myrelease          <--This will show the revision history of myrelease, so you can confirm which version you want to roll back to.             
 helm history <release-name> --namespace <namespace>
 helm rollback <release-name> <revision> --namespace <namespace>
 
