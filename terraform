@@ -2,6 +2,10 @@ After Running 'terraform init'   <--- This initializes the working directory and
 .terraform/ (Directory)          <--- Stores provider plugins, modules, and backend configuration.
 .terraform.lock.hcl (File)       <--- Locks provider versions to ensure consistency across environments.
 terraform.tfstate (only if a remote backend is configured during init) <--- Stores the current state of the infrastructure.
+After Running 'terraform apply'  <--- This command applies the changes and manages infrastructure.
+terraform.tfstate (File)         <--- Stores the current state of the deployed infrastructure.
+terraform.tfstate.backup (File)  <--- A backup of the previous state file.
+planfile (if used with terraform apply planfile) <-- Applied execution plan (can be deleted after use).
 
 Why Use 'data' in Terraform?
 Does not create resources,only reads existing ones.To fetch existing resources (e.g., an existing VPC, IAM role, or image).
