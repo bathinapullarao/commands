@@ -1,3 +1,8 @@
+After Running 'terraform init'   <--- This initializes the working directory and sets up the backend.
+.terraform/ (Directory)          <--- Stores provider plugins, modules, and backend configuration.
+.terraform.lock.hcl (File)       <--- Locks provider versions to ensure consistency across environments.
+terraform.tfstate (only if a remote backend is configured during init) <--- Stores the current state of the infrastructure.
+
 Why Use 'data' in Terraform?
 Does not create resources,only reads existing ones.To fetch existing resources (e.g., an existing VPC, IAM role, or image).
 To avoid hardcoding values and make configurations more dynamic.
