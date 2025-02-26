@@ -8,27 +8,28 @@ Before SonarQube can analyze your code, you need to install and configure it. So
 
 SonarQube Server: Where analysis results are stored and displayed.
 SonarQube Scanner: A tool that runs the analysis on your codebase and sends the results to the SonarQube Server.
-SonarQube supports various programming languages, and you need to install the appropriate language plugins for the languages you're working with (e.g., Java, PHP, JavaScript, etc.).
+SonarQube supports various programming languages, and you need to install the appropriate language plugins for the languages you're 
+working with (e.g., Java, PHP, JavaScript, etc.).
 
 2. SonarQube Plugins
-For static code analysis, SonarQube uses language-specific analyzers and rules to inspect the code. Here's how it works for some common languages:
+For static code analysis, SonarQube uses language-specific analyzers and rules to inspect the code. 
+Here's how it works for some common languages:
 
-Java:
-For Java, SonarQube uses the SonarJava plugin, which analyzes Java code for:
+Java: For Java, SonarQube uses the SonarJava plugin, which analyzes Java code for:
 
 Bugs: Problems that might cause the code to break or misbehave (e.g., null pointer dereferencing).
 Vulnerabilities: Security issues such as SQL injection, cross-site scripting (XSS), or hardcoded credentials.
 Code Smells: Suboptimal code that could be improved for readability or maintainability (e.g., overly complex methods).
 Duplications: Repeated code that could be refactored.
-PHP:
-For PHP, SonarQube uses the SonarPHP plugin, which checks for:
+
+PHP: For PHP, SonarQube uses the SonarPHP plugin, which checks for:
 
 Bugs: Issues such as incorrect or missing function arguments, unexpected behavior, or uninitialized variables.
 Vulnerabilities: Security vulnerabilities specific to PHP, such as improper input sanitization or insecure API usage.
 Code Smells: PHP-specific code quality problems, such as inconsistent naming conventions or excessive function length.
 Complexity: Measures like Cyclomatic Complexity and other complexity-related issues that affect maintainability.
-JavaScript:
-For JavaScript, SonarQube uses the SonarJS plugin, which looks for:
+
+JavaScript: For JavaScript, SonarQube uses the SonarJS plugin, which looks for:
 
 Bugs: Incorrect usage of JavaScript syntax or functions, which may lead to runtime errors.
 Vulnerabilities: Security-related issues like Cross-Site Scripting (XSS), prototype pollution, or other JavaScript-specific vulnerabilities.
