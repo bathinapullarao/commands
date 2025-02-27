@@ -1,3 +1,9 @@
+For unpredictable, flexible workloads → On-Demand
+For consistent, steady workloads → Reserved Instances or Savings Plans
+For cost-sensitive, fault-tolerant jobs → Spot Instances
+For compliance/security needs → Dedicated Hosts/Instances
+For dynamically scaling apps → Auto Scaling with a mix of instances
+-------------------------------------------------------------------------------------------------------
 Option 1: Get from IAM Console (Recommended)
 Log in to AWS Console---->Go to AWS IAM Console---->Navigate to Users--->In the IAM dashboard, click Users in the left panel.
 Select your user or create a new IAM user---->Create Access Keys:Click the Security credentials tab.
