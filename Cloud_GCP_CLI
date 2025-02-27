@@ -1,5 +1,11 @@
-Ref:  https://gist.github.com/pydevops/cffbd3c694d599c6ca18342d3625af97
-Ref:  https://pnatraj.medium.com/how-to-run-gcloud-command-line-using-a-service-account-f39043d515b9
+GCS:offers different types of buckets based on location and storage class
+Based on Location: Regional, Dual-Region, Multi-Region
+Based on Storage Class: 
+Standard- High-performance storage for frequently accessed data.
+Nearline: Cost-effective for infrequently accessed data, with a minimum storage duration of 30 days.
+Coldline: Lower-cost storage for long-term, rarely accessed data (minimum storage duration: 90 days).
+Archive: The lowest-cost option for long-term archival data (minimum storage duration: 365 days).
+-----------------------------------------------------------------------------------------------------
 gcloud services disable file.googleapis.com    //To disable service form cli
 gcloud services enable file.googleapis.com
 * docker-credential-gcloud list
