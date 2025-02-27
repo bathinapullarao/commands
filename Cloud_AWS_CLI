@@ -1,3 +1,21 @@
+General Purpose Instances: T-Series(Burstable Performance)T4g, T3, T3a, T2,| M-Series(Balanced Compute & Memory)M7g, M6g, M6i, M5, M4
+Compute Optimized Instances:C-Series(High Compute Performance)C7g, C7i, C6g, C6i, C5, C4,
+Memory Optimized Instances:R-Series (High RAM for Databases & In-Memory Caching)R7g, R6g, R6i, R5, R4 
+                    | X-Series (Extreme Memory for SAP & Large Databases) X2gd, X2idn, X2iedn |Z-Series (High Frequency & Memory) z1d
+Storage Optimized Instances:  I-Series (High IOPS Storage) I4g, I3, I3en | D-Series (Dense Storage for Data Warehousing) D3, D2
+                            | H-Series (HDD Optimized for Big Data) H1
+Accelerated Computing Instances: P-Series (GPU for Machine Learning & AI) P4d, P3, P2 | G-Series (Graphics & ML Inference) G5, G4ad, G4dn
+                            | Inf-Series (Inference Optimization) Inf2, Inf1 | Trn-Series (Deep Learning Training on AWS Chips)Trn1
+                            |F-Series (FPGA for Custom Workloads) F1
+Choosing the Right Instance Type: Workload	Recommended Instance Type
+Web Apps, Microservices	T4g, T3, M5
+High-Performance Computing	C7g, C6i, C5
+Databases (SQL, NoSQL)	R6i, R5, X2gd
+Machine Learning Training	P4d, Trn1
+AI Inference	Inf2, G5
+Video Processing, Streaming	G4dn, G5
+Data Warehousing	D3, I3, H1
+-------------------------------------------------------------------------------------------------------
 For unpredictable, flexible workloads → On-Demand
 For consistent, steady workloads → Reserved Instances or Savings Plans
 For cost-sensitive, fault-tolerant jobs → Spot Instances
