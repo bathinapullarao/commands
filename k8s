@@ -28,7 +28,7 @@ kubectl config get-contexts  <--List available contexts
 kubectl config current-context  <--Check the current context
 kubectl config use-context <CONTEXT_NAME> <--Switch to a different EKS cluster
 eg: kubectl config use-context arn:aws:eks:us-west-2:123456789:cluster/my-other-cluster
-kubectl config set-context --current --namespace=my-namespace  <--By default, kubectl uses the default namespace. Set a preferred namespace for your cluster
+kubectl config set-context --current --namespace=my-namespace <--By default,kubectl uses the default namespace. Set a preferred namespace for your cluster
 kubectl config view --minify | grep namespace  <--Verify the namespace
 ---------------------------------------------------------------------------------------------------------
 aws eks update-kubeconfig  <--If you need to manage multiple EKS clusters, repeat aws eks update-kubeconfig for each cluster.
