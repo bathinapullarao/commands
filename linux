@@ -100,6 +100,17 @@ chattr +i /etc/resolv.conf   <-- which will make the file immutable and won't be
 lsattr                       <-- verify the immutable status of files using ‘lsattr‘ command.
 lsmod | grep kvm             <-- to determine which modules are loaded
 lsof /lib64/libwrap.so.0     <-- to determine which running applications link against the libwrap.so.0 library
+--------------------------------------------------------------
+lsblk                        <-- This will show the disk name (e.g., /dev/sdb).
+sudo mkfs.ext4 -F /dev/sdb   <-- Format the Disk (Only If New)
+sudo mkdir -p /mnt/mydisk    
+sudo mount /dev/sdb /mnt/mydisk  <--Mount the Disk to the Directory
+df -h                         <-- verify mount
+sudo nano /etc/fstab
+/dev/sdb /mnt/mydisk ext4 defaults,nofail 0 2     <--add this line, Save and exit (Ctrl + X, then Y, then Enter).
+sudo mount -a                
+sudo reboot
+----------------------------------------------------------------
 hostnamectl set-hostname nexus  <--sethostname
 ## To list the software packages that constitute the EPEL repository, run the command.
 yum check-update
