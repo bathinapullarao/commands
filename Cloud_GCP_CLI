@@ -62,6 +62,21 @@ Restricting the use of images   <--https://cloud.google.com/compute/docs/images/
 * gcloud container get-server-config                                   <--to get all gke versions
 * gcloud container images list-tags gcr.io/projectid
 ** gcloud container images list --repository=asia.gcr.io/projectid     <--listing the images
+-------------------ssl-Google mangeged------------------------------------------------
+* gcloud compute ssl-certificates list
+* gcloud compute ssl-certificates describe YOUR_CERT_NAME
+* gcloud compute ssl-certificates delete YOUR_CERT_NAME
+* gcloud compute ssl-certificates create YOUR_CERT_NAME --domains=yourdomain.com --global
+------------------Self-Managed SSL (Manual Renewal Needed)-----------------------------
+* gcloud compute ssl-certificates create NEW_CERT_NAME --certificate=path/to/cert.pem --private-key=path/to/private-key.pem --global
+* gcloud compute target-https-proxies update YOUR_PROXY_NAME --ssl-certificates=NEW_CERT_NAME
+* gcloud compute target-https-proxies describe YOUR_PROXY_NAME
+-------If Using Let's Encrypt (Auto-Renew with Certbot)--------------------------------
+certbot --version
+sudo certbot renew
+Restart Your Web Server 
+openssl s_client -connect yourdomain.com:443 | openssl x509 -noout -dates    <----Check SSL status
+-----------------------------------------------------------------------------------------
 * gcloud components list
 * gcloud components install kubectl
 * gcloud compute instances list
