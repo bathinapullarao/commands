@@ -956,3 +956,28 @@ fdisk -l
 then  create the partition 
 then format the partition
 then  assign the mount point 
+--------------------------------------------------
+1. Common Filesystem Types in Linux
+Filesystem	Description
+ext4	Default filesystem for most Linux distributions, supports journaling.
+XFS	    High-performance filesystem, good for large files and high IOPS.
+Btrfs	Advanced filesystem with snapshot and compression support.
+ZFS	    eliable, supports snapshots and RAID-like features.
+NTFS	Used for Windows partitions, needs ntfs-3g package to write.
+FAT32 / exFAT	Used for USB drives, compatible with Linux, Windows, and macOS.
+---------------------------------------------------
+Directory	Purpose
+/	        Root directory, top-level of the filesystem.
+/bin	    Essential user binaries (e.g., ls, cp, mv).
+/boot	    Bootloader files (e.g., vmlinuz, initrd).
+/dev	    Device files (e.g., /dev/sda for hard drives).
+/etc	    Configuration files (e.g., /etc/passwd, /etc/hosts).
+/home	    User home directories (e.g., /home/user).
+/var	    Variable data like logs (/var/log) and temporary files.
+/tmp	    Temporary files, cleared on reboot.
+/usr	    User-installed software (/usr/bin, /usr/lib).
+/proc	    Virtual filesystem for system processes.
+/sys	    Kernel and hardware information.
+-------------------------------------------------
+
+
