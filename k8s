@@ -688,14 +688,4 @@ spec:
     requests.memory: "4Gi"
     limits.cpu: "4"
     limits.memory: "8Gi"
-📌 Summary
-ReplicaSet → Ensures a fixed number of Pods are running.
-Job → Runs a one-time task.
-CronJob → Runs tasks on a schedule.
-EndpointSlice → Improves service discovery.
-Lease → Helps leader election.
-NetworkPolicy → Controls Pod network traffic.
-LimitRange → Defines default CPU/memory limits.
-ResourceQuota → Restricts resource usage in a namespace.
-
 -------------------------------------------------------------------------------------------------------------
