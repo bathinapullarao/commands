@@ -965,12 +965,12 @@ then  assign the mount point
 --------------------------------------------------
 1. Common Filesystem Types in Linux
 Filesystem	Description
-ext4	Default filesystem for most Linux distributions, supports journaling.
-XFS	    High-performance filesystem, good for large files and high IOPS.
-Btrfs	Advanced filesystem with snapshot and compression support.
-ZFS	    eliable, supports snapshots and RAID-like features.
-NTFS	Used for Windows partitions, needs ntfs-3g package to write.
-FAT32 / exFAT	Used for USB drives, compatible with Linux, Windows, and macOS.
+ext4        Default filesystem for most Linux distributions, supports journaling.
+XFS         High-performance filesystem, good for large files and high IOPS.
+Btrfs       Advanced filesystem with snapshot and compression support.
+ZFS         eliable, supports snapshots and RAID-like features.
+NTFS        Used for Windows partitions, needs ntfs-3g package to write.
+FAT32/exFAT Used for USB drives, compatible with Linux, Windows, and macOS.
 ---------------------------------------------------
 Directory	Purpose
 /	        Root directory, top-level of the filesystem.
