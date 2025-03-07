@@ -82,6 +82,98 @@ Centralized security for multiple accounts                              AWS Fire
 Network-level security for VPCs                                         AWS Network Firewall
 DDoS protection                                                         AWS Shield
 ---------------------------------------------------------------------------------------------------------
+Step-by-Step Guide to Setting Up AWS Firewalls 🚀
+Below are step-by-step instructions for setting up different AWS firewall solutions based on your security needs.
+
+1️⃣ Set Up Security Groups (Instance-Level Firewall)
+Security Groups act as stateful firewalls for EC2 instances, RDS, and Load Balancers.
+
+✅ Step 1: Create a Security Group
+Log in to AWS Console → Go to EC2 → Click Security Groups.
+Click Create Security Group.
+Enter Name & Description (e.g., web-server-sg).
+Choose the VPC where the security group will be applied.
+✅ Step 2: Add Inbound Rules
+Click Add Rule.
+Set Rule Type:
+For SSH (Port 22): Allow only your IP.
+For HTTP (Port 80): Allow from 0.0.0.0/0 (public access).
+Click Create Security Group.
+✅ Step 3: Attach Security Group to EC2
+Go to EC2 Instances → Select an instance.-->Click Actions → Networking → Change Security Groups.
+Select the new Security Group and Save.
+🔹 Done! Now, only allowed traffic can reach your instance.
+
+2️⃣ Set Up Network ACLs (Subnet-Level Firewall)
+Network ACLs (NACLs) act as stateless firewalls at the subnet level.
+
+✅ Step 1: Create a Network ACL
+Log in to AWS Console → Go to VPC. --> Click Network ACLs → Click Create Network ACL.--> Enter Name and select VPC.
+✅ Step 2: Add Inbound & Outbound Rules
+Click Inbound Rules → Edit Rules.-->Add a rule to allow HTTP traffic:
+Rule Number: 100
+Protocol: TCP
+Port Range: 80
+Source: 0.0.0.0/0
+Action: Allow
+Add a rule to deny all other traffic:
+Rule Number: 200
+Protocol: All
+Source: 0.0.0.0/0
+Action: Deny
+🔹 Done! Now, only HTTP traffic is allowed.
+
+3️⃣ Set Up AWS WAF (Web Application Firewall)
+AWS WAF protects against SQL injection, XSS, and bot attacks.
+
+✅ Step 1: Create a WAF WebACL
+Log in to AWS Console → Open AWS WAF & Shield.
+Click Web ACLs → Click Create Web ACL.
+Name your Web ACL (e.g., MyWebACL).
+Choose AWS Region.
+✅ Step 2: Associate Web ACL with a Resource
+Select the resource type (Application Load Balancer, CloudFront, API Gateway).
+Select the resource where you want to attach WAF.
+✅ Step 3: Add Security Rules
+Click Add Rules → Select Managed Rules.
+Choose AWS Managed Rules:
+AWS-AWSManagedRulesCommonRuleSet (Blocks common web attacks).
+AWSManagedRulesSQLiRuleSet (Blocks SQL injection).
+AWSManagedRulesAnonymousIpList (Blocks VPN/proxy traffic).
+Click Create Web ACL.
+🔹 Done! Your web application is now protected.
+
+4️⃣ Set Up AWS Network Firewall (VPC-Level Security)
+AWS Network Firewall provides deep packet inspection for VPCs.
+
+✅ Step 1: Create a Firewall
+Go to AWS Console → Open AWS Network Firewall.-->Click Create firewall.-->Enter Firewall Name and select VPC & Subnets.
+✅ Step 2: Create Firewall Rules
+Click Create Rule Group.-->Add a rule to allow HTTP traffic:
+Protocol: TCP
+Port: 80
+Source: 0.0.0.0/0
+Action: Allow
+Add a rule to deny all other traffic:
+Action: Deny
+🔹 Done! Your VPC traffic is now secured.
+
+5️⃣ Set Up AWS Shield (DDoS Protection)
+AWS Shield protects against DDoS attacks.
+
+✅ Step 1: Enable AWS Shield
+Go to AWS Console → Open AWS Shield.-->Click Activate AWS Shield Advanced.-->Choose resources to protect:
+ALB, CloudFront, Route 53, or API Gateway.
+Click Enable Protection.
+🔹 Done! AWS Shield is now defending your application.
+---------------------------------------------------------------------------------------------------------------
+Firewall                         Purpose                                         Best For
+Security Groups                  Stateful, per-instance                          Protecting EC2, RDS, Load Balancers
+Network ACLs (NACLs)             Stateless, per-subnet                           Blocking traffic at the subnet level
+AWS WAF                          Web security                                    Protecting web apps from attacks (SQLi, XSS)
+AWS Network Firewall             Deep network protection                         Advanced network security in VPC
+AWS Shield                       DDoS protection                                 Protecting against large-scale DDoS
+----------------------------------------------------------------------------------------------------------------
 1️⃣ Compute Services (Run Applications & Workloads)
 Service                           Purpose                                         Use Case
 EC2 (Elastic Compute Cloud)       Virtual machines (VMs)                          Web servers, applications, databases
