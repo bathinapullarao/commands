@@ -147,10 +147,7 @@ kubectl taint nodes backup1=backups-only:NoSchedule
 minikube start
 minikube status
 --------------------------
-kind: Service
-kind: Endpoints
 
--------------------------------------------------------------------
 Install kustomize
 sudo -i
 curl -s "https://raw.githubusercontent.com/\
@@ -165,22 +162,7 @@ kustomize build kustomize/overlay/dev/pro | kubectl apply -f -
 
 * Note: By adding nfs to base, canary and default can no longer be deployed together. Deploy individually as above.
 kustomize build kustomize/overlay/dev | kubectl apply -f -
-
-
-kind: 
-ConfigMap
-Service
-StatefulSet
-StorageClass
-Deployment
-Ingress
-Secret
-Role
-ClusterRole
-RoleBinding
-ClusterRoleBinding
-ServiceAccount
-
+------------------------------------------------------------------------------------------------------
 resource "kubernetes_config_map" "ai-gateway-config" {
   metadata {
     name      = "ai-gateway-config"
@@ -222,8 +204,6 @@ resource "kubernetes_deployment" "ai-gateway" {
           port {
             container_port = 80
           }
-
-
           env {
             # Inject config map data as environment variables
             name = "SPRING_PROFILES_ACTIVE"
@@ -249,7 +229,7 @@ resource "kubernetes_deployment" "ai-gateway" {
     }
   }
 }
-------------------------
+------------------------------------------------------------------------------------------
 apiVersion: cloud.google.com/v1
 kind: BackendConfig
 metadata:
@@ -266,7 +246,7 @@ spec:
     unhealthyThreshold: 10
     type: HTTP
     requestPath: /aiservices/actuator/health
----------------------------------------------
+-----------------------------------------------------------------------------------------
 apiVersion: v1
 kind: Service
 metadata:
@@ -282,7 +262,7 @@ spec:
   - protocol: TCP
     port: 80
     targetPort: 80
------------------------------------------------
+------------------------------------------------------------------------------------------
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
