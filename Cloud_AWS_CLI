@@ -83,16 +83,16 @@ EKS (Elastic Kubernetes Service)  Managed Kubernetes                            
 Fargate                           Serverless containers                           Running containers without managing infrastructure
 2️⃣ Storage & Backup Services
 Service                           Purpose                                         Use Case
-S3 (Simple Storage Service)	      Object storage	                                Website hosting, backups, big data
-EBS (Elastic Block Store)	        Block storage for EC2	                          Persistent storage for EC2
-EFS (Elastic File System)	        Managed file system	                            Shared storage for multiple EC2 instances
+S3 (Simple Storage Service)       Object storage                                  Website hosting, backups, big data
+EBS (Elastic Block Store)         Block storage for EC2                           Persistent storage for EC2
+EFS (Elastic File System)         Managed file system                             Shared storage for multiple EC2 instances
 Glacier                           Cold storage                                    Long-term archival and backups
 3️⃣ Database Services
 Service                           Purpose                                         Use Case
-RDS (Relational Database Service)	Managed SQL databases	                          MySQL, PostgreSQL, MariaDB, Oracle, SQL Server
-DynamoDB	                        NoSQL database	                                Low-latency, scalable apps (gaming, IoT, e-commerce)
-Redshift	                        Data warehouse                                  Analytics and BI tools
-ElastiCache                       In-memory cache	                                Caching with Redis or Memcached
+RDS (Relational Database Service)	Managed SQL databases                           MySQL, PostgreSQL, MariaDB, Oracle, SQL Server
+DynamoDB                          NoSQL database                                  Low-latency, scalable apps (gaming, IoT, e-commerce)
+Redshift                          Data warehouse                                  Analytics and BI tools
+ElastiCache                       In-memory cache                                 Caching with Redis or Memcached
 4️⃣ Networking & Security
 Service	Purpose	Use Case
 VPC (Virtual Private Cloud)	Isolated network	Secure AWS networking
