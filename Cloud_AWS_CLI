@@ -74,3 +74,50 @@ Restrict Kubernetes API Access for Pods                                 Service 
 Restrict instance-level access (e.g., allow SSH to EC2)                 Security Group
 Restrict subnet-level traffic (e.g., block all outgoing traffic)        NACL
 ---------------------------------------------------------------------------------------------------------
+1️⃣ Compute Services (Run Applications & Workloads)
+Service                           Purpose	                                        Use Case
+EC2 (Elastic Compute Cloud)	      Virtual machines (VMs)	                        Web servers, applications, databases
+Lambda	                          Serverless compute	                            Event-driven apps, microservices, API backends
+ECS (Elastic Container Service)	  Managed Docker containers	                      Running containers without managing servers
+EKS (Elastic Kubernetes Service)	Managed Kubernetes	                            Kubernetes-based applications
+Fargate	                          Serverless containers	                          Running containers without managing infrastructure
+2️⃣ Storage & Backup Services
+Service                           Purpose                                         Use Case
+S3 (Simple Storage Service)	      Object storage	                                Website hosting, backups, big data
+EBS (Elastic Block Store)	        Block storage for EC2	                          Persistent storage for EC2
+EFS (Elastic File System)	        Managed file system	                            Shared storage for multiple EC2 instances
+Glacier                           Cold storage                                    Long-term archival and backups
+3️⃣ Database Services
+Service                           Purpose                                         Use Case
+RDS (Relational Database Service)	Managed SQL databases	                          MySQL, PostgreSQL, MariaDB, Oracle, SQL Server
+DynamoDB	                        NoSQL database	                                Low-latency, scalable apps (gaming, IoT, e-commerce)
+Redshift	                        Data warehouse                                  Analytics and BI tools
+ElastiCache                       In-memory cache	                                Caching with Redis or Memcached
+4️⃣ Networking & Security
+Service	Purpose	Use Case
+VPC (Virtual Private Cloud)	Isolated network	Secure AWS networking
+Route 53	DNS & domain management	Domain registration, routing
+CloudFront	CDN (Content Delivery Network)	Global caching and acceleration
+IAM (Identity & Access Management)	Access control	User roles, permissions
+WAF (Web Application Firewall)	Protection from attacks	Blocks SQL injection, XSS
+5️⃣ DevOps, Monitoring & Logging
+Service	Purpose	Use Case
+CloudFormation	Infrastructure as Code (IaC)	Automate AWS resource creation
+CloudWatch	Monitoring & logs	Track metrics and alerts
+CloudTrail	Audit logs	Security and compliance tracking
+CodePipeline	CI/CD automation	Deploy apps faster
+CodeDeploy	Automated deployments	Blue/green, rolling deployments
+6️⃣ AI, Machine Learning & Analytics
+Service	Purpose	Use Case
+SageMaker	Managed ML service	Train & deploy ML models
+Rekognition	Image & video analysis	Face detection, OCR, object recognition
+Textract	Extract text from docs	Process invoices, receipts
+Athena	SQL queries on S3	Analyze logs, big data
+📌 Most Popular AWS Services in Different Use Cases
+Use Case	Popular AWS Services
+Hosting Websites & Apps	EC2, S3, RDS, Route 53, CloudFront
+Serverless Applications	Lambda, API Gateway, DynamoDB, S3
+Big Data & Analytics	Redshift, Athena, Kinesis, EMR
+DevOps & Automation	CloudFormation, CodePipeline, CodeDeploy
+Security & Compliance	IAM, WAF, CloudTrail, GuardDuty
+Would you like recommendations for your specific AWS use case? 🚀
