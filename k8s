@@ -1,5 +1,5 @@
 Kind: Service, ServiceAccount, ingress, Deploymnet, ConfigMap, StorageClass, StatefulSet, HorizontalPodAutoscaler, PersistentVolume, PersistentVolumeClaim, PodDisruptionBudget,
-      Role, RoleBinding, ClusterRole, ClusterRoleBinding, DaemonSet,  certificate
+      Role, RoleBinding, ClusterRole, ClusterRoleBinding, DaemonSet,  certificate, ReplicaSet, Job, CronJob, EndpointSlice, Lease, NetworkPolicy, LimitRange, ResourceQuota
 pdb(pod distribution budget): A Pod Disruption Budget (PDB) allows you to limit the disruption to your application when its pods need to be rescheduled for some reason 
                               such as upgrades or routine maintenance work on the Kubernetes nodes.
 hpa(HorizontalPodAutoscaler): A HorizontalPodAutoscaler (HPA for short) automatically updates a workload resource (such as a Deployment or StatefulSet), with the aim of 
@@ -308,3 +308,414 @@ spec:
             name: analytics-service
             port:
               number: 80
+---------------------------------------------------------------------------------------------------------------------------------
+Kubernetes Kind, along with their purpose:
+=================================================================================================================================
+Additional Kubernetes Kinds You Might Need
+Kind	          Purpose
+Service         Exposes a set of Pods as a network service
+                Types: ClusterIP (default) → Internal service within the cluster.
+                       NodePort → Exposes service on a node's static port.
+                       LoadBalancer → Uses a cloud provider’s external LB.
+ServiceAccount  Provides an identity to Pods for interacting with the API server
+Ingress         Manages external access to Services, provides HTTP/HTTPS routing.
+Deployment      Manages and maintains Pods with ReplicaSets.
+ConfigMap       Stores non-sensitive configuration data (e.g., environment variables, config files)
+StorageClass    Defines storage types (e.g., SSD, HDD) for PersistentVolumes.
+StatefulSet     Manages stateful applications (e.g., databases) ensuring stable identities and storage.
+HorizontalPodAutoscaler(HPA):     Automatically scales Pods based on CPU or memory usage.
+PersistentVolume(PV):             Provides a persistent storage resource.
+PersistentVolumeClaim(PVC):       Requests storage from a PersistentVolume.
+PodDisruptionBudget(PDB):         Ensures availability during voluntary disruptions.
+Role & RoleBinding:               Grants permissions within a specific namespace.
+ClusterRole & ClusterRoleBinding: Grants cluster-wide permissions.
+DaemonSet       Ensures one Pod runs on every node.
+Certificate     Manages TLS certificates for secure communication.
+ExternalName    Maps to an external DNS name.
+ReplicaSet	    Ensures a specific number of Pod replicas are running.
+Job	          Runs a one-time task to completion.
+CronJob	    chedules recurring Jobs like a cron job.
+EndpointSlice   Improves service discovery and load balancing (replaces Endpoints).
+Lease	          Helps coordinate leader election between Pods.
+NetworkPolicy   Controls inbound and outbound traffic for Pods.
+LimitRange	    Sets default CPU/memory limits per namespace.
+ResourceQuota   Restricts resource consumption per namespace.
+----------------------------------------------------------------------------------------------
+1️⃣ Service
+Purpose: Exposes a set of Pods as a network service.
+apiVersion: v1
+kind: Service
+metadata:
+  name: myapp-service
+spec:
+  selector:
+    app: myapp
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+  type: ClusterIP  # Options: ClusterIP, NodePort, LoadBalancer
+2️⃣ ServiceAccount
+Purpose: Grants permissions to Pods to interact with the Kubernetes API.
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: myapp-sa
+3️⃣ Ingress
+Purpose: Manages external HTTP/S access to Services.
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: myapp-ingress
+spec:
+  rules:
+    - host: myapp.example.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: myapp-service
+                port:
+                  number: 80
+4️⃣ Deployment
+Purpose: Manages Pods and ReplicaSets for stateless applications.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myapp
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: myapp
+  template:
+    metadata:
+      labels:
+        app: myapp
+    spec:
+      containers:
+        - name: myapp-container
+          image: nginx
+          ports:
+            - containerPort: 80
+5️⃣ ConfigMap
+Purpose: Stores non-sensitive configuration data.
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: myapp-config
+data:
+  app.env: "production"
+  log.level: "info"
+6️⃣ StorageClass
+Purpose: Defines storage parameters for dynamic volume provisioning.
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: fast-storage
+provisioner: kubernetes.io/aws-ebs
+parameters:
+  type: gp2
+7️⃣ StatefulSet
+Purpose: Manages stateful applications (e.g., databases).
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: myapp-db
+spec:
+  selector:
+    matchLabels:
+      app: myapp-db
+  serviceName: "myapp-db-service"
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: myapp-db
+    spec:
+      containers:
+        - name: db
+          image: mysql:5.7
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: "password"
+8️⃣ HorizontalPodAutoscaler (HPA)
+Purpose: Automatically scales Pods based on CPU/memory usage.
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: myapp-hpa
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: myapp
+  minReplicas: 2
+  maxReplicas: 10
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 50
+9️⃣ PersistentVolume (PV)
+Purpose: Represents a physical storage resource.
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: myapp-pv
+spec:
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: fast-storage
+  hostPath:
+    path: "/mnt/data"
+🔟 PersistentVolumeClaim (PVC)
+Purpose: Requests storage from a PersistentVolume.
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: myapp-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+  storageClassName: fast-storage
+1️⃣1️⃣ PodDisruptionBudget (PDB)
+Purpose: Ensures a minimum number of Pods remain available during disruptions.
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: myapp-pdb
+spec:
+  minAvailable: 2
+  selector:
+    matchLabels:
+      app: myapp
+1️⃣2️⃣ Role
+Purpose: Grants permissions within a specific namespace.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: default
+  name: myapp-role
+rules:
+  - apiGroups: [""]
+    resources: ["pods"]
+    verbs: ["get", "list", "watch"]
+1️⃣3️⃣ RoleBinding
+Purpose: Binds a Role to a user/service account.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: myapp-rolebinding
+  namespace: default
+subjects:
+  - kind: ServiceAccount
+    name: myapp-sa
+    namespace: default
+roleRef:
+  kind: Role
+  name: myapp-role
+  apiGroup: rbac.authorization.k8s.io
+1️⃣4️⃣ ClusterRole
+Purpose: Grants permissions across all namespaces.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: myapp-clusterrole
+rules:
+  - apiGroups: [""]
+    resources: ["nodes"]
+    verbs: ["get", "list", "watch"]
+1️⃣5️⃣ ClusterRoleBinding
+Purpose: Binds a ClusterRole to a user/service account.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: myapp-clusterrolebinding
+subjects:
+  - kind: ServiceAccount
+    name: myapp-sa
+    namespace: default
+roleRef:
+  kind: ClusterRole
+  name: myapp-clusterrole
+  apiGroup: rbac.authorization.k8s.io
+1️⃣6️⃣ DaemonSet
+Purpose: Ensures a Pod runs on every Node.
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: myapp-daemonset
+spec:
+  selector:
+    matchLabels:
+      app: myapp
+  template:
+    metadata:
+      labels:
+        app: myapp
+    spec:
+      containers:
+        - name: myapp-container
+          image: busybox
+          command: ["/bin/sh", "-c", "while true; do echo Hello; sleep 10; done"]
+1️⃣7️⃣ Certificate (Using Cert-Manager)
+Purpose: Manages SSL/TLS certificates in Kubernetes.
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: myapp-cert
+spec:
+  secretName: myapp-tls-secret
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  dnsNames:
+    - myapp.example.com
+
+1️⃣8️⃣  ReplicaSet
+Purpose: Ensures a specific number of identical Pods are running.
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: myapp-replicaset
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: myapp
+  template:
+    metadata:
+      labels:
+        app: myapp
+    spec:
+      containers:
+        - name: myapp-container
+          image: nginx
+          ports:
+            - containerPort: 80
+1️⃣9️⃣  Job
+Purpose: Runs a one-time task until completion.
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: myapp-job
+spec:
+  template:
+    spec:
+      containers:
+        - name: myapp-container
+          image: busybox
+          command: ["echo", "Hello, Kubernetes!"]
+      restartPolicy: Never
+2️⃣1️⃣ CronJob
+Purpose: Runs Jobs on a schedule (like a cron job).
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: myapp-cronjob
+spec:
+  schedule: "*/5 * * * *"  # Runs every 5 minutes
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: myapp-container
+              image: busybox
+              command: ["echo", "Scheduled Task Executed"]
+          restartPolicy: OnFailure
+2️⃣4️⃣ EndpointSlice
+Purpose: Improves service discovery and load balancing (replaces Endpoints).
+apiVersion: discovery.k8s.io/v1
+kind: EndpointSlice
+metadata:
+  name: myapp-endpointslice
+  labels:
+    kubernetes.io/service-name: myapp-service
+addressType: IPv4
+endpoints:
+  - addresses:
+      - 192.168.1.10
+ports:
+  - name: http
+    port: 80
+    protocol: TCP
+2️⃣5️⃣ Lease
+Purpose: Used for leader election in distributed systems.
+apiVersion: coordination.k8s.io/v1
+kind: Lease
+metadata:
+  name: myapp-lease
+  namespace: default
+spec:
+  holderIdentity: "leader-1"
+  leaseDurationSeconds: 30
+2️⃣6️⃣ NetworkPolicy
+Purpose: Controls inbound and outbound traffic for Pods.
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-http
+spec:
+  podSelector:
+    matchLabels:
+      app: myapp
+  policyTypes:
+    - Ingress
+  ingress:
+    - from:
+        - ipBlock:
+            cidr: 192.168.1.0/24
+      ports:
+        - protocol: TCP
+          port: 80
+2️⃣7️⃣ LimitRange
+Purpose: Sets default CPU/memory limits per namespace.
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: resource-limits
+spec:
+  limits:
+    - default:
+        cpu: "500m"
+        memory: "512Mi"
+      defaultRequest:
+        cpu: "250m"
+        memory: "256Mi"
+      type: Container
+2️⃣8️⃣ ResourceQuota
+Purpose: Restricts resource consumption per namespace.
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: namespace-quota
+spec:
+  hard:
+    pods: "10"
+    requests.cpu: "2"
+    requests.memory: "4Gi"
+    limits.cpu: "4"
+    limits.memory: "8Gi"
+📌 Summary
+ReplicaSet → Ensures a fixed number of Pods are running.
+Job → Runs a one-time task.
+CronJob → Runs tasks on a schedule.
+EndpointSlice → Improves service discovery.
+Lease → Helps leader election.
+NetworkPolicy → Controls Pod network traffic.
+LimitRange → Defines default CPU/memory limits.
+ResourceQuota → Restricts resource usage in a namespace.
+
+-------------------------------------------------------------------------------------------------------------
