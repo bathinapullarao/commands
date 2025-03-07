@@ -1,5 +1,5 @@
 Kind: Service, ServiceAccount, ingress, Deploymnet, ConfigMap, StorageClass, StatefulSet, HorizontalPodAutoscaler, PersistentVolume, PersistentVolumeClaim, PodDisruptionBudget,
-      Role, RoleBinding, ClusterRole, ClusterRoleBinding, DaemonSet,  
+      Role, RoleBinding, ClusterRole, ClusterRoleBinding, DaemonSet,  certificate
 pdb(pod distribution budget): A Pod Disruption Budget (PDB) allows you to limit the disruption to your application when its pods need to be rescheduled for some reason 
                               such as upgrades or routine maintenance work on the Kubernetes nodes.
 hpa(HorizontalPodAutoscaler): A HorizontalPodAutoscaler (HPA for short) automatically updates a workload resource (such as a Deployment or StatefulSet), with the aim of 
