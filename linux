@@ -1,3 +1,10 @@
+How to Calculate CIDR Ranges?
+Formula: Number of IPs = 2^(32 - subnet mask)
+🔹 Example Calculations
+
+/24 → 2^(32-24) = 256 IPs
+/20 → 2^(32-20) = 4096 IPs
+
 1. ifconfig
 Displays or configures network interfaces.
 View interfaces: ifconfig
