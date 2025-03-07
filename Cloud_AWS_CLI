@@ -75,12 +75,12 @@ Restrict instance-level access (e.g., allow SSH to EC2)                 Security
 Restrict subnet-level traffic (e.g., block all outgoing traffic)        NACL
 ---------------------------------------------------------------------------------------------------------
 1️⃣ Compute Services (Run Applications & Workloads)
-Service                           Purpose	                                        Use Case
-EC2 (Elastic Compute Cloud)	      Virtual machines (VMs)	                        Web servers, applications, databases
-Lambda	                          Serverless compute	                            Event-driven apps, microservices, API backends
-ECS (Elastic Container Service)	  Managed Docker containers	                      Running containers without managing servers
-EKS (Elastic Kubernetes Service)	Managed Kubernetes	                            Kubernetes-based applications
-Fargate	                          Serverless containers	                          Running containers without managing infrastructure
+Service                           Purpose                                         Use Case
+EC2 (Elastic Compute Cloud)       Virtual machines (VMs)                          Web servers, applications, databases
+Lambda                            Serverless compute                              Event-driven apps, microservices, API backends
+ECS (Elastic Container Service)   Managed Docker containers                       Running containers without managing servers
+EKS (Elastic Kubernetes Service)  Managed Kubernetes                              Kubernetes-based applications
+Fargate                           Serverless containers                           Running containers without managing infrastructure
 2️⃣ Storage & Backup Services
 Service                           Purpose                                         Use Case
 S3 (Simple Storage Service)	      Object storage	                                Website hosting, backups, big data
