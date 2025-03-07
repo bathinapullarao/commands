@@ -973,7 +973,7 @@ NTFS        Used for Windows partitions, needs ntfs-3g package to write.
 FAT32/exFAT Used for USB drives, compatible with Linux, Windows, and macOS.
 ---------------------------------------------------
 Directory	Purpose
-/	        Root directory, top-level of the filesystem.
+/           Root directory, top-level of the filesystem.
 /bin	    Essential user binaries (e.g., ls, cp, mv).
 /boot	    Bootloader files (e.g., vmlinuz, initrd).
 /dev	    Device files (e.g., /dev/sda for hard drives).
