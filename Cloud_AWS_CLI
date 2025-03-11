@@ -184,8 +184,8 @@ Fargate                           Serverless containers                         
 2️⃣ Storage & Backup Services
 Service                           Purpose                                         Use Case
 S3 (Simple Storage Service)       Object storage                                  Website hosting, backups, big data
-EBS (Elastic Block Store)         Block storage for EC2                           Persistent storage for EC2
-EFS (Elastic File System)         Managed file system                             Shared storage for multiple EC2 instances
+EBS (Elastic Block Store)         Block storage for EC2,like a hard disk          Persistent storage for EC2,Mountable On	Single EC2 instance
+EFS (Elastic File System)         Managed file system,NetworkFileSystem (NFS)     Shared storage for multiple EC2 instances,Mountable On Multiple EC2 instances
 Glacier                           Cold storage                                    Long-term archival and backups
 3️⃣ Database Services
 Service                           Purpose                                         Use Case
