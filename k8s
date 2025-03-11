@@ -1,4 +1,4 @@
-Kind: ConfigMap, Secret, Deploymnet, Service, ingress, StatefulSet, HorizontalPodAutoscaler, ServiceAccount, StorageClass, PersistentVolume, PersistentVolumeClaim, PodDisruptionBudget,
+Kind: ConfigMap, Secret, Deploymnet, Service, ingress, StatefulSet, HorizontalPodAutoscaler, pod, ServiceAccount, StorageClass, PersistentVolume, PersistentVolumeClaim, PodDisruptionBudget,
       Role, RoleBinding, ClusterRole, ClusterRoleBinding, DaemonSet,  certificate, ReplicaSet, Job, CronJob, EndpointSlice, Lease, NetworkPolicy, LimitRange, ResourceQuota
 pdb(pod distribution budget): A Pod Disruption Budget (PDB) allows you to limit the disruption to your application when its pods need to be rescheduled for some reason 
                               such as upgrades or routine maintenance work on the Kubernetes nodes.
@@ -321,6 +321,39 @@ NetworkPolicy   Controls inbound and outbound traffic for Pods.
 LimitRange	    Sets default CPU/memory limits per namespace.
 ResourceQuota   Restricts resource consumption per namespace.
 ----------------------------------------------------------------------------------------------
+1. Secret YAML File (secret.yaml)
+apiVersion: v1
+kind: Secret
+metadata:
+  name: my-secret
+  namespace: default  # Change if needed
+type: Opaque
+data:
+  username: dXNlcm5hbWU=   # Base64 encoded value of "username"
+  password: cGFzc3dvcmQ=   # Base64 encoded value of "password"
+
+2.How to Use the Secret in a Pod (pod.yaml)
+To use the secret in a Pod, define it in the env section:
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-pod
+spec:
+  containers:
+  - name: my-container
+    image: nginx
+    env:
+    - name: DB_USERNAME
+      valueFrom:
+        secretKeyRef:
+          name: my-secret
+          key: username
+    - name: DB_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: my-secret
+          key: password
+
 1️⃣ Service
 Purpose: Exposes a set of Pods as a network service.
 apiVersion: v1
