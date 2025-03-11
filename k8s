@@ -329,8 +329,8 @@ metadata:
   namespace: default  # Change if needed
 type: Opaque
 data:
-  username: dXNlcm5hbWU=   # Base64 encoded value of "username"
-  password: cGFzc3dvcmQ=   # Base64 encoded value of "password"
+  username: dXNlcm5hbWU=   # echo -n "my-password" | base64
+  password: cGFzc3dvcmQ=   ##To decode # echo "bXktcGFzc3dvcmQ=" | base64 --decode
 
 2.How to Use the Secret in a Pod (pod.yaml)
 The difference between kind: Pod and kind: Deployment in Kubernetes lies in their management, scalability, and fault tolerance.
