@@ -292,7 +292,7 @@ spec:
 Kubernetes Kind, along with their purpose:
 =================================================================================================================================
 Additional Kubernetes Kinds You Might Need
-Kind	          Purpose
+Kind            Purpose
 Service         Exposes a set of Pods as a network service
                 Types: ClusterIP (default) → Internal service within the cluster.
                        NodePort → Exposes service on a node's static port.
