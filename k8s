@@ -1,4 +1,4 @@
-Kind: Service, ServiceAccount, ingress, Deploymnet, ConfigMap, StorageClass, StatefulSet, HorizontalPodAutoscaler, PersistentVolume, PersistentVolumeClaim, PodDisruptionBudget,
+Kind: ConfigMap,Deploymnet, Service, ingress, StatefulSet, HorizontalPodAutoscaler, ServiceAccount, StorageClass, PersistentVolume, PersistentVolumeClaim, PodDisruptionBudget,
       Role, RoleBinding, ClusterRole, ClusterRoleBinding, DaemonSet,  certificate, ReplicaSet, Job, CronJob, EndpointSlice, Lease, NetworkPolicy, LimitRange, ResourceQuota
 pdb(pod distribution budget): A Pod Disruption Budget (PDB) allows you to limit the disruption to your application when its pods need to be rescheduled for some reason 
                               such as upgrades or routine maintenance work on the Kubernetes nodes.
