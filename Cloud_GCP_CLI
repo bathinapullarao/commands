@@ -1,30 +1,53 @@
 1. Compute
 Compute Engine (GCE) – Virtual machines for running applications.
 Google Kubernetes Engine (GKE) – Managed Kubernetes for containerized workloads.
-Cloud Run – Serverless container execution.
-App Engine – Fully managed platform for web apps.
+#Cloud Run – Serverless container execution.
+#App Engine – Fully managed platform for web apps.
+
 2. Storage & Databases
 Cloud Storage – Object storage for files, backups, and media.
 Cloud SQL – Managed MySQL, PostgreSQL, and SQL Server.
 BigQuery – Serverless data warehouse for analytics.
-Firestore – NoSQL document database for real-time apps.
+#Firestore – NoSQL document database for real-time apps.
 Spanner – Global-scale, strongly consistent relational database.
+
 3. Networking
 Cloud Load Balancing – Distributes traffic across instances.
-Cloud CDN – Speeds up content delivery.
+#Cloud CDN (Content Delivery Network)– Speeds up content delivery. CDN  is a global caching service that helps speed up content delivery
+                                      by caching it closer to users at Google's edge locations.
 VPC (Virtual Private Cloud) – Private networking.
 Cloud NAT – Allows private VMs to access the internet securely.
+
 4. AI/ML & Data Analytics
-Vertex AI – End-to-end ML model development and deployment.
-Dataflow – Serverless stream and batch processing (Apache Beam).
-Pub/Sub – Asynchronous messaging for event-driven apps.
+#Vertex AI – End-to-end ML model development and deployment.
+#Dataflow – Serverless stream and batch processing (Apache Beam).
+#Pub/Sub – Asynchronous messaging for event-driven apps.
+
 5. Security & IAM
 Cloud IAM – Access control for resources.
-Security Command Center – Threat detection and security monitoring.
+#Security Command Center – Threat detection and security monitoring.
+
 6. DevOps & Management
 Cloud Build – CI/CD for building and deploying code.
 Operations Suite (Stackdriver) – Logging, monitoring, and tracing.
-----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------
+🔹 Example: Deploy to GKE
+1️⃣ Create a cloudbuild.yaml for GKE
+steps:
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '-t', 'gcr.io/$PROJECT_ID/my-app', '.']
+
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'gcr.io/$PROJECT_ID/my-app']
+
+- name: 'gcr.io/cloud-builders/kubectl'
+  args: ['set', 'image', 'deployment/my-app', 'my-app=gcr.io/$PROJECT_ID/my-app']
+  env:
+  - 'CLOUDSDK_COMPUTE_ZONE=us-central1-a'
+  - 'CLOUDSDK_CONTAINER_CLUSTER=my-gke-cluster'
+2️⃣ Submit the Build
+gcloud builds submit --config cloudbuild.yaml
+--------------------------------------------------------------------------------------------------------
 GCS:offers different types of buckets based on location and storage class
 Based on Location: Regional, Dual-Region, Multi-Region
 Based on Storage Class: 
