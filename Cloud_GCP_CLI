@@ -1,3 +1,4 @@
+SERVICE_ACCOUNT_NAME@PROJECT_ID.iam.gserviceaccount.com  <--The full email address (including PROJECT_ID) makes it unique within GCP.
 1. Compute
 Compute Engine (GCE) – Virtual machines for running applications.
 Google Kubernetes Engine (GKE) – Managed Kubernetes for containerized workloads.
