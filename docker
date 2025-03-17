@@ -82,6 +82,47 @@ RUN yum install -y http://---.rpm
 WORKDIR /tmp
 RUN ssh-keyscan -t rsa domainname > /root/.ssh/known_hosts    <--accept domain
 CMD ["/usr/sbin/httpd","-DFOREGROUND"]
+-------------------------------------------------------------------------------------------------
+# Use a base image
+FROM ubuntu:latest
+
+# Define a build-time variable
+ARG APP_VERSION=1.0
+
+# Set an environment variable
+ENV APP_HOME=/app \
+    APP_VERSION=$APP_VERSION
+
+# Set the working directory inside the container
+WORKDIR $APP_HOME
+
+# Add a file from a remote URL or local tar archive (ADD can also extract archives)
+ADD https://raw.githubusercontent.com/docker/cli/main/README.md /app/remote_file.txt
+
+# Copy files from the host machine to the container
+COPY app_source/ /app/
+
+# Install dependencies (example: install curl)
+RUN apt-get update && apt-get install -y curl
+
+# Expose a port (for documentation purposes)
+EXPOSE 8080
+
+# Publish a port (not a valid Dockerfile instruction, used at runtime with `-p`)
+# PUBLISH 8080:8080  (not valid in Dockerfile)
+
+# Set a non-root user (assumes user 'appuser' exists)
+USER root
+
+# Define a volume for persistent data
+VOLUME /app/data
+
+# Default command to run the container (overridable)
+CMD ["echo", "Hello from Dockerfile!"]
+
+# Entry point script (used for executing the main process)
+ENTRYPOINT ["/bin/bash"]
+-----------------------------------------------------------------------------------------------------
 
 #Simple commands
 docker pull docker.elastic.co/elasticsearch/elasticsearch:7.9.0   <--pull the image from registry
