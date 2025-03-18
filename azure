@@ -1,3 +1,80 @@
 ## How to mount Blob storage as a file system with blobfuse
 yum install blobfuse
 sudo mount -t tmpfs -o size=16g tmpfs /mnt/ramdisk
+
+Azure offers a vast range of services, but here are the most widely used categories and services based on their use cases:
+
+1️⃣ Compute Services (Virtual Machines & Serverless)
+🔹 Azure Virtual Machines (VMs) – Run Windows/Linux VMs for applications
+🔹 Azure Kubernetes Service (AKS) – Managed Kubernetes for containerized apps
+🔹 Azure Functions – Serverless compute to run event-driven workloads
+🔹 Azure App Service – Deploy and manage web apps, APIs, and mobile backends
+🔹 Azure Container Instances (ACI) – Run containers without managing servers
+
+2️⃣ Storage & Database Services
+🔹 Azure Blob Storage – Object storage for large-scale unstructured data
+🔹 Azure Files – Managed file shares in the cloud
+🔹 Azure SQL Database – Managed relational database with auto-scaling
+🔹 Azure Cosmos DB – NoSQL database for high-performance global apps
+🔹 Azure Data Lake – Big data storage for analytics workloads
+
+3️⃣ Networking Services
+🔹 Azure Virtual Network (VNet) – Private networking in Azure
+🔹 Azure Load Balancer – Distribute traffic across multiple VMs
+🔹 Azure Application Gateway – Layer 7 load balancing with Web Application Firewall (WAF)
+🔹 Azure ExpressRoute – Private, dedicated connections to Azure
+🔹 Azure VPN Gateway – Secure hybrid cloud connectivity
+
+4️⃣ Identity & Security
+🔹 Azure Active Directory (Azure AD) – Identity & access management for users and apps
+🔹 Azure Key Vault – Securely store and manage secrets, keys, and certificates
+🔹 Microsoft Defender for Cloud – Security posture management and threat protection
+🔹 Azure Firewall – Cloud-native firewall with threat intelligence
+🔹 Azure DDoS Protection – Protect apps from distributed denial-of-service attacks
+
+5️⃣ DevOps & Monitoring
+🔹 Azure DevOps – CI/CD, source control, and agile project management
+🔹 Azure Monitor – Collect, analyze, and visualize logs and metrics
+🔹 Azure Log Analytics – Advanced logging and querying for insights
+🔹 Azure Automation – Automate processes, patching, and runbooks
+🔹 Azure Application Insights – Monitor and diagnose application performance
+
+6️⃣ AI, Machine Learning & Analytics
+🔹 Azure Machine Learning – Build and deploy ML models
+🔹 Azure Cognitive Services – Pre-built AI models for vision, speech, and language
+🔹 Azure Synapse Analytics – Data warehousing and analytics at scale
+🔹 Azure Databricks – Managed Apache Spark for big data analytics
+🔹 Azure Stream Analytics – Real-time data processing
+
+7️⃣ Internet of Things (IoT)
+🔹 Azure IoT Hub – Connect and manage IoT devices
+🔹 Azure IoT Central – Fully managed IoT solution
+🔹 Azure Digital Twins – Create digital replicas of real-world objects
+🔹 Azure Time Series Insights – Analyze IoT data in real-time
+
+8️⃣ Hybrid & Multi-Cloud
+🔹 Azure Arc – Manage on-premises and multi-cloud environments
+🔹 Azure Stack – Run Azure services on-premises
+🔹 Azure Backup – Cloud-based backup solution
+🔹 Azure Site Recovery – Disaster recovery and business continuity
+
+9️⃣ Messaging & Event-Driven Services
+🔹 Azure Service Bus – Enterprise-grade messaging between applications
+🔹 Azure Event Grid – Event-driven orchestration for applications
+🔹 Azure Event Hubs – Stream large-scale event data in real-time
+🔹 Azure Notification Hubs – Send push notifications to mobile devices
+
+10️⃣ Management & Governance
+🔹 Azure Policy – Enforce organizational compliance policies
+🔹 Azure Cost Management – Monitor and optimize cloud spending
+🔹 Azure Blueprints – Deploy standardized cloud environments
+🔹 Azure Resource Manager (ARM) – Manage infrastructure as code (IaC)
+
+Most Popular Use Cases for Azure Services
+✅ Web & Mobile Apps – App Service, Functions, Cosmos DB
+✅ Big Data & Analytics – Synapse, Databricks, Data Lake
+✅ Hybrid Cloud & Security – Azure AD, Azure Arc, Key Vault
+✅ DevOps & Automation – Azure DevOps, Terraform, ARM Templates
+✅ IoT & AI/ML – IoT Hub, Machine Learning, Cognitive Services
+
+Would you like help setting up any specific Azure service? 🚀
