@@ -12,6 +12,17 @@ Does not create resources,only reads existing ones.To fetch existing resources (
 To avoid hardcoding values and make configurations more dynamic.
 To reference resources created outside of Terraform.
 
+terraform/
+│── main.tf          # Calls the module
+│── variables.tf     # Input variables
+│── outputs.tf       # Outputs
+│── modules/
+│   ├── vm/
+│   │   ├── main.tf  # VM definition
+│   │   ├── variables.tf
+│   │   ├── outputs.tf
+
+
 Execute terraform module by module
 ----------------------------------
 ##sample
