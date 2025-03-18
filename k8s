@@ -13,6 +13,10 @@ nginx ingress controller:     A HorizontalPodAutoscaler (HPA for short) automati
 nfs(network file sharing)(PersistentVolume)(PersistentVolumeClaim): is a request for storage by a user.It is similar to a Pod.
                               Pods consume node resources and PVCs consume PV resources. Pods can request specific levels of resources (CPU and Memory).
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Azure: az aks get-credentials --resource-group aks-resource-group --name my-aks-cluster
+aws: aws eks update-kubeconfig --region <AWS_REGION> --name <EKS_CLUSTER_NAME>  <-- to update your kubeconfig with your EKS cluster ~/.kube/config
+gcp: gcloud container clusters get-credentials <CLUSTER_NAME> --region <REGION> --project <PROJECT_ID> 
+-------------------------------------------------------------------------------------------------------------------------------------------
 AWS-------EKS-------AWS-------EKS-------AWS-------EKS-------AWS-------EKS-------AWS-------EKS-------AWS-------EKS-------AWS-------EKS-------
 Prerequisites
 AWS CLI installed and configured (aws configure)
