@@ -150,4 +150,40 @@ resource "azurerm_windows_virtual_machine" "vm" {
 output "vm_public_ip" {
   value = azurerm_public_ip.public_ip.ip_address
 }
+-----------------
+Data: In Terraform, the data block is used to fetch existing Azure resources, or derive dynamic values instead of creating new ones
+
+Fetch an Existing Resource Group:
+data "azurerm_resource_group" "existing_rg" {
+  name = "MyExistingResourceGroup"
+}
+output "rg_location" {
+  value = data.azurerm_resource_group.existing_rg.location
+}
+
+Get an Existing Virtual Network:
+data "azurerm_virtual_network" "existing_vnet" {
+  name                = "MyVNet"
+  resource_group_name = "MyExistingResourceGroup"
+}
+output "vnet_address_space" {
+  value = data.azurerm_virtual_network.existing_vnet.address_space
+}
+
+Get Available VM Sizes in a Region:
+data "azurerm_compute_vm_sizes" "available_sizes" {
+  location = "East US"
+}
+output "vm_sizes" {
+  value = data.azurerm_compute_vm_sizes.available_sizes.sizes
+}
+
+Get an Existing Storage Account:
+data "azurerm_storage_account" "existing_storage" {
+  name                = "mystorageaccount"
+  resource_group_name = "MyExistingResourceGroup"
+}
+output "storage_primary_endpoint" {
+  value = data.azurerm_storage_account.existing_storage.primary_blob_endpoint
+}
 --------------------------------------------------------------------------------------------------------------
