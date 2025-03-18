@@ -724,3 +724,194 @@ spec:
     limits.cpu: "4"
     limits.memory: "8Gi"
 -------------------------------------------------------------------------------------------------------------
+Creating an AKS Cluster and Deploying Resources
+This guide will cover:
+✅ Creating an AKS cluster using Terraform
+✅ Deploying ConfigMaps & Secrets
+✅ Creating a Deployment
+✅ Exposing services using NodePort, ClusterIP, LoadBalancer
+✅ Setting up Ingress for traffic routing
+
+1️⃣ Create AKS Cluster Using Terraform
+Create a file aks.tf:
+
+provider "azurerm" {
+  features {}
+}
+
+resource "azurerm_resource_group" "aks_rg" {
+  name     = "aks-resource-group"
+  location = "East US"
+}
+
+resource "azurerm_kubernetes_cluster" "aks" {
+  name                = "my-aks-cluster"
+  location            = azurerm_resource_group.aks_rg.location
+  resource_group_name = azurerm_resource_group.aks_rg.name
+  dns_prefix          = "myaksdns"
+
+  default_node_pool {
+    name       = "agentpool"
+    node_count = 2
+    vm_size    = "Standard_B2s"
+  }
+
+  identity {
+    type = "SystemAssigned"
+  }
+}
+
+output "kube_config" {
+  value     = azurerm_kubernetes_cluster.aks.kube_config_raw
+  sensitive = true
+}
+Deploy AKS
+
+terraform init
+terraform apply -auto-approve
+Get kubeconfig:
+az aks get-credentials --resource-group aks-resource-group --name my-aks-cluster
+
+2️⃣ Create ConfigMap & Secrets
+ConfigMap (configmap.yaml)
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: my-config
+data:
+  APP_ENV: "production"
+  LOG_LEVEL: "info"
+Apply:
+kubectl apply -f configmap.yaml
+Secret (secret.yaml)
+apiVersion: v1
+kind: Secret
+metadata:
+  name: my-secret
+type: Opaque
+data:
+  DATABASE_PASSWORD: cGFzc3dvcmQ=  # "password" base64 encoded
+Apply:
+kubectl apply -f secret.yaml
+
+3️⃣ Create Deployment (deployment.yaml)
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: my-app
+  template:
+    metadata:
+      labels:
+        app: my-app
+    spec:
+      containers:
+        - name: my-container
+          image: nginx
+          ports:
+            - containerPort: 80
+          envFrom:
+            - configMapRef:
+                name: my-config
+            - secretRef:
+                name: my-secret
+Apply:
+kubectl apply -f deployment.yaml
+
+4️⃣ Create Multiple Services
+NodePort (nodeport-service.yaml)
+apiVersion: v1
+kind: Service
+metadata:
+  name: nodeport-service
+spec:
+  type: NodePort
+  selector:
+    app: my-app
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+      nodePort: 30080
+Apply:
+kubectl apply -f nodeport-service.yaml
+
+ClusterIP (clusterip-service.yaml)
+apiVersion: v1
+kind: Service
+metadata:
+  name: clusterip-service
+spec:
+  type: ClusterIP
+  selector:
+    app: my-app
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+Apply:
+kubectl apply -f clusterip-service.yaml
+
+LoadBalancer (loadbalancer-service.yaml)
+apiVersion: v1
+kind: Service
+metadata:
+  name: loadbalancer-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: my-app
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+Apply:
+kubectl apply -f loadbalancer-service.yaml
+
+5️⃣ Set Up Ingress
+Install Ingress Controller
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/cloud/deploy.yaml
+Ingress (ingress.yaml)
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: my-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+    - host: myapp.example.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: clusterip-service
+                port:
+                  number: 80
+Apply:
+kubectl apply -f ingress.yaml
+
+6️⃣ Verify Deployment
+Check all resources:
+kubectl get all
+
+Get service details:
+kubectl get svc
+
+Describe ingress:
+kubectl describe ingress my-ingress
+🎯 Summary
+✅ Created an AKS cluster using Terraform
+✅ Deployed ConfigMaps & Secrets
+✅ Created a Deployment
+✅ Set up NodePort, ClusterIP, LoadBalancer services
+✅ Configured Ingress for external access
+
+Would you like help customizing or troubleshooting any part? 🚀
+
