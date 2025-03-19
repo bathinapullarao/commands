@@ -331,9 +331,7 @@ This pipeline will:
 Build a Docker image
 Push it to ACR
 Deploy it to AKS
-yaml
-Copy
-Edit
+
 trigger:
 - main  # Runs on every push to main branch
 
@@ -392,13 +390,10 @@ steps:
     namespace: 'default'
     command: 'apply'
     arguments: '-f k8s/deployment.yaml'
+
 4. Kubernetes YAML Files
 Create these files in the k8s/ directory.
-
-Deployment (k8s/deployment.yaml)
-yaml
-Copy
-Edit
+####Deployment (k8s/deployment.yaml)
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -418,10 +413,8 @@ spec:
         image: youracrname.azurecr.io/your-app:latest
         ports:
         - containerPort: 80
-Service (k8s/service.yaml)
-yaml
-Copy
-Edit
+
+####Service (k8s/service.yaml)
 apiVersion: v1
 kind: Service
 metadata:
@@ -434,6 +427,7 @@ spec:
     - protocol: TCP
       port: 80
       targetPort: 80
+
 5. Run the Pipeline
 Commit and Push this pipeline (azure-pipelines.yml)
 Go to Azure DevOps → Pipelines
