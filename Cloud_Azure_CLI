@@ -306,7 +306,148 @@ Database Migration: Add MySQL setup (mysql -u root -p < db.sql).
 CI Testing: Run PHP Unit Tests before deploying.
 Rolling Deployment: Deploy to a staging server first, then to production.
 ----------------------------------------------------------------------------------------------------------------------------
+Azure Pipeline to Deploy an Application to Azure Kubernetes Service (AKS)
+This pipeline will:
+✅ Build a Docker image
+✅ Push it to Azure Container Registry (ACR)
+✅ Deploy the app to Azure Kubernetes Service (AKS)
 
+1. Prerequisites
+Ensure you have:
+🔹 AKS Cluster – Created using Azure CLI or Portal
+🔹 Azure Container Registry (ACR) – To store Docker images
+🔹 Kubernetes YAML Files – For Deployment & Service
+
+2. Create an Azure DevOps Service Connection
+Go to Azure DevOps → Project Settings → Service connections
+Click New Service Connection → Select Azure Resource Manager
+Choose Service principal (automatic)
+Select your subscription and resource group
+Click Save, and name it "AzureServiceConnection"
+3. Create a YAML Pipeline
+Azure Pipeline (azure-pipelines.yml)
+This pipeline will:
+
+Build a Docker image
+Push it to ACR
+Deploy it to AKS
+yaml
+Copy
+Edit
+trigger:
+- main  # Runs on every push to main branch
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  acrName: 'youracrname'  # Replace with your Azure Container Registry name
+  aksCluster: 'your-aks-cluster'  # Replace with your AKS cluster name
+  resourceGroup: 'your-resource-group'  # Replace with your Azure Resource Group
+  imageName: 'your-app'  # Replace with your app name
+  tag: '$(Build.BuildId)'
+
+steps:
+- task: AzureCLI@2
+  displayName: 'Login to Azure'
+  inputs:
+    azureSubscription: 'AzureServiceConnection'
+    scriptType: 'bash'
+    scriptLocation: 'inlineScript'
+    inlineScript: |
+      az acr login --name $(acrName)
+
+- task: Docker@2
+  displayName: 'Build Docker Image'
+  inputs:
+    command: 'build'
+    Dockerfile: '**/Dockerfile'
+    buildContext: '.'
+    tags: '$(acrName).azurecr.io/$(imageName):$(tag)'
+
+- task: Docker@2
+  displayName: 'Push Docker Image to ACR'
+  inputs:
+    command: 'push'
+    containerRegistry: '$(acrName).azurecr.io'
+    repository: '$(imageName)'
+    tags: '$(tag)'
+
+- task: Kubernetes@1
+  displayName: 'Set Kubernetes Context'
+  inputs:
+    connectionType: 'Azure Resource Manager'
+    azureSubscription: 'AzureServiceConnection'
+    resourceGroupName: '$(resourceGroup)'
+    clusterName: '$(aksCluster)'
+    command: 'set-context'
+
+- task: Kubernetes@1
+  displayName: 'Deploy to AKS'
+  inputs:
+    connectionType: 'Azure Resource Manager'
+    azureSubscription: 'AzureServiceConnection'
+    resourceGroupName: '$(resourceGroup)'
+    clusterName: '$(aksCluster)'
+    namespace: 'default'
+    command: 'apply'
+    arguments: '-f k8s/deployment.yaml'
+4. Kubernetes YAML Files
+Create these files in the k8s/ directory.
+
+Deployment (k8s/deployment.yaml)
+yaml
+Copy
+Edit
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: your-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: your-app
+  template:
+    metadata:
+      labels:
+        app: your-app
+    spec:
+      containers:
+      - name: your-app
+        image: youracrname.azurecr.io/your-app:latest
+        ports:
+        - containerPort: 80
+Service (k8s/service.yaml)
+yaml
+Copy
+Edit
+apiVersion: v1
+kind: Service
+metadata:
+  name: your-app-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: your-app
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+5. Run the Pipeline
+Commit and Push this pipeline (azure-pipelines.yml)
+Go to Azure DevOps → Pipelines
+Click Run Pipeline
+Once completed, get the EXTERNAL-IP of your service:
+
+kubectl get svc your-app-service
+Open your browser and access http://<EXTERNAL-IP>
+6. Optional Enhancements
+✔ Use Helm Charts for easier deployments
+✔ Enable Continuous Deployment using release pipelines
+✔ Implement Ingress for better routing
+
+---------------------------------------------------------------------------------------------------------------------------
 # Azure CLI 2.0 Cheatsheet
 Azure CLI 2.0 cheatsheet for Login, Resources, VMs, Resource groups, Storage, Batch, and Containers.
 
