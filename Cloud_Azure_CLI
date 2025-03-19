@@ -227,8 +227,6 @@ Use Service Connections for authentication.
 Add SonarCloud for code quality checks.
 Implement Blue-Green Deployment for safer releases.
 Use Terraform for infrastructure as code.
-🚀 Now you have a fully automated CI/CD pipeline using Azure DevOps! Do you need a specific setup like AKS deployment or Docker integration?
-
 ------------------
 how to use azure pipeline to deploy php application into apache
 
@@ -464,11 +462,8 @@ Option 1: Using Services and Deployments
 Deploy Blue and Green as separate Deployments.
 Use a Service (LoadBalancer/Ingress) to control traffic.
 Example: Blue-Green Deployment in AKS
-1️⃣ Create Deployments for Blue and Green
 
-yaml
-Copy
-Edit
+1️⃣ Create Deployments for Blue and Green
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -508,11 +503,8 @@ spec:
       containers:
       - name: my-app
         image: my-app:v2  # Green version
-2️⃣ Use a Service to Switch Traffic
 
-yaml
-Copy
-Edit
+2️⃣ Use a Service to Switch Traffic
 apiVersion: v1
 kind: Service
 metadata:
@@ -525,19 +517,15 @@ spec:
   - protocol: TCP
     port: 80
     targetPort: 80
+
 💡 To switch traffic to Green, update the selector in my-app-service.yaml:
 
-yaml
-Copy
-Edit
 selector:
   app: my-app
   version: green  # Switch traffic to Green
 Apply the changes:
 
-sh
-Copy
-Edit
+
 kubectl apply -f my-app-service.yaml
 🔹 Using a Load Balancer for Traffic Routing
 If using Azure Application Gateway or NGINX Ingress, configure traffic routing based on version labels.
@@ -545,9 +533,6 @@ You can use Istio or Linkerd for advanced traffic shifting.
 🔹 Blue-Green Deployment in Terraform (AKS)
 Define two Kubernetes Deployments and a Service:
 
-h
-Copy
-Edit
 resource "kubernetes_deployment" "blue" {
   metadata {
     name = "app-blue"
@@ -602,22 +587,13 @@ resource "kubernetes_service" "app_service" {
 }
 To switch to Green, change the service selector to:
 
-h
-Copy
-Edit
 selector = { version = "green" }
 Apply with:
 
-sh
-Copy
-Edit
 terraform apply
 🔹 Blue-Green Deployment in Azure App Service
 If using Azure App Service, use Deployment Slots:
 
-sh
-Copy
-Edit
 az webapp deployment slot create --name my-webapp --resource-group my-rg --slot green
 az webapp deployment slot swap --name my-webapp --resource-group my-rg --slot green
 🚀 Benefits of Blue-Green Deployment
