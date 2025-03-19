@@ -77,7 +77,8 @@ Most Popular Use Cases for Azure Services
 ✅ DevOps & Automation – Azure DevOps, Terraform, ARM Templates
 ✅ IoT & AI/ML – IoT Hub, Machine Learning, Cognitive Services
 -----------------------------------------------------------------------------------------------------------
-In Azure, the equivalent of a GCP service account JSON file for authentication in Terraform is the Azure Service Principal (SP) with a Client Secret or Certificate.
+In Azure, the equivalent of a GCP service account JSON file for authentication in Terraform is the Azure Service Principal (SP) 
+with a Client Secret or Certificate.
 
 Authentication Methods in Terraform for Azure
 When using Terraform with Azure, you can authenticate using:
@@ -140,18 +141,178 @@ Which Method Should You Use?
 ✅ For local development → Use Azure CLI Authentication.
 ✅ For Azure VM-based Terraform execution → Use Managed Identity.
 ----------------------------------------------------------------------------------------------------------
+To perform CI/CD (Continuous Integration and Continuous Deployment) using Azure DevOps, follow these steps:
 
+1. Set Up Your Azure DevOps Project
+Sign in to Azure DevOps – Go to Azure DevOps and create a new project.
+Create a Repository – Navigate to Repos and create a Git repository to store your application code.
+
+2. Create a CI/CD Pipeline
+Step 1: Create a Build (CI) Pipeline
+CI (Continuous Integration) ensures code is built and tested automatically.
+Go to Azure Pipelines → Pipelines → New Pipeline.
+Select "Use the classic editor" or "YAML" approach.
+Choose your source control (Azure Repos, GitHub, etc.).
+Select a template (e.g., ".NET Core", "Node.js", etc.).
+
+Define the build steps:
+Install dependencies (npm install, pip install -r requirements.txt, etc.).
+Build the application (dotnet build, mvn package, etc.).
+Run unit tests (dotnet test, pytest, etc.).
+Publish build artifacts.
+
+Example YAML pipeline for CI:
+trigger:
+  - main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+  - task: UseNode@1
+    inputs:
+      version: '16.x'
+
+  - script: |
+      npm install
+      npm run build
+    displayName: 'Build and Install Dependencies'
+
+  - script: npm test
+    displayName: 'Run Tests'
+
+  - task: PublishBuildArtifacts@1
+    inputs:
+      pathToPublish: 'dist'
+      artifactName: 'drop'
+Save and run the pipeline. This will trigger the build whenever code is pushed.
+
+Step 2: Create a Release (CD) Pipeline
+CD (Continuous Deployment) automates the deployment of the application.
+Go to Azure Pipelines → Releases → New Release Pipeline.
+Select a template (e.g., "Deploy to Azure Web App", "Kubernetes", "VM").
+Choose "Artifacts" and select the output from the Build Pipeline.
+Define deployment stages (Dev, Staging, Prod).
+Add a deployment task (e.g., Kubernetes, Azure App Service, VM deployment).
+Configure approvals if required.
+Click Save and Deploy.
+
+Example YAML CD pipeline for AKS:
+trigger:
+  - main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+  - task: Kubernetes@1
+    inputs:
+      connectionType: 'Azure Resource Manager'
+      azureSubscription: '<your-azure-subscription>'
+      resourceGroupName: '<your-resource-group>'
+      kubernetesCluster: '<your-aks-cluster>'
+      namespace: 'default'
+      command: 'apply'
+      arguments: '-f k8s/deployment.yaml'
+3. Configure CI/CD Triggers
+Continuous Integration: Triggers automatically on code commits.
+Continuous Deployment: Triggers when a build is completed.
+4. Monitor and Debug
+View pipeline runs in Azure DevOps → Pipelines → Runs.
+Check logs for errors and fix them.
+5. Secure Your Pipeline
+Store secrets in Azure Key Vault.
+Use Service Connections for authentication.
+6. Extend and Optimize
+Add SonarCloud for code quality checks.
+Implement Blue-Green Deployment for safer releases.
+Use Terraform for infrastructure as code.
+🚀 Now you have a fully automated CI/CD pipeline using Azure DevOps! Do you need a specific setup like AKS deployment or Docker integration?
+
+------------------
+how to use azure pipeline to deploy php application into apache
+
+To deploy a PHP application to an Apache server using Azure Pipelines, follow these steps:
+1. Set Up Your Azure DevOps Project
+Sign in to Azure DevOps → Create a new project.
+Create a Repository → Push your PHP application code to Azure Repos (or GitHub).
+
+2. Configure Your Apache Server
+Make sure your Apache server (on a VM or on-premises) is:
+Running Apache and PHP (sudo apt install apache2 php on Ubuntu).
+Has SSH access enabled for deployment.
+The web root directory is /var/www/html or a custom path.
+
+3. Create an Azure Pipeline for CI/CD
+We will set up a pipeline that:
+Installs dependencies (if required).
+Copies the PHP files to the Apache web root using SSH.
+Option 1: Use YAML Pipeline (Recommended)
+In Azure DevOps → Go to Pipelines → New Pipeline.
+Select your source repo.
+Choose "Starter Pipeline" and replace it with the YAML below.
+Modify remoteServer (your VM's IP/hostname) and sshUser.
+
+trigger:
+- main  # Runs pipeline on code push to main branch
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- task: SSH@0
+  inputs:
+    sshEndpoint: 'my-ssh-service-connection'  # Create an SSH service connection in Azure DevOps
+    runOptions: 'commands'
+    commands: |
+      sudo rm -rf /var/www/html/*
+    readyTimeout: '20000'
+
+- task: CopyFilesOverSSH@0
+  inputs:
+    sshEndpoint: 'my-ssh-service-connection'
+    sourceFolder: '$(Build.SourcesDirectory)'  # Source code directory
+    contents: '**'  # Copy all files
+    targetFolder: '/var/www/html'  # Destination folder on Apache server
+    cleanTargetFolder: true  # Clean existing files before copying
+
+- task: SSH@0
+  inputs:
+    sshEndpoint: 'my-ssh-service-connection'
+    runOptions: 'commands'
+    commands: |
+      sudo systemctl restart apache2
+    readyTimeout: '20000'
+
+4. Set Up an SSH Service Connection in Azure DevOps
+Since we're using SSH deployment, you need to configure an SSH service connection:
+
+Go to Azure DevOps → Project Settings → Service connections.
+Click New service connection → Select SSH.
+Enter:
+Host: Your VM's public IP (or domain).
+Port: Default is 22.
+Username: SSH user (e.g., ubuntu or root).
+Password or Private Key (Use SSH key authentication if possible).
+Click Save and use the name my-ssh-service-connection in your YAML.
+
+5. Run and Verify Deployment
+Commit & push your code to main branch.
+Go to Azure DevOps → Pipelines and run the pipeline.
+If successful, check http://your-server-ip/ to see your PHP app running.
+
+6. Optional Enhancements
+Database Migration: Add MySQL setup (mysql -u root -p < db.sql).
+CI Testing: Run PHP Unit Tests before deploying.
+Rolling Deployment: Deploy to a staging server first, then to production.
+----------------------------------------------------------------------------------------------------------------------------
 
 # Azure CLI 2.0 Cheatsheet
-
 Azure CLI 2.0 cheatsheet for Login, Resources, VMs, Resource groups, Storage, Batch, and Containers.
 
 ## Logging in
-
 ### Login with web
-```
 az login
-```
 
 ### Login in CLI
 ```
