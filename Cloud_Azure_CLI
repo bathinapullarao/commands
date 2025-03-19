@@ -90,15 +90,9 @@ Steps to Authenticate Using a Service Principal JSON File
 Step 1: Create a Service Principal in Azure
 Run the following command in Azure CLI to create a Service Principal and save the credentials:
 
-sh
-Copy
-Edit
 az ad sp create-for-rbac --name "terraform-sp" --role="Contributor" --scopes="/subscriptions/YOUR_SUBSCRIPTION_ID" --sdk-auth > azure-credentials.json
 This will generate a JSON file with credentials like:
 
-json
-Copy
-Edit
 {
   "clientId": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
   "clientSecret": "xxxxxxxxxxxxxxxxxxxxxxxxxxxx",
@@ -114,9 +108,6 @@ Edit
 Step 2: Use the JSON File in Terraform
 Modify your Terraform configuration to use the service principal credentials:
 
-hcl
-Copy
-Edit
 provider "azurerm" {
   features {}
 
@@ -128,9 +119,6 @@ provider "azurerm" {
 2️⃣ Using a Service Principal with Client Certificate
 Instead of using a client secret, you can use a certificate for authentication. This is more secure but requires managing a certificate.
 
-hcl
-Copy
-Edit
 provider "azurerm" {
   features {}
 
@@ -142,9 +130,6 @@ provider "azurerm" {
 3️⃣ Using Azure CLI Authentication (For Local Development)
 If you have already logged in using az login, Terraform can use your current Azure CLI credentials:
 
-hcl
-Copy
-Edit
 provider "azurerm" {
   features {}
   use_azuread_auth = true
@@ -154,7 +139,7 @@ Which Method Should You Use?
 ✅ For enhanced security → Use Service Principal with Certificate.
 ✅ For local development → Use Azure CLI Authentication.
 ✅ For Azure VM-based Terraform execution → Use Managed Identity.
------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------
 
 
 # Azure CLI 2.0 Cheatsheet
