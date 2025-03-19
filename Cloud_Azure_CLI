@@ -440,8 +440,192 @@ Open your browser and access http://<EXTERNAL-IP>
 ✔ Use Helm Charts for easier deployments
 ✔ Enable Continuous Deployment using release pipelines
 ✔ Implement Ingress for better routing
-
 ---------------------------------------------------------------------------------------------------------------------------
+Blue-Green Deployment
+Blue-Green Deployment is a release management strategy that reduces downtime and risk by running two environments:
+
+Blue (Current Production) → The live, stable version.
+Green (New Release) → A new version deployed alongside Blue.
+Once the Green environment is tested, traffic is switched to it, making it the new production environment.
+
+🔹 How Blue-Green Deployment Works
+Deploy Current Version (Blue)
+The Blue environment serves production traffic.
+Deploy New Version (Green)
+The Green environment is deployed and tested (CI/CD pipelines, manual testing, etc.).
+Switch Traffic to Green
+If Green passes all tests, traffic is rerouted from Blue to Green (via Load Balancer or DNS change).
+Monitor & Rollback if Needed
+If any issues occur, rollback by switching traffic back to Blue.
+Decommission Blue
+Once Green is stable, Blue can be decommissioned or kept as a backup.
+🔹 Implementation in Kubernetes (AKS/GKE)
+Option 1: Using Services and Deployments
+Deploy Blue and Green as separate Deployments.
+Use a Service (LoadBalancer/Ingress) to control traffic.
+Example: Blue-Green Deployment in AKS
+1️⃣ Create Deployments for Blue and Green
+
+yaml
+Copy
+Edit
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-blue
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: my-app
+      version: blue
+  template:
+    metadata:
+      labels:
+        app: my-app
+        version: blue
+    spec:
+      containers:
+      - name: my-app
+        image: my-app:v1  # Blue version
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-green
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: my-app
+      version: green
+  template:
+    metadata:
+      labels:
+        app: my-app
+        version: green
+    spec:
+      containers:
+      - name: my-app
+        image: my-app:v2  # Green version
+2️⃣ Use a Service to Switch Traffic
+
+yaml
+Copy
+Edit
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-app-service
+spec:
+  selector:
+    app: my-app
+    version: blue  # Initially pointing to Blue
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
+💡 To switch traffic to Green, update the selector in my-app-service.yaml:
+
+yaml
+Copy
+Edit
+selector:
+  app: my-app
+  version: green  # Switch traffic to Green
+Apply the changes:
+
+sh
+Copy
+Edit
+kubectl apply -f my-app-service.yaml
+🔹 Using a Load Balancer for Traffic Routing
+If using Azure Application Gateway or NGINX Ingress, configure traffic routing based on version labels.
+You can use Istio or Linkerd for advanced traffic shifting.
+🔹 Blue-Green Deployment in Terraform (AKS)
+Define two Kubernetes Deployments and a Service:
+
+h
+Copy
+Edit
+resource "kubernetes_deployment" "blue" {
+  metadata {
+    name = "app-blue"
+    labels = { version = "blue" }
+  }
+  spec {
+    replicas = 3
+    selector { match_labels = { version = "blue" } }
+    template {
+      metadata { labels = { version = "blue" } }
+      spec {
+        container {
+          name  = "my-app"
+          image = "my-app:v1"
+        }
+      }
+    }
+  }
+}
+
+resource "kubernetes_deployment" "green" {
+  metadata {
+    name = "app-green"
+    labels = { version = "green" }
+  }
+  spec {
+    replicas = 3
+    selector { match_labels = { version = "green" } }
+    template {
+      metadata { labels = { version = "green" } }
+      spec {
+        container {
+          name  = "my-app"
+          image = "my-app:v2"
+        }
+      }
+    }
+  }
+}
+
+resource "kubernetes_service" "app_service" {
+  metadata {
+    name = "my-app-service"
+  }
+  spec {
+    selector = { version = "blue" }  # Initially Blue
+    port {
+      port        = 80
+      target_port = 80
+    }
+  }
+}
+To switch to Green, change the service selector to:
+
+h
+Copy
+Edit
+selector = { version = "green" }
+Apply with:
+
+sh
+Copy
+Edit
+terraform apply
+🔹 Blue-Green Deployment in Azure App Service
+If using Azure App Service, use Deployment Slots:
+
+sh
+Copy
+Edit
+az webapp deployment slot create --name my-webapp --resource-group my-rg --slot green
+az webapp deployment slot swap --name my-webapp --resource-group my-rg --slot green
+🚀 Benefits of Blue-Green Deployment
+✅ Zero Downtime during releases.
+✅ Instant Rollback if issues occur.
+✅ Parallel Testing before switching traffic.
+✅ Safer Deployments with minimal risk.
+------------------------------------------------------------------------------------------------------------------------------
 # Azure CLI 2.0 Cheatsheet
 Azure CLI 2.0 cheatsheet for Login, Resources, VMs, Resource groups, Storage, Batch, and Containers.
 
