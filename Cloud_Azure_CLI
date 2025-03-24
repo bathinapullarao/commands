@@ -1,3 +1,9 @@
+SSH Service Connection
+Use the classic editor" or "YAML" approach
+source control (Azure Repos, GitHub, etc.).
+Network Security Groups (NSGs)       just like NACL in aws
+Azure Resource Group     <-- Groups related resources (VMs, storage, databases, networking, etc.) for easier management.
+------------------------------------------------------------------------------------------------------------------------
 ## How to mount Blob storage as a file system with blobfuse
 yum install blobfuse
 sudo mount -t tmpfs -o size=16g tmpfs /mnt/ramdisk
