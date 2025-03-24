@@ -1,8 +1,8 @@
 SSH Service Connection
 Use the classic editor" or "YAML" approach
 source control (Azure Repos, GitHub, etc.).
-Network Security Groups(NSGs)<-- Just like NACL in aws
-Azure Resource Group         <-- Groups related resources (VMs, storage, databases, networking, etc.) for easier management.
+Network Security Groups(NSGs)<--Just like Security groups in aws, but here NSGs will apply on subnets or network interfaces (NICs) of VMs
+Azure Resource Group         <--Groups related resources (VMs, storage, databases, networking, etc.) for easier management.
 Azure Resource Manager(ARM) is the deployment and management framework for Azure resources. 
                              It provides a unified way to create, update, and manage resources in Azure.
 ------------------------------------------------------------------------------------------------------------------------
