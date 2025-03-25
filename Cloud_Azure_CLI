@@ -448,6 +448,125 @@ Open your browser and access http://<EXTERNAL-IP>
 ✔ Enable Continuous Deployment using release pipelines
 ✔ Implement Ingress for better routing
 ---------------------------------------------------------------------------------------------------------------------------
+1. Set Up AKS Cluster
+Ensure you have an AKS cluster running. You can create one using the Azure CLI:
+
+az aks create --resource-group MyResourceGroup --name MyAKSCluster --node-count 2 --enable-addons monitoring --generate-ssh-keys
+2. Create a Service Connection in Azure DevOps
+In Azure DevOps, go to Project Settings > Service Connections.
+
+Click New Service Connection > Select Azure Resource Manager.
+
+Authenticate using Service Principal or Managed Identity.
+
+Select the subscription and resource group where AKS is deployed.
+
+Save the service connection.
+
+3. Set Up Your Repository Structure
+Your Azure DevOps Repo should contain:
+
+/manifests
+  ├── deployment.yaml
+  ├── service.yaml
+  ├── ingress.yaml
+/azure-pipelines.yaml
+Sample deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: my-app
+  template:
+    metadata:
+      labels:
+        app: my-app
+    spec:
+      containers:
+        - name: my-app
+          image: mycontainerregistry.azurecr.io/my-app:latest
+          ports:
+            - containerPort: 80
+Sample service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-app-service
+spec:
+  selector:
+    app: my-app
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: LoadBalancer
+Sample ingress.yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: my-app-ingress
+  annotations:
+    kubernetes.io/ingress.class: nginx
+spec:
+  rules:
+    - host: myapp.example.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: my-app-service
+                port:
+                  number: 80
+4. Configure Azure Pipelines
+Sample azure-pipelines.yaml
+trigger:
+  - main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+stages:
+- stage: Deploy
+  displayName: Deploy to AKS
+  jobs:
+  - job: Deploy
+    steps:
+    - task: AzureCLI@2
+      inputs:
+        azureSubscription: 'MyAzureServiceConnection'
+        scriptType: 'bash'
+        scriptLocation: 'inlineScript'
+        inlineScript: |
+          az aks get-credentials --resource-group MyResourceGroup --name MyAKSCluster --overwrite-existing
+          
+    - task: Kubernetes@1
+      displayName: Deploy to AKS
+      inputs:
+        connectionType: 'Azure Resource Manager'
+        azureSubscription: 'MyAzureServiceConnection'
+        azureResourceGroup: 'MyResourceGroup'
+        kubernetesCluster: 'MyAKSCluster'
+        command: 'apply'
+        arguments: '-f manifests/'
+5. Run the Pipeline
+Commit and push your changes.
+
+Navigate to Pipelines in Azure DevOps and trigger a new pipeline run.
+
+6. Verify Deployment
+After the pipeline runs successfully, check your AKS cluster:
+
+kubectl get deployments
+kubectl get services
+kubectl get ingress
+
+---------------------------------------------------------------------------------------------------------------------------
 Blue-Green Deployment
 Blue-Green Deployment is a release management strategy that reduces downtime and risk by running two environments:
 
