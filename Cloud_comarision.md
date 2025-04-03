@@ -97,20 +97,6 @@
 | **Big Data** | **GCP** (BigQuery is fastest) |
 | **Hybrid Cloud** | **Azure (Azure Arc)** |
 
-### **Conclusion:**
-- **AWS**: Best overall services, strong global presence, widely adopted.
-- **GCP**: Best for AI, machine learning, and data analytics.
-- **Azure**: Best for hybrid cloud and enterprise solutions.
-
-
-### **Comparison: EKS vs. GKE vs. AKS**
-
-| Feature	|AWS EKS	|GCP GKE	|Azure AKS|
-|---------|--------|---------|---------|
-|Cluster	|EKS Cluster	|GKE Cluster	|AKS Cluster|
-|Managed Worker Nodes|	Node Group|	Node Pool	|Node Pool|
-|Scaling	|Auto Scaling Groups|	GKE Autoscaler	|AKS Cluster Autoscaler|
-
 ## **🔍 Comparison: GKE vs. EKS vs. AKS vs. Self-Managed Kubernetes**
 
 | Feature | **GKE (Google Kubernetes Engine)** | **EKS (Elastic Kubernetes Service - AWS)** | **AKS (Azure Kubernetes Service)** | **Self-Managed Kubernetes (K8s on VM/Bare Metal)** |
