@@ -102,6 +102,9 @@
 - **GCP**: Best for AI, machine learning, and data analytics.
 - **Azure**: Best for hybrid cloud and enterprise solutions.
 
+
+### **Comparison: EKS vs. GKE vs. AKS**
+
 | Feature	|AWS EKS	|GCP GKE	|Azure AKS|
 |---------|--------|---------|---------|
 |Cluster	|EKS Cluster	|GKE Cluster	|AKS Cluster|
