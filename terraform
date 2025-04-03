@@ -78,10 +78,166 @@ resource "google_compute_firewall" "allow_fm_bastion"
 #####GKE###########
 resource "google_container_cluster" "cluster1"
 resource "google_container_node_pool" "pools"
+------------------------------------------------------------------------------------------------------------------------------------
+Here's a Terraform script to create an AWS EKS Cluster with a managed node group. It includes:
 
+✅ VPC and Subnets
+✅ EKS Cluster
+✅ Node Group
+✅ IAM Roles and Policies
 
+📜 Terraform Code for AWS EKS Cluster
+provider "aws" {
+  region = "us-west-2"
+}
 
----------------------------------------------------------------------------------------------------
+# 🚀 Create VPC
+resource "aws_vpc" "eks_vpc" {
+  cidr_block = "10.0.0.0/16"
+
+  tags = {
+    Name = "eks-vpc"
+  }
+}
+
+# 🚀 Create Subnets
+resource "aws_subnet" "eks_subnet_a" {
+  vpc_id            = aws_vpc.eks_vpc.id
+  cidr_block        = "10.0.1.0/24"
+  availability_zone = "us-west-2a"
+
+  tags = {
+    Name = "eks-subnet-a"
+  }
+}
+
+resource "aws_subnet" "eks_subnet_b" {
+  vpc_id            = aws_vpc.eks_vpc.id
+  cidr_block        = "10.0.2.0/24"
+  availability_zone = "us-west-2b"
+
+  tags = {
+    Name = "eks-subnet-b"
+  }
+}
+
+# 🚀 Create IAM Role for EKS Cluster
+resource "aws_iam_role" "eks_cluster_role" {
+  name = "eks-cluster-role"
+
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [{
+      Effect = "Allow"
+      Principal = {
+        Service = "eks.amazonaws.com"
+      }
+      Action = "sts:AssumeRole"
+    }]
+  })
+}
+
+# 🚀 Attach Policies to EKS IAM Role
+resource "aws_iam_role_policy_attachment" "eks_cluster_policy" {
+  role       = aws_iam_role.eks_cluster_role.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
+}
+
+# 🚀 Create EKS Cluster
+resource "aws_eks_cluster" "eks" {
+  name     = "my-eks-cluster"
+  role_arn = aws_iam_role.eks_cluster_role.arn
+
+  vpc_config {
+    subnet_ids = [aws_subnet.eks_subnet_a.id, aws_subnet.eks_subnet_b.id]
+  }
+
+  depends_on = [aws_iam_role_policy_attachment.eks_cluster_policy]
+}
+
+# 🚀 Create IAM Role for Worker Nodes
+resource "aws_iam_role" "eks_node_role" {
+  name = "eks-node-role"
+
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [{
+      Effect = "Allow"
+      Principal = {
+        Service = "ec2.amazonaws.com"
+      }
+      Action = "sts:AssumeRole"
+    }]
+  })
+}
+
+# 🚀 Attach Policies to Worker Node IAM Role
+resource "aws_iam_role_policy_attachment" "eks_worker_node_policy" {
+  role       = aws_iam_role.eks_node_role.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy"
+}
+
+resource "aws_iam_role_policy_attachment" "eks_cni_policy" {
+  role       = aws_iam_role.eks_node_role.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy"
+}
+
+resource "aws_iam_role_policy_attachment" "eks_ec2_readonly" {
+  role       = aws_iam_role.eks_node_role.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
+}
+
+# 🚀 Create EKS Managed Node Group
+resource "aws_eks_node_group" "eks_nodes" {
+  cluster_name    = aws_eks_cluster.eks.name
+  node_group_name = "eks-node-group"
+  node_role_arn   = aws_iam_role.eks_node_role.arn
+  subnet_ids      = [aws_subnet.eks_subnet_a.id, aws_subnet.eks_subnet_b.id]
+
+  scaling_config {
+    desired_size = 2
+    max_size     = 3
+    min_size     = 1
+  }
+
+  instance_types = ["t3.medium"]
+
+  depends_on = [
+    aws_iam_role_policy_attachment.eks_worker_node_policy,
+    aws_iam_role_policy_attachment.eks_cni_policy,
+    aws_iam_role_policy_attachment.eks_ec2_readonly
+  ]
+}
+
+# 🚀 Output Cluster Details
+output "cluster_endpoint" {
+  value = aws_eks_cluster.eks.endpoint
+}
+
+output "cluster_name" {
+  value = aws_eks_cluster.eks.name
+}
+🚀 How to Use This Terraform Code
+1️⃣ Initialize Terraform
+terraform init
+
+2️⃣ Plan the Deployment
+terraform plan
+
+3️⃣ Apply to Create the EKS Cluster
+terraform apply -auto-approve
+
+4️⃣ Configure kubectl to Connect to EKS
+aws eks update-kubeconfig --region us-west-2 --name my-eks-cluster
+
+5️⃣ Verify the Cluster
+kubectl get nodes
+
+🛑 How to Destroy the EKS Cluster
+If you want to delete everything:
+terraform destroy -auto-approve
+
+------------------------------------------------------------------------------------------------------------------------------------
 azurerm       <--It is the provider used in Terraform to manage Azure resources. The azurerm provider allows Terraform to provision 
                  and configure Azure infrastructure components such as Virtual Machines, Storage, Networking, and more.
 
