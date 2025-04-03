@@ -220,3 +220,74 @@ Serverless Applications           Lambda, API Gateway, DynamoDB, S3
 Big Data & Analytics              Redshift, Athena, Kinesis, EMR
 DevOps & Automation               CloudFormation, CodePipeline, CodeDeploy
 Security & Compliance             IAM, WAF, CloudTrail, GuardDuty
+---------------------------------------------------------------------------------------------------------------------
+1️⃣ Create an EKS Cluster
+Instead of manually setting up an EKS cluster using AWS CLI and IAM policies, you can create a cluster with a single command:
+eksctl create cluster --name my-cluster --region us-west-2 --nodegroup-name my-nodes --nodes 2 --nodes-min 1 --nodes-max 3
+🔹 What it does:
+Creates a new EKS cluster in us-west-2
+Sets up an Auto Scaling Group with a min/max of 1–3 nodes
+Configures required IAM roles and networking
+
+✅ Example Output:
+[ℹ]  creating EKS cluster "my-cluster" in "us-west-2"
+[✔]  EKS cluster "my-cluster" is ready!
+
+2️⃣ List All EKS Clusters
+eksctl get cluster
+✅ Example Output:
+NAME         REGION      EKSCTL CREATED
+my-cluster   us-west-2   True
+
+3️⃣ Delete an EKS Cluster
+If you want to delete an EKS cluster along with its associated resources:
+eksctl delete cluster --name my-cluster --region us-west-2
+✅ This will delete:
+The EKS cluster
+The worker nodes
+The associated IAM roles
+
+4️⃣ Add a New Node Group
+You can add more nodes to an existing EKS cluster:
+eksctl create nodegroup --cluster my-cluster --name new-nodes --nodes 2
+✅ Supports:
+On-Demand instances
+Spot instances (for cost-saving)
+GPU instances (for ML workloads)
+
+5️⃣ Delete a Node Group
+If you want to remove a specific node group:
+eksctl delete nodegroup --cluster my-cluster --name new-nodes
+
+6️⃣ Upgrade an EKS Cluster
+To upgrade your cluster to the latest Kubernetes version:
+eksctl upgrade cluster --name my-cluster --region us-west-2
+✅ This will upgrade the EKS control plane to the latest Kubernetes version.
+
+7️⃣ Manage IAM Roles & Permissions
+To associate an IAM role with an EKS cluster:
+eksctl create iamidentitymapping --cluster my-cluster --arn arn:aws:iam::123456789012:role/AdminRole --group system:masters
+🔹 This gives the IAM role admin access to the cluster.
+
+8️⃣ Generate Kubernetes Config File
+To configure kubectl to work with your EKS cluster:
+eksctl utils write-kubeconfig --region us-west-2 --cluster my-cluster
+Now you can run:
+kubectl get nodes
+
+9️⃣ Create a Cluster with Fargate (Serverless)
+If you don’t want to manage worker nodes, you can create an EKS cluster with AWS Fargate:
+
+eksctl create cluster --name my-fargate-cluster --region us-west-2 --fargate
+✅ AWS Fargate allows running Kubernetes workloads without managing EC2 instances.
+
+Feature                              Command
+Create EKS Cluster                   eksctl create cluster --name my-cluster
+List Clusters                        eksctl get cluster
+Delete EKS Cluster                   eksctl delete cluster --name my-cluster
+Add Node Group                       eksctl create nodegroup --cluster my-cluster --name new-nodes
+Delete Node Group                    eksctl delete nodegroup --cluster my-cluster --name new-nodes
+Upgrade EKS Cluster                  eksctl upgrade cluster --name my-cluster
+Manage IAM Roles                     eksctl create iamidentitymapping --cluster my-cluster --arn <IAM_ROLE_ARN>
+Update kubeconfig                    eksctl utils write-kubeconfig --cluster my-cluster
+Deploy Serverless EKS                eksctl create cluster --fargate
