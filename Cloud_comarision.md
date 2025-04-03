@@ -111,4 +111,24 @@
 |Managed Worker Nodes|	Node Group|	Node Pool	|Node Pool|
 |Scaling	|Auto Scaling Groups|	GKE Autoscaler	|AKS Cluster Autoscaler|
 
+## **🔍 Comparison: GKE vs. EKS vs. AKS vs. Self-Managed Kubernetes**
+
+| Feature | **GKE (Google Kubernetes Engine)** | **EKS (Elastic Kubernetes Service - AWS)** | **AKS (Azure Kubernetes Service)** | **Self-Managed Kubernetes (K8s on VM/Bare Metal)** |
+|---------|-----------------------------------|--------------------------------------------|------------------------------------|----------------------------------------|
+| **Control Plane** | Fully managed by Google | Managed by AWS | Managed by Azure | Self-managed (Manual Setup) |
+| **Node Management** | Uses **Node Pools** | Uses **Node Groups** | Uses **Node Pools** | Fully manual |
+| **Scaling** | Auto Node Scaling, Cluster Autoscaler | Cluster Autoscaler, Karpenter | Cluster Autoscaler | Manual scaling |
+| **Load Balancing** | Native **Google Cloud Load Balancer** | **AWS ALB/NLB** | **Azure Load Balancer** | Needs external setup (NGINX, MetalLB, etc.) |
+| **Storage** | Persistent Disks (GCE PD) | EBS, EFS | Azure Disks, Azure Files | Needs manual configuration |
+| **Networking** | **VPC-Native** (uses Google Cloud VPC) | **VPC CNI** (Elastic Network Interface) | **Azure CNI** or Kubenet | Manual setup (Calico, Flannel, Cilium) |
+| **Security & IAM** | **GCP IAM** (OIDC, Workload Identity) | **AWS IAM Roles for Service Accounts (IRSA)** | **Azure AD** (MS Entra ID) | Manual RBAC setup |
+| **Ingress** | Native **Cloud Load Balancer** | ALB Ingress Controller | Application Gateway Ingress | Needs external setup (NGINX, Traefik) |
+| **Pricing** | Control Plane free, Pay for nodes | $0.10/hour for Control Plane + Worker Nodes | Control Plane free, Pay for nodes | No extra costs (but infra costs apply) |
+| **Ease of Use** | 🟢 **Easiest** (Deep GCP integration) | 🔵 **Moderate** (IAM & networking complexity) | 🟣 **Moderate** (Azure AD integration) | 🔴 **Hard** (Full manual management) |
+| **Multi-Cloud Support** | ❌ No | ❌ No | ❌ No | ✅ Yes (Can run on any cloud or on-prem) |
+| **Ideal Use Case** | **Best for AI/ML, Big Data, and Google Cloud users** | **Best for AWS-heavy workloads and enterprises** | **Best for Azure users & hybrid workloads** | **Best for on-prem or multi-cloud Kubernetes** |
+
+---
+
+
 
