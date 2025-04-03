@@ -102,3 +102,10 @@
 - **GCP**: Best for AI, machine learning, and data analytics.
 - **Azure**: Best for hybrid cloud and enterprise solutions.
 
+| Feature	|AWS EKS	|GCP GKE	|Azure AKS|
+|---------|--------|---------|---------|
+|Cluster	|EKS Cluster	|GKE Cluster	|AKS Cluster|
+|Managed Worker Nodes|	Node Group|	Node Pool	|Node Pool|
+|Scaling	|Auto Scaling Groups|	GKE Autoscaler	|AKS Cluster Autoscaler|
+
+
