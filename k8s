@@ -34,6 +34,19 @@ kubectl config use-context <CONTEXT_NAME> <--Switch to a different EKS cluster
 eg: kubectl config use-context arn:aws:eks:us-west-2:123456789:cluster/my-other-cluster
 kubectl config set-context --current --namespace=my-namespace <--By default,kubectl uses the default namespace. Set a preferred namespace for your cluster
 kubectl config view --minify | grep namespace  <--Verify the namespace
+
+Q. How do you migrate an on-prem Kubernetes cluster to EKS?
+Answer:Export workloads: Use kubectl get all -o yaml > backup.yaml.
+Set up EKS: Create an EKS cluster with networking and IAM configurations.
+Migrate Persistent Data: Use AWS EBS, EFS, or FSx for storage.
+Deploy workloads: Apply kubectl apply -f backup.yaml to restore resources.
+Update DNS & Load Balancers to point to EKS.
+
+Q. How do you troubleshoot common EKS issues?
+Answer:Pods not scheduling? Check 'kubectl describe pod' for resource limits or node capacity issues.
+Networking issues? Check VPC CNI, security groups, and kubectl get svc.
+IAM issues? Validate aws-auth ConfigMap and kubectl auth can-i.
+Autoscaler not working? Check Cluster Autoscaler logs and ASG policies.
 ---------------------------------------------------------------------------------------------------------
 aws eks update-kubeconfig  <--If you need to manage multiple EKS clusters, repeat aws eks update-kubeconfig for each cluster.
 export KUBECONFIG=~/.kube/config:/path/to/another-kubeconfig  <--Alternatively, you can merge multiple kubeconfig files
