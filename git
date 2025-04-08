@@ -101,23 +101,15 @@ Merged into: main, develop, and optionally uat
 
 ## 🚀 Workflow Summary
 
-| Task                  | Branch                                           |
-|-----------------------|--------------------------------------------------|
-| Start a new feature   | `feature/*` from `develop`                      |
-| Complete feature      | Merge into `develop`                            |
-| Ready for QA          | Merge `develop` into `qa`                       |
-| Ready for UAT         | Merge `qa` into `uat`                           |
-| Ready for Prod        | Merge `uat` into `main`                         |
+| Task                  | Branch                                                       |
+|-----------------------|--------------------------------------------------------------|
+| Start a new feature   | `feature/*` from `develop`                                   |
+| Complete feature      | Merge into `develop`                                         |
+| Ready for QA          | Merge `develop` into `qa`                                    |
+| Ready for UAT         | Merge `qa` into `uat`                                        |
+| Ready for Prod        | Merge `uat` into `main`                                      |
 | Critical fix in Prod  | `hotfix/*` from `main`, then merge into `main` and `develop` |
 
-🚀 Workflow Summary
-Task                           Branch
-Start a new feature            feature/* from develop
-Complete feature               Merge into develop
-Ready for QA                   Merge develop into qa
-Ready for UAT                  Merge qa into uat
-Ready for Prod                 Merge uat into main
-Critical fix in Prod           hotfix/* from main, then merge into main + develop
 
 🔄 CI/CD Recommendations
 Develop branch → Dev environment
