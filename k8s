@@ -116,7 +116,8 @@ kubectl edit deployment nginx-deploy  <--you may edit version .. etc
 kubectl get replicaset
 kubectl logs podname                   <--get logs
 kubectl create deployment mongo-deploy --image=mongo
-kubectl create -f deploymnet.yaml
+kubectl create -f deploymnet.yaml       <--This command creates Kubernetes resources defined in the deploymnet.yaml file — 
+                                      typically a Deployment, but it could include other resources too (like Services, ConfigMaps, etc.), 
 kubectl describe pod podname            <--get aditional information
 kubectl exec -it podname -- /bin/bash   <--enter in to terminal for debugging
 exit                                    <--to exit from container
