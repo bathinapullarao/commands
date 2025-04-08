@@ -143,7 +143,9 @@ Here's a diagram and Git commands to support the branching strategy we discussed
 
 🧰 Git Commands by Workflow
 1. Create Environment Branches (once)
-git checkout -b develop main
+git checkout -b develop main   ##git checkout -b develop <--Creates a new branch called develop and switches to it immediately.
+                              #main<--Specifies the starting point(the commit) for the new develop branch — in this case, 
+                                      it's based off the main branch.
 git push -u origin develop
 
 git checkout -b qa develop
