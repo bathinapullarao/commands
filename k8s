@@ -84,8 +84,6 @@ kubectl config use-context gke_my-project-1_europe-west2_my-cluster-1
 export KUBECONFIG=~/.kube/config:/path/to/other/kubeconfig   <--Merge multiple kubeconfig files
 kubectl cluster-info   <--Check which cluster you’re connected to
 kubectl config current-context  <--Check active context
-
-
 kubectl run hello-node --image=hello-node:v1 --port=8080           <--kubectl means cube control
 kubectl describe pod
 ---------------------------------------------------------------------------------------------------------------------
@@ -104,7 +102,14 @@ kubectl delete pod hello-node
 kubectl version --client
 kubectl version
 ## By default, kubectl configuration is located at ~/.kube/config.Check that kubectl is properly configured by getting the cluster state:
-kubectl cluster-info
+kubectl cluster-info    <--It displays information about the Kubernetes cluster you’re currently connected to via your kubeconfig.
+                        Output Includes: Kubernetes master (control plane) endpoint
+                                         Core services like Kubernetes API Server, DNS, etc., and their URLs
+📋 Example Output:
+Kubernetes control plane is running at https://10.0.0.1:6443
+CoreDNS is running at https://10.0.0.10:443/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
+----------------------------------------------------------------------------------------------------------------------------
+To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.
 ----------------------------------------------------------------------------------------------------------------------------
 kubectl get all          <--This command retrieves a list of all the primary Kubernetes resources in the current namespace.
 It includes:Pods,Services,Deployments,ReplicaSets,StatefulSets,DaemonSets,Jobs,CronJobs (if available in your cluster version)
