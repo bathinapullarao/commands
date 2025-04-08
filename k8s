@@ -142,7 +142,17 @@ kubectl drain <node-name>
 kubectl drain <node-name> --ignore-daemonsets --delete-local-data
 kubectl delete node <node-name>
 kubeadm reset
--------------------------
+------------------------------------------------------------------------------------------------------------------------------------------
+## 🆚 `kubectl create` vs `kubectl apply`
+
+| Feature                | `kubectl create`                                      | `kubectl apply`                                        |
+|------------------------|-------------------------------------------------------|--------------------------------------------------------|
+| 🔄 Operation Type      | Create-only (fails if the resource exists)            | Create or Update (idempotent)                          |
+| 🧠 Smart Diffs         | ❌ No – doesn't track changes                         | ✅ Yes – tracks and applies changes                    |
+| 🛑 Resource Exists     | ❌ Fails with "already exists" error                  | ✅ Updates the existing resource                        |
+| 🔄 Use Case            | One-time creation                                     | Continuous delivery, GitOps, updates, rollbacks        |
+| 🧾 Command Example     | `kubectl create -f deployment.yaml`                   | `kubectl apply -f deployment.yaml`                     |
+-------------------------------------------------------------------------------------------------------------------------------------------
 kubeadm reset
 echo 1 > /proc/sys/net/ipv4/ip_forward    <--ip_forward content with 1
 kubeadm version
