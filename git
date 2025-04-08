@@ -64,3 +64,139 @@ git rebase     <--Git rebase is a command that allows developers to integrate ch
 git cherrypick commit-id <--pick a commit from a branch and applying it to another branch **Make sure you are on the branch you want to apply the commit to
 
 main.yml#L208-217   <--to higlight specific lines in gitlab here inthis case line 208 to 217
+
+Recommended Git Branching Strategy
+1. Main Branches
+###main or production
+Represents the code that’s deployed in Production.
+Only thoroughly tested code gets merged here.
+
+###uat
+Represents the code that's ready for User Acceptance Testing.
+Acts as a pre-production environment.
+
+###qa
+Represents code that's being tested by QA.
+Merges from develop after feature testing.
+
+###develop
+Active development branch (Dev environment).
+All features and bug fixes are merged here first.
+
+2. Supporting Branches
+➕ Feature Branches
+Naming: feature/feature-name
+Created from: develop
+Merged into: develop
+
+🐛 Bugfix Branches
+Naming: bugfix/bug-description
+Created from: develop or current environment branch (e.g., qa)
+Merged into: develop or corresponding environment
+
+🔧 Hotfix Branches
+Naming: hotfix/critical-issue
+Created from: main
+Merged into: main, develop, and optionally uat
+
+🚀 Workflow Summary
+Task	Branch
+Start a new feature	feature/* from develop
+Complete feature	Merge into develop
+Ready for QA	Merge develop into qa
+Ready for UAT	Merge qa into uat
+Ready for Prod	Merge uat into main
+Critical fix in Prod	hotfix/* from main, then merge into main + develop
+
+🔄 CI/CD Recommendations
+Develop branch → Dev environment
+QA branch → QA environment
+UAT branch → UAT environment
+Main branch → Production
+--------------------------------------------------------------------------------------------------------------------------------
+Here's a diagram and Git commands to support the branching strategy we discussed for Dev, QA, UAT, and Production environments.
+
+📊 Git Branching Diagram
+        +------------------+               
+        |  main (Prod)     |<--------------------------+       
+        +------------------+                           |       
+                   ^                                    |
+                   |                           +-----------------+
+        +----------+---------+                 | hotfix/*        |
+        |     uat (UAT)      |<--------------+ +-----------------+
+        +--------------------+               |
+                   ^                         |
+        +----------+---------+               |
+        |     qa (QA)        |<-------------+ 
+        +--------------------+             
+                   ^                       
+        +----------+---------+             
+        |  develop (Dev)     |<----------------+
+        +--------------------+                 |
+                  ^                            |
+       +----------+----------+        +--------------------+
+       | feature/feature-x   |        | bugfix/issue-y     |
+       +---------------------+        +--------------------+
+
+🧰 Git Commands by Workflow
+1. Create Environment Branches (once)
+git checkout -b develop main
+git push -u origin develop
+
+git checkout -b qa develop
+git push -u origin qa
+
+git checkout -b uat qa
+git push -u origin uat
+
+2. Start a Feature
+git checkout develop
+git pull origin develop
+git checkout -b feature/awesome-feature
+
+Work on it, then:
+git add .
+git commit -m "Add awesome feature"
+git push -u origin feature/awesome-feature
+
+3. Merge Feature to Develop (Dev environment)
+git checkout develop
+git pull origin develop
+git merge feature/awesome-feature
+git push origin develop
+
+4. Promote to QA
+git checkout qa
+git pull origin qa
+git merge develop
+git push origin qa
+
+5. Promote to UAT
+git checkout uat
+git pull origin uat
+git merge qa
+git push origin uat
+
+6. Promote to Production
+git checkout main
+git pull origin main
+git merge uat
+git push origin main
+
+7. Hotfix in Production
+git checkout main
+git pull origin main
+git checkout -b hotfix/fix-crash
+
+# make changes, commit
+git commit -am "Hotfix: fix production crash"
+git push -u origin hotfix/fix-crash
+
+# merge back
+git checkout main
+git merge hotfix/fix-crash
+git push origin main
+
+git checkout develop
+git merge hotfix/fix-crash
+git push origin develop
