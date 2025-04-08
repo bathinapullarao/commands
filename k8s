@@ -72,6 +72,10 @@ kubectl config use-context <context-name>    <--to switch to a different cluster
 kubectl config use-context gke_my-project-2_us-central1_my-cluster-2   <--Switch context
 #kubectl config current-context   <--can check your current cluster context
 kubectl config set-context --current --namespace=my-namespace <--By default, kubectl uses the default namespace. To set a preferred namespace for a context
+kubectl config set-context --current --namespace=dev-namespace <--To switch to another namespace (e.g., dev-namespace)
+kubectl config set-context dev-context --cluster=<your-cluster-name> --user=<your-user> --namespace=dev-namespace
+kubectl config use-context dev-context
+kubectl config use-context prod-context        <--This way, you can switch between dev and prod context
 kubectl config view --minify | grep namespace   <--Verify the namespace
 ----------------------------------------------------------------------------------------------------------
 #Instead of modifying ~/.kube/config, you can use separate kubeconfig files.
