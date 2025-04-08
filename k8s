@@ -84,17 +84,85 @@ kubectl config current-context  <--Check active context
 
 kubectl run hello-node --image=hello-node:v1 --port=8080           <--kubectl means cube control
 kubectl describe pod
+---------------------------------------------------------------------------------------------------------------------
+kubectl describe pod my-app-abc
+Name:         my-app-abc
+Namespace:    default
+Node:         node-1/10.0.0.1
+...
+Events:
+| Type   | Reason    | Age | From               | Message                    |
+|--------|-----------|-----|--------------------|----------------------------|
+| Normal | Scheduled | 2h  | default-scheduler  | Successfully assigned...   |
+-----------------------------------------------------------------------------------------------------------------------
 kubectl delete pod hello-node
 ## Test to ensure the version you installed is up-to-date:
 kubectl version --client
 kubectl version
 ## By default, kubectl configuration is located at ~/.kube/config.Check that kubectl is properly configured by getting the cluster state:
 kubectl cluster-info
-kubectl get all          <--shows all the componets inside cluster
+----------------------------------------------------------------------------------------------------------------------------
+kubectl get all          <--This command retrieves a list of all the primary Kubernetes resources in the current namespace.
+It includes:Pods,Services,Deployments,ReplicaSets,StatefulSets,DaemonSets,Jobs,CronJobs (if available in your cluster version)
+### Pods
+| NAME               | READY | STATUS  | RESTARTS | AGE |
+|--------------------|-------|---------|----------|-----|
+| pod/my-app-abc     | 1/1   | Running | 0        | 5m  |
+
+### Services
+| NAME               | TYPE       | CLUSTER-IP | EXTERNAL-IP | PORT(S)   | AGE |
+|--------------------|------------|------------|-------------|-----------|-----|
+| service/kubernetes | ClusterIP  | 10.0.0.1   | <none>      | 443/TCP   | 1d  |
+
+### Deployments
+| NAME                    | READY | UP-TO-DATE | AVAILABLE | AGE |
+|-------------------------|-------|------------|-----------|-----|
+| deployment.apps/my-app  | 1/1   | 1          | 1         | 5m  |
+
+### ReplicaSets
+| NAME                              | DESIRED | CURRENT | READY | AGE |
+|-----------------------------------|---------|---------|-------|-----|
+| replicaset.apps/my-app-xyz-abc    | 1       | 1       | 1     | 5m  |
+***It does not show resources across all namespaces.
+
+***If you want to see everything in all namespaces, use:
+kubectl get all --all-namespaces
+### Pods Across All Namespaces
+| NAMESPACE     | NAME                                   | READY | STATUS  | RESTARTS | AGE  |
+|---------------|----------------------------------------|-------|---------|----------|------|
+| default       | pod/my-app-abc                         | 1/1   | Running | 0        | 10m  |
+| kube-system   | pod/coredns-558bd4d5db-xyz             | 1/1   | Running | 0        | 1d   |
+
+### Services Across All Namespaces
+| NAMESPACE | NAME                   | TYPE       | CLUSTER-IP | EXTERNAL-IP | PORT(S)  | AGE |
+|-----------|------------------------|------------|------------|-------------|----------|-----|
+| default   | service/kubernetes     | ClusterIP  | 10.0.0.1   | <none>      | 443/TCP  | 1d  |
+---------------------------------------------------------------------------------------------------------------------------------
+
 kubectl get nodes        <--To list all the nodes in the cluster
-kubectl get pods --all-namespaces         <-- list all the pods running inside your cluster
-kubectl get pods --all-namespaces -o wide <-- to check where it is running
+kubectl get pods                          <--Get all pods in current namespace
+| NAME        | READY | STATUS  | RESTARTS | AGE |
+|-------------|-------|---------|----------|-----|
+| my-app-abc  | 1/1   | Running | 0        | 2h  |
+kubectl get pods --all-namespaces         <-- It lists all pods running in all namespaces in your Kubernetes cluster.
+                             #Output Includes:Pod name,Namespace,Status (Running, Pending, CrashLoopBackOff, etc.),Restarts count,Age
+### Pods Across All Namespaces
+| NAMESPACE     | NAME                           | READY | STATUS  | RESTARTS | AGE  |
+|---------------|--------------------------------|-------|---------|----------|------|
+| default       | my-app-abc                     | 1/1   | Running | 0        | 10m  |
+| kube-system   | coredns-558bd4d5db-xyz         | 1/1   | Running | 0        | 1d   |
+
+kubectl get pods --all-namespaces -o wide <-- It lists all pods in all namespaces, just like --all-namespaces, 
+                                              with additional detailed info thanks to the -o wide flag.
+                                              -o wide: Shows extra columns, such as:Node the pod is running on,Pod IP,Container image,Host IP,Nominated Node,Readiness gates (if applicable)
+### Pods Across All Namespaces (Wide Output)
+| NAMESPACE     | NAME                      | READY | STATUS  | RESTARTS | AGE  | IP           | NODE    | NOMINATED NODE | READINESS GATES |
+|---------------|---------------------------|-------|---------|----------|------|--------------|---------|-----------------|------------------|
+| default       | my-app-abc                | 1/1   | Running | 0        | 10m  | 10.42.0.15   | node-1  | <none>          | <none>           |
+| kube-system   | coredns-558bd4d5db-xyz    | 1/1   | Running | 0        | 1d   | 10.42.0.5    | node-2  | <none>          | <none>           |
+
 kubectl get pods -n dev                   <-- Fetches all pods in the dev namespace.
+
 ------------Namespace------------------------------------
 kubectl create –f namespace.yml --------->         command to create a namespace
 kubectl get namespace ----------------->           list all the available namespace.
