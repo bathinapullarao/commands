@@ -22,6 +22,10 @@ For cost-sensitive, fault-tolerant jobs →   Spot Instances
 For compliance/security needs →             Dedicated Hosts/Instances
 For dynamically scaling apps →              Auto Scaling with a mix of instances
 -------------------------------------------------------------------------------------------------------
+aws configure                            <--The CLI asks for a default region so it knows where to send your commands.
+aws ec2 describe-instances               <--That region becomes the default, so when you run
+aws ec2 describe-instances --region us-west-2 <--It fetches instances only from that region unless you specify another one like
+-----------
 aws configure --profile <profile-name>   <--Use the following command to configure a profile for each project
 aws configure --profile project-dev
 aws configure --profile project-prod
