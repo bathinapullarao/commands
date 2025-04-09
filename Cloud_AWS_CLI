@@ -36,10 +36,8 @@ aws configure list-profiles              <--List All Configured Profiles
 
 ##Optional: Use ~/.aws/config and ~/.aws/credentials
 You can manually edit:
-
-~/.aws/credentials <-– stores access/secret keys.
 ~/.aws/config      <-– stores profile names and default regions/output.
-
+~/.aws/credentials <-– stores access/secret keys.
 Example ~/.aws/config:
 [profile project-dev]
 region = us-east-1
