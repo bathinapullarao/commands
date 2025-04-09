@@ -17,6 +17,16 @@ Azure: az aks get-credentials --resource-group aks-resource-group --name my-aks-
 aws: aws eks update-kubeconfig --region <AWS_REGION> --name <EKS_CLUSTER_NAME>  <-- to update your kubeconfig with your EKS cluster ~/.kube/config
 gcp: gcloud container clusters get-credentials <CLUSTER_NAME> --region <REGION> --project <PROJECT_ID> 
 -------------------------------------------------------------------------------------------------------------------------------------------
+AZ--------Az--------AZ--------Az--------AZ--------Az--------AZ--------Az--------AZ--------Az--------AZ--------Az--------AZ--------Az--------AZ
+az account set --subscription "<subscription-name-or-id>"     <--Switch between Azure subscriptions (your “projects”)
+az account list --output table                                <--az account list --output table
+az aks get-credentials --resource-group <resource-group-name> --name <aks-cluster-name>  <-- Once you’ve set the right subscription, get the credentials for the cluster you want to manage
+kubectl config get-contexts                                   <--View Available Contexts
+kubectl config use-context <context-name>                     <--Switch Between AKS Clusters
+kubectl config rename-context <old-name> <new-friendly-name>  <--Rename Contexts for Clarity
+kubectl config rename-context aks-prod-cluster aks-prod
+kubectl config use-context aks-prod
+-------------------------------------------------------------------------------------------------------------------------------------
 AWS-------EKS-------AWS-------EKS-------AWS-------EKS-------AWS-------EKS-------AWS-------EKS-------AWS-------EKS-------AWS-------EKS-------
 Prerequisites
 AWS CLI installed and configured (aws configure)
