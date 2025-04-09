@@ -22,6 +22,44 @@ For cost-sensitive, fault-tolerant jobs →   Spot Instances
 For compliance/security needs →             Dedicated Hosts/Instances
 For dynamically scaling apps →              Auto Scaling with a mix of instances
 -------------------------------------------------------------------------------------------------------
+aws configure --profile <profile-name>   <--Use the following command to configure a profile for each project
+aws configure --profile project-dev
+aws configure --profile project-prod
+This will prompt you for:Access Key, Secret Key, Region, Output format (e.g., json, table)
+aws s3 ls --profile project-dev          <--You can use a profile explicitly in any AWS CLI command using the --profile flag.
+aws ec2 describe-instances --profile project-prod
+##To avoid specifying --profile in every command, export the AWS_PROFILE environment variable:
+#Linux/macOS:                  export AWS_PROFILE=project-dev
+#Windows (Command Prompt):     set AWS_PROFILE=project-dev
+#Windows (PowerShell):         $env:AWS_PROFILE = "project-dev"
+aws configure list-profiles              <--List All Configured Profiles
+
+##Optional: Use ~/.aws/config and ~/.aws/credentials
+You can manually edit:
+
+~/.aws/credentials <-– stores access/secret keys.
+~/.aws/config      <-– stores profile names and default regions/output.
+
+Example ~/.aws/config:
+[profile project-dev]
+region = us-east-1
+output = json
+
+[profile project-prod]
+region = eu-west-1
+output = table
+
+Example ~/.aws/credentials:
+[project-dev]
+aws_access_key_id = YOUR_DEV_KEY
+aws_secret_access_key = YOUR_DEV_SECRET
+
+[project-prod]
+aws_access_key_id = YOUR_PROD_KEY
+aws_secret_access_key = YOUR_PROD_SECRET
+
+#You can switch between profiles in scripts by setting the AWS_PROFILE environment variable dynamically.
+-------------------------------------------------------------------------------------------------------
 Option 1: Get from IAM Console (Recommended)
 Log in to AWS Console---->Go to AWS IAM Console---->Navigate to Users--->In the IAM dashboard, click Users in the left panel.
 Select your user or create a new IAM user---->Create Access Keys:Click the Security credentials tab.
