@@ -331,3 +331,71 @@ Upgrade EKS Cluster                  eksctl upgrade cluster --name my-cluster
 Manage IAM Roles                     eksctl create iamidentitymapping --cluster my-cluster --arn <IAM_ROLE_ARN>
 Update kubeconfig                    eksctl utils write-kubeconfig --cluster my-cluster
 Deploy Serverless EKS                eksctl create cluster --fargate
+----------------------------------------------------------------------------------------------------------------------
+CloudWatch:--  To watch various AWS services using CloudWatch, you'll need to configure metrics, logs, alarms, and dashboards 
+based on what you wantto monitor.
+
+Here’s a full guide to set it up:
+
+🔧 How to Configure AWS CloudWatch to Monitor Various Services
+✅ 1. Enable CloudWatch Monitoring (if not enabled)
+Most AWS services (like EC2, RDS, Lambda, etc.) send metrics to CloudWatch by default.
+For custom metrics or detailed monitoring:
+Enable it explicitly for some services (e.g., EC2 → Detailed Monitoring)
+Use CloudWatch Agent or SDK for custom metrics
+
+📊 2. View Built-In Metrics
+Go to: AWS Console → CloudWatch → Metrics
+Choose your service (e.g. EC2, RDS, S3, Lambda), and explore metrics like:
+EC2: CPUUtilization, DiskReadOps
+Lambda: Duration, Errors, Invocations
+RDS: CPUUtilization, FreeStorageSpace
+
+🔔 3. Create Alarms for Alerts
+To monitor and get notified:
+Go to CloudWatch → Alarms → Create Alarm
+Select a metric (like CPU > 80%)
+Set thresholds
+Attach an SNS topic to send email/SMS
+Example: Get alerted if EC2 CPU > 80% for 5 minutes.
+
+📋 4. Use CloudWatch Dashboards
+Create a unified view of multiple services:
+Go to CloudWatch → Dashboards
+Click Create dashboard
+Add widgets (graphs, numbers, text)
+Choose metrics for EC2, Lambda, etc.
+
+🪵 5. Enable & Collect Logs (CloudWatch Logs)
+To collect logs from services:
+Lambda: Logs are auto-sent to CloudWatch
+ECS/EKS/EC2: Install and configure CloudWatch Logs Agent
+RDS (PostgreSQL/MySQL): Enable logs from RDS console and export to CloudWatch
+# Example to configure CloudWatch agent (on EC2)
+sudo yum install amazon-cloudwatch-agent
+sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-config-wizard
+sudo systemctl start amazon-cloudwatch-agent
+
+🧠 6. Monitor Custom Applications
+You can publish custom metrics using:
+aws cloudwatch put-metric-data \
+  --metric-name PageLoadTime \
+  --namespace "MyApp" \
+  --value 1.2
+📬 7. Set Up Notifications (SNS)
+Create an SNS Topic
+
+Subscribe your email or SMS
+
+Link SNS to your alarm to get real-time alerts
+
+👀 Services Commonly Watched in CloudWatch:
+Service	Common Metrics
+EC2	CPU, Network, Disk
+Lambda	Duration, Errors, Throttles
+RDS	CPU, Memory, Connections
+S3	Requests, Bytes Downloaded/Uploaded
+ECS/EKS	Container Memory/CPU, Task Failures
+API Gateway	Latency, 4XX/5XX Errors
+ALB/ELB	RequestCount, TargetResponseTime
+
