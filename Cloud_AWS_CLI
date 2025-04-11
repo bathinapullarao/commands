@@ -567,6 +567,131 @@ CI/CD	             CodePipeline + CodeBuild + CodeDeploy
 Auth	             IAM (Git creds or SSH)
 ---------------------------------------------------------------------------------------------------------
 CodeBuild
+🔷 What is AWS CodeBuild?
+AWS CodeBuild is a fully managed continuous integration (CI) service that:
+Compiles source code
+Runs tests
+Builds artifacts (like .jar, .zip, .docker images)
+Doesn’t require you to provision or manage servers
+Works standalone or as part of CodePipeline
+It’s like Jenkins, CircleCI, or GitHub Actions — but managed by AWS.
+
+✅ Common Use Cases
+Build & test app code on every commit (CI)
+Create deployable artifacts (e.g., zip, Docker images)
+Automate builds inside a CodePipeline
+Trigger builds from GitHub, CodeCommit, S3, Bitbucket
+
+🛠️ How to Set Up and Use CodeBuild
+✅ 1. Create a Buildspec File
+This file defines the build steps.
+
+📄 buildspec.yml (sample for Node.js app)
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 16
+    commands:
+      - echo Installing dependencies...
+      - npm install
+
+  build:
+    commands:
+      - echo Building the app...
+      - npm run build
+
+artifacts:
+  files:
+    - '**/*'
+✅ 2. Create a CodeBuild Project
+You can do this via:
+AWS Console
+AWS CLI
+Terraform
+
+🌀 A. Using AWS Console
+Go to AWS Console → CodeBuild
+
+Click Create build project
+Project name: my-app-build
+Source provider: CodeCommit, GitHub, or S3
+
+Environment:
+Choose Managed image
+E.g., Ubuntu, Standard, Node.js, Java, etc.
+
+Buildspec:
+Use the default buildspec.yml in your repo, or specify inline
+
+Artifacts:
+Choose where to store build outputs (e.g., S3)
+Create and run the build
+
+🌀 B. Using AWS CLI
+aws codebuild create-project \
+  --name my-app-build \
+  --source type=CODECOMMIT,location=https://git-codecommit.us-west-2.amazonaws.com/v1/repos/my-app-repo \
+  --artifacts type=NO_ARTIFACTS \
+  --environment type=LINUX_CONTAINER,image=aws/codebuild/standard:7.0,computeType=BUILD_GENERAL1_SMALL \
+  --service-role arn:aws:iam::<account-id>:role/CodeBuildServiceRole
+🌀 C. Using Terraform
+resource "aws_codebuild_project" "my_app" {
+  name          = "my-app-build"
+  description   = "Build project for my app"
+
+  source {
+    type      = "CODECOMMIT"
+    location  = "https://git-codecommit.us-west-2.amazonaws.com/v1/repos/my-app-repo"
+  }
+
+  artifacts {
+    type = "NO_ARTIFACTS"
+  }
+
+  environment {
+    compute_type                = "BUILD_GENERAL1_SMALL"
+    image                       = "aws/codebuild/standard:7.0"
+    type                        = "LINUX_CONTAINER"
+    environment_variables = {
+      ENV = "dev"
+    }
+  }
+
+  service_role = aws_iam_role.codebuild_role.arn
+}
+🔐 IAM Role for CodeBuild
+Give CodeBuild permissions to do its job (pull from CodeCommit, write to S3, etc.).
+
+📄 Sample IAM role policy:
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "codecommit:GitPull",
+        "s3:*",
+        "logs:*",
+        "cloudwatch:*"
+      ],
+      "Resource": "*"
+    }
+  ]
+}
+🔁 Optional: Integrate with CodePipeline
+You can plug CodeBuild into a pipeline:
+Source (CodeCommit) → Build (CodeBuild) → Deploy (CodeDeploy)
+Let me know if you want a full CodePipeline + CodeBuild example too.
+
+✅ TL;DR
+Task                    Tool/Config
+Define steps            buildspec.yml
+Create project          Console / CLI / Terraform
+Trigger build           Console / CLI / Git webhook / CodePipeline
+Store results           S3 / ECR / Artifacts
+Permissions             IAM Role for CodeBuild
 ---------------------------------------------------------------------------------------------------------
 CodeDeploy
 ---------------------------------------------------------------------------------------------------------
