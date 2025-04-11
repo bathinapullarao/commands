@@ -398,4 +398,126 @@ S3	Requests, Bytes Downloaded/Uploaded
 ECS/EKS	Container Memory/CPU, Task Failures
 API Gateway	Latency, 4XX/5XX Errors
 ALB/ELB	RequestCount, TargetResponseTime
+---------------------------------------------------------------------------------------------------------
+AWS ECS
+Amazon ECS (Elastic Container Service) is a fully managed container orchestration service that makes it easy to deploy, manage, and scale containerized applications using Docker. Here's a step-by-step guide to create, configure, and use ECS:
 
+🧱 Step 1: Prerequisites
+Before you start:
+AWS account ✅
+Docker installed locally (for building images)
+AWS CLI installed & configured (aws configure)
+Optional: Terraform / CDK if you prefer IaC
+
+🧰 Step 2: Create a Docker Image
+If you already have one, skip this. Example Dockerfile for a Node.js app:
+
+FROM node:18-alpine
+WORKDIR /app
+COPY . .
+RUN npm install
+CMD ["npm", "start"]
+EXPOSE 3000
+Then build and push to Amazon ECR:
+
+# Authenticate
+aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin <your_account_id>.dkr.ecr.us-east-1.amazonaws.com
+
+# Create a repo
+aws ecr create-repository --repository-name my-app
+
+# Tag & push
+docker build -t my-app .
+docker tag my-app:latest <account_id>.dkr.ecr.us-east-1.amazonaws.com/my-app
+docker push <account_id>.dkr.ecr.us-east-1.amazonaws.com/my-app
+🏗️ Step 3: Create ECS Cluster
+Option 1: Console
+Go to ECS > Clusters > "Create Cluster"
+Choose “EC2” or “Fargate” (use Fargate for serverless)
+
+Option 2: CLI
+aws ecs create-cluster --cluster-name my-cluster
+🧩 Step 4: Define a Task Definition
+This tells ECS how to run your containers.
+
+{
+  "family": "my-task-def",
+  "networkMode": "awsvpc",
+  "requiresCompatibilities": ["FARGATE"],
+  "cpu": "256",
+  "memory": "512",
+  "containerDefinitions": [
+    {
+      "name": "my-container",
+      "image": "<account_id>.dkr.ecr.us-east-1.amazonaws.com/my-app",
+      "essential": true,
+      "portMappings": [
+        {
+          "containerPort": 3000,
+          "hostPort": 3000,
+          "protocol": "tcp"
+        }
+      ]
+    }
+  ]
+}
+Then register it:
+aws ecs register-task-definition --cli-input-json file://task-def.json
+🚀 Step 5: Run a Service
+You can either run a service (for long-running apps) or run-task (one-off jobs).
+
+aws ecs create-service \
+  --cluster my-cluster \
+  --service-name my-service \
+  --task-definition my-task-def \
+  --desired-count 1 \
+  --launch-type FARGATE \
+  --network-configuration "awsvpcConfiguration={subnets=[subnet-xxxx],securityGroups=[sg-xxxx],assignPublicIp=ENABLED}"
+Make sure your subnets and security groups are configured properly to allow traffic.
+
+🔍 Step 6: Monitor and Scale
+Use CloudWatch Logs to view logs.
+
+Use ECS Auto Scaling to scale tasks based on CPU/memory usage.
+
+Optional: Load Balancer
+If you want public access, set up an Application Load Balancer and configure it with your ECS service.
+
+Summary Cheatsheet
+Step	Action
+1	Build Docker image
+2	Push to Amazon ECR
+3	Create ECS cluster
+4	Register task definition
+5	Deploy as service
+6	Monitor & scale
+Would you like a working Terraform or CloudFormation template for all this? Or maybe want to deploy something specific like a Flask app or Next.js on ECS?
+---------------------------------------------------------------------------------------------------------
+AWS EKS
+---------------------------------------------------------------------------------------------------------
+AWS CodeCommit
+---------------------------------------------------------------------------------------------------------
+CodeBuild
+---------------------------------------------------------------------------------------------------------
+CodeDeploy
+---------------------------------------------------------------------------------------------------------
+SQS
+---------------------------------------------------------------------------------------------------------
+SNS
+---------------------------------------------------------------------------------------------------------
+Lambda
+----------------------------------------------------------------------------------------------------------
+API Gateway
+----------------------------------------------------------------------------------------------------------
+S3
+---------------------------------------------------------------------------------------------------------
+IAM
+----------------------------------------------------------------------------------------------------------
+AWS ROSA
+---------------------------------------------------------------------------------------------------------
+AWS X-Ray
+---------------------------------------------------------------------------------------------------------
+Sumo Logic
+---------------------------------------------------------------------------------------------------------
+Dynatrace
+---------------------------------------------------------------------------------------------------------
