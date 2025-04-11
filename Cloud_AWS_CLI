@@ -400,17 +400,20 @@ API Gateway	Latency, 4XX/5XX Errors
 ALB/ELB	RequestCount, TargetResponseTime
 ---------------------------------------------------------------------------------------------------------
 AWS ECS
-Amazon ECS (Elastic Container Service) is a fully managed container orchestration service that makes it easy to deploy, manage, and scale containerized applications using Docker. Here's a step-by-step guide to create, configure, and use ECS:
+Amazon ECS (Elastic Container Service) is a fully managed container orchestration service that makes it easy to deploy, manage,
+and scale containerized applications using Docker. Here's a step-by-step guide to create, configure, and use ECS:
 
 🧱 Step 1: Prerequisites
 Before you start:
 AWS account ✅
 Docker installed locally (for building images)
 AWS CLI installed & configured (aws configure)
-Optional: Terraform / CDK if you prefer IaC
+Optional: Terraform / CDK if you prefer IaC ##Cloud development kit(CDK) for Terraform (CDKTF) — likely in your case
+This is an official Terraform tool that lets you define Terraform infrastructure using general-purpose programming languages 
+(like TypeScript, Python, Java, or C#) instead of HCL (HashiCorp Configuration Language).
 
 🧰 Step 2: Create a Docker Image
-If you already have one, skip this. Example Dockerfile for a Node.js app:
+Example Dockerfile for a Node.js app:
 
 FROM node:18-alpine
 WORKDIR /app
@@ -496,6 +499,72 @@ Would you like a working Terraform or CloudFormation template for all this? Or m
 AWS EKS
 ---------------------------------------------------------------------------------------------------------
 AWS CodeCommit
+🔹 What is AWS CodeCommit?
+AWS CodeCommit is a fully managed Git-based source control service hosted by AWS. It's like GitHub or Bitbucket, but integrated with AWS. You can use it to:
+Store your source code securely in private repositories
+Collaborate with teams using Git
+Integrate easily with CodeBuild, CodePipeline, CodeDeploy, etc.
+
+🔧 How to Create, Configure, and Use AWS CodeCommit
+✅ Step 1: Create a CodeCommit Repository
+You can do this via the AWS Console, CLI, or IaC (like Terraform/CDK).
+
+📌 Console:
+Go to AWS Console → CodeCommit
+Click Create repository
+Enter a name (e.g., my-app-repo)
+Optionally add a description or tags
+Click Create
+
+✅ Step 2: Configure Git Access
+Option 1: HTTPS (with Git credentials)
+In the AWS Console → IAM → Your user → Security Credentials
+Generate Git credentials
+Use those when cloning via HTTPS:
+
+git clone https://git-codecommit.<region>.amazonaws.com/v1/repos/my-app-repo
+You'll be prompted for username/password → use the Git credentials
+
+Option 2: SSH
+Upload your public SSH key in IAM under SSH Keys for AWS CodeCommit
+
+Use the SSH URL to clone:
+
+git clone ssh://git-codecommit.<region>.amazonaws.com/v1/repos/my-app-repo
+✅ Step 3: Use CodeCommit with Git
+Now that you've cloned the repo, it's just like any Git repo:
+
+cd my-app-repo
+touch README.md
+git add .
+git commit -m "Initial commit"
+git push origin main
+✅ Step 4: Integrate with AWS DevOps Tools (Optional)
+You can integrate CodeCommit with:
+CodeBuild for CI
+CodeDeploy for automated deployment
+CodePipeline for full CI/CD automation
+
+🔒 IAM Permissions
+Make sure your IAM user/role has permissions like:
+{
+  "Effect": "Allow",
+  "Action": [
+    "codecommit:GitPull",
+    "codecommit:GitPush",
+    "codecommit:GetRepository"
+  ],
+  "Resource": "*"
+}
+(For more fine-grained control, scope to specific repo ARNs)
+
+✅ TL;DR
+Task               Tool
+Create repo        Console / CLI / Terraform
+Clone repo         HTTPS or SSH
+Push code	         Standard Git commands
+CI/CD	             CodePipeline + CodeBuild + CodeDeploy
+Auth	             IAM (Git creds or SSH)
 ---------------------------------------------------------------------------------------------------------
 CodeBuild
 ---------------------------------------------------------------------------------------------------------
