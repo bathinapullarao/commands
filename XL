@@ -1,3 +1,4 @@
+ctl+shift+n+v  <--past without format
 use 'datavalidation' to get 
 =A1&" "&B1        <--Formula to combine tow cells
 =DATEVALUE(A2)    <--value of A2 is '02/19/2025 and it returns 19-Feb-2025
