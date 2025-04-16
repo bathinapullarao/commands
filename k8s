@@ -1,4 +1,11 @@
 managing and scaling applications using Kubernetes, including the use of deployments, statefulsets, and daemonsets?
+-------------------------------------------------------------------------------------------------------------------------------------
+| Cloud | Concept        | Resource Type / Term                    |
+|-------|----------------|-----------------------------------------|
+| AWS   | EKS Node Group | `aws_eks_node_group`                    |
+| GCP   | GKE Node Pool  | `google_container_node_pool`            |
+| Azure | AKS Node Pool  | `azurerm_kubernetes_cluster_node_pool`  |
+
 --------------------------------------------------------------------------------------------------------------------------------------
 Kind: ConfigMap, Secret, Deploymnet, Service, ingress, StatefulSet, HorizontalPodAutoscaler, pod, ServiceAccount, StorageClass, PersistentVolume, PersistentVolumeClaim, PodDisruptionBudget,
       Role, RoleBinding, ClusterRole, ClusterRoleBinding, DaemonSet,  certificate, ReplicaSet, Job, CronJob, EndpointSlice, Lease, NetworkPolicy, LimitRange, ResourceQuota
