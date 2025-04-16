@@ -1,3 +1,5 @@
+managing and scaling applications using Kubernetes, including the use of deployments, statefulsets, and daemonsets?
+--------------------------------------------------------------------------------------------------------------------------------------
 Kind: ConfigMap, Secret, Deploymnet, Service, ingress, StatefulSet, HorizontalPodAutoscaler, pod, ServiceAccount, StorageClass, PersistentVolume, PersistentVolumeClaim, PodDisruptionBudget,
       Role, RoleBinding, ClusterRole, ClusterRoleBinding, DaemonSet,  certificate, ReplicaSet, Job, CronJob, EndpointSlice, Lease, NetworkPolicy, LimitRange, ResourceQuota
 pdb(pod distribution budget): A Pod Disruption Budget (PDB) allows you to limit the disruption to your application when its pods need to be rescheduled for some reason 
