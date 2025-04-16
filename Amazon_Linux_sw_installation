@@ -1,2 +1,0 @@
-[ec2-user ~]$ sudo yum install links
-[ec2-user ~]$ sudo yum install my-package.rpm
