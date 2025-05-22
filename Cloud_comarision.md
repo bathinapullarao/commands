@@ -181,7 +181,7 @@ sudo ufw allow out to 93.184.216.34 port 443 proto tcp
 sudo ufw allow out to 8.8.8.8 port 53 proto udp  # for DNS
 ``` 
 ># 🧰 Linux Network-Related Commands Cheat Sheet
-![Screenshot of a comment on a GitHub issue showing an image, added in the Markdown, of an Octocat smiling and raising a tentacle.](https://myoctocat.com/assets/images/base-octocat.svg)
+
 
 ## 🔧 Basic Commands
 
@@ -221,4 +221,4 @@ ip a
 # Check internet connectivity
 ping 8.8.8.8
 ```
-
+![Screenshot of a comment on a GitHub issue showing an image, added in the Markdown, of an Octocat smiling and raising a tentacle.](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSe9tmfU4Euc7QWkWyjBaE0eoLO2RNPz9G0hOiV-YVRIHpOTtbrLOefFI0&s)
