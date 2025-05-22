@@ -139,8 +139,8 @@ You go to your GoDaddy dashboard and replace the default name servers with the o
 ➡️ Result: Now, whenever someone looks up example.com, DNS queries are sent to Google Cloud DNS instead of GoDaddy.  
 
 ```
-**Network related commands**
-**Method 1:**You can allow access only to specific IPs or domains and block the rest.  
+## 🧪You can allow access only to specific IPs or domains and block the rest.
+##Method 1:  
 **Step 1:** Allow access to specific domains (e.g., example.com)  
 iptables -A OUTPUT -p tcp -d example.com --dport 80 -j ACCEPT  
 iptables -A OUTPUT -p tcp -d example.com --dport 443 -j ACCEPT  
@@ -150,7 +150,7 @@ dig +short example.com
 iptables -A OUTPUT -p tcp --dport 80 -j DROP  
 iptables -A OUTPUT -p tcp --dport 443 -j DROP  
 ⚠️ Make sure SSH (port 22) and DNS (53) are not blocked if you're connected remotely.  
-**Method 2:** Using a Proxy (Squid)  
+##Method 2: Using a Proxy (Squid)  
 You can install a proxy like Squid and configure it to allow specific sites.  
 sudo apt install squid -y  
 sudo nano /etc/squid/squid.conf  
@@ -158,12 +158,12 @@ acl allowed_sites dstdomain .example.com .another-site.com
 http_access allow allowed_sites  
 http_access deny all  
 sudo systemctl restart squid  
-**Method 3:** /etc/hosts Blocking (Not Secure), You can override DNS resolution for blocking, not ideal for strict security:  
+##Method 3: /etc/hosts Blocking (Not Secure), You can override DNS resolution for blocking, not ideal for strict security:  
 sudo nano /etc/hosts  
 Add lines to block sites by redirecting to localhost:   
 127.0.0.1  facebook.com  
 127.0.0.1  youtube.com  
-**Method 4:** Use ufw (Simpler Firewall)  
+##Method 4: Use ufw (Simpler Firewall)  
 If using ufw:  
 sudo ufw default deny outgoing  
 sudo ufw allow out to 93.184.216.34 port 443 proto tcp  
