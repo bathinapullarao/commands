@@ -1,5 +1,5 @@
 
-<ins>**AWS:**</ins> 
+**<ins>AWS:</ins>** 
 ```  
 login to AWS console and go to iam create secteate key access key,
 provide access to services to it.create vpc with multiple subnets and another vpc,
@@ -13,7 +13,7 @@ understand about security groups and network acl's
 login to gcp console, create Iam user, security groups , provide access, create compute engine,
 instance group, gke, all ingress some ports in firewall, create cloudsql, vpc, vpc peering, tunneling to windows
 ```
-<ins>azure:</ins>  
+**<ins>AZURE:</ins>** 
 ```
 login to azure console, create security principle, active directory,azure DevOps, vm's, aks
 ```
