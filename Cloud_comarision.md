@@ -162,5 +162,41 @@ If using ufw:
 sudo ufw default deny outgoing  
 sudo ufw allow out to 93.184.216.34 port 443 proto tcp  
 sudo ufw allow out to 8.8.8.8 port 53 proto udp  # for DNS  
+# 🧰 Linux Network-Related Commands Cheat Sheet
+
+## 🔧 Basic Commands
+
+| Command | Description |
+|--------|-------------|
+| `ip a` or `ip addr` | Shows all network interfaces and their IP addresses |
+| `ip r` or `ip route` | Shows the routing table (default gateway, routes) |
+| `ip link` | Shows and manages network interfaces |
+| `ping <host>` | Tests connectivity to another host (ICMP echo) |
+| `traceroute <host>` | Shows the path packets take to a destination |
+| `nslookup <domain>` | Queries DNS to resolve domain names |
+| `dig <domain>` | Advanced DNS lookup tool |
+| `hostname` | Displays or sets the system hostname |
+| `hostname -I` | Shows the system’s IP address |
+| `ifconfig` *(deprecated)* | Shows and configures network interfaces (use `ip` instead) |
+| `netstat -tuln` | Shows listening ports and services (use `ss` in modern systems) |
+| `ss -tuln` | Faster alternative to `netstat`, shows open ports and services |
+| `nmap <IP or range>` | Scans ports on a target host (requires installation) |
+| `curl <URL>` | Performs HTTP requests from the command line |
+| `wget <URL>` | Downloads files from the web |
+| `ethtool eth0` | Displays settings of a network interface (replace `eth0` with interface name) |
+| `tcpdump -i eth0` | Captures network packets on interface `eth0` (requires root) |
+| `nmcli` | Command-line tool for NetworkManager configuration |
+| `ip neigh` | Shows ARP table (neighbor cache) |
+| `arp -a` | Shows ARP entries (used in local LAN mapping) |
+| `route -n` | Displays kernel routing table (older tool; `ip route` is preferred) |
+
+---
+
+## 🧪 Practical Usage Examples
+```bash
+# Show current IP address
+ip a
+# Check internet connectivity
+ping 8.8.8.8
 
 
