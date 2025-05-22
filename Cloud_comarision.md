@@ -138,6 +138,7 @@ ns-cloud-a4.googledomains.com
 You go to your GoDaddy dashboard and replace the default name servers with the ones above.  
 ➡️ Result: Now, whenever someone looks up example.com, DNS queries are sent to Google Cloud DNS instead of GoDaddy.  
 
+```
 **Network related commands**
 **Method 1:**You can allow access only to specific IPs or domains and block the rest.  
 **Step 1:** Allow access to specific domains (e.g., example.com)  
@@ -168,7 +169,7 @@ sudo ufw default deny outgoing
 sudo ufw allow out to 93.184.216.34 port 443 proto tcp  
 sudo ufw allow out to 8.8.8.8 port 53 proto udp  # for DNS  
 # 🧰 Linux Network-Related Commands Cheat Sheet
-
+```
 ## 🔧 Basic Commands
 
 | Command | Description |
