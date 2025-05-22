@@ -211,10 +211,10 @@ sudo ufw allow out to 8.8.8.8 port 53 proto udp  # for DNS
 | `hostname -I` | Shows the system’s IP address |
 | **`ifconfig`** *(deprecated)* | Shows and configures network interfaces (use `ip` instead) |
 | **`netstat -tuln`** | Shows listening ports and services (use `ss` in modern systems) |
-| `ss -tuln` | Faster alternative to `netstat`, shows open ports and services |
+| **`ss -tuln`** | Faster alternative to `netstat`, shows open ports and services |
 | **`nmap <IP or range>`** | Scans ports on a target host (requires installation) |
-| **`curl <URL>`** | Performs HTTP requests from the command line |
-| **`wget <URL>`** | Downloads files from the web |
+| `curl <URL>` | Performs HTTP requests from the command line |
+| `wget <URL>` | Downloads files from the web |
 | `ethtool eth0` | Displays settings of a network interface (replace `eth0` with interface name) |
 | `tcpdump -i eth0` | Captures network packets on interface `eth0` (requires root) |
 | `nmcli` | Command-line tool for NetworkManager configuration |
