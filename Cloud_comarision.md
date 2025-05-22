@@ -222,3 +222,4 @@ ip a
 ping 8.8.8.8
 ```
 ![Screenshot of a comment on a GitHub issue showing an image, added in the Markdown, of an Octocat smiling and raising a tentacle.](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQk_6_iIAWFIm6OKoeUek1i9IypLrLMJ8jOPA&s)
+![gif file](https://barreirofisica.wordpress.com/wp-content/uploads/2013/06/albert-einstein.gif)
