@@ -179,7 +179,7 @@ If using ufw:
 sudo ufw default deny outgoing  
 sudo ufw allow out to 93.184.216.34 port 443 proto tcp  
 sudo ufw allow out to 8.8.8.8 port 53 proto udp  # for DNS  
-# 🧰 Linux Network-Related Commands Cheat Sheet
+># 🧰 Linux Network-Related Commands Cheat Sheet
 ```
 ## 🔧 Basic Commands
 
