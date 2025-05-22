@@ -139,7 +139,7 @@ You go to your GoDaddy dashboard and replace the default name servers with the o
 ➡️ Result: Now, whenever someone looks up example.com, DNS queries are sent to Google Cloud DNS instead of GoDaddy.  
 
 ```
-## 🧪You can allow access only to specific IPs or domains and block the rest.
+` 🧪You can allow access only to specific IPs or domains and block the rest.`
 ##Method 1:  
 **Step 1:** Allow access to specific domains (e.g., example.com)  
 iptables -A OUTPUT -p tcp -d example.com --dport 80 -j ACCEPT  
