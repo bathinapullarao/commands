@@ -10,12 +10,14 @@ understand about security groups and network acl's
 ```
 **<ins>GCP:</ins>**  
 ```
-login to gcp console, create Iam user, security groups , provide access, create compute engine,
-instance group, gke, all ingress some ports in firewall, create cloudsql, vpc, vpc peering, tunneling to windows
+login to gcp console, create Iam user, security groups , provide access,
+create compute engine,instance group, gke, all ingress some ports in firewall,
+create cloudsql, vpc, vpc peering, tunneling to windows
 ```
 **<ins>AZURE:</ins>** 
 ```
-login to azure console, create security principle, active directory,azure DevOps, vm's, aks
+login to azure console, create security principle, active directory,azure DevOps,
+vm's, aks
 ```
 # Cloud Service Comparison: AWS vs. GCP vs. Azure
 
