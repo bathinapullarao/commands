@@ -169,6 +169,9 @@ sudo ufw allow out to 8.8.8.8 port 53 proto udp  # for DNS
 | Command | Description |
 |--------|-------------|
 | **`ip a`** or `ip addr` | Shows all network interfaces and their IP addresses |
+| **`telnet 192.168.1.10 22`** | Check if port 22 is open on 192.168.1.10 |
+| `nmap -p 80 192.168.1.10`| Check if port 80 is open on 192.168.1.10 |
+| `nc -zv 192.168.1.10 443` | netcat Check if port 443 is open on 192.168.1.10, -z = scan without sending data,-v = verbose output |
 | `ip r` or `ip route` | Shows the routing table (default gateway, routes) |
 | `ip link` | Shows and manages network interfaces |
 | **`ping <host>`** | Tests connectivity to another host (ICMP echo) |
