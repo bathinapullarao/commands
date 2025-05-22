@@ -221,4 +221,4 @@ ip a
 # Check internet connectivity
 ping 8.8.8.8
 ```
-![Screenshot of a comment on a GitHub issue showing an image, added in the Markdown, of an Octocat smiling and raising a tentacle.](https://www.google.com/imgres?q=einstein%20cartoon%20png&imgurl=https%3A%2F%2Fwww.pngplay.com%2Fwp-content%2Fuploads%2F6%2FAlbert-Einstein-Scientist-Vector-PNG.png&imgrefurl=https%3A%2F%2Fwww.pngplay.com%2Fimage%2F96799&docid=vh42cvkU_4CP-M&tbnid=dGz0NxmugGYYkM&vet=12ahUKEwiQ9t_hqbeNAxUEmK8BHQiKMjEQM3oECFwQAA..i&w=732&h=1154&hcb=2&ved=2ahUKEwiQ9t_hqbeNAxUEmK8BHQiKMjEQM3oECFwQAA)
+![Screenshot of a comment on a GitHub issue showing an image, added in the Markdown, of an Octocat smiling and raising a tentacle.](https://www.google.com/imgres?q=einstein%20cartoon%20png&imgurl=https%3A%2F%2Fwallpapers.com%2Fimages%2Fhd%2Falbert-einstein-cartoon-png-38-wxujldtojz3ookl2.jpg&imgrefurl=https%3A%2F%2Fwallpapers.com%2Fpng%2Falbert-einstein-cartoon-png-38-wxujldtojz3ookl2.html&docid=poqK6Th406zGtM&tbnid=VxjHUi76TzLwgM&vet=12ahUKEwiQ9t_hqbeNAxUEmK8BHQiKMjEQM3oECF8QAA..i&w=896&h=896&hcb=2&ved=2ahUKEwiQ9t_hqbeNAxUEmK8BHQiKMjEQM3oECF8QAA)
