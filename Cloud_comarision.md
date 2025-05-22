@@ -201,5 +201,7 @@ sudo ufw allow out to 8.8.8.8 port 53 proto udp  # for DNS
 ip a
 # Check internet connectivity
 ping 8.8.8.8
-
+a
+b
+c
 
