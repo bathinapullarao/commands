@@ -206,7 +206,7 @@ sudo ufw allow out to 8.8.8.8 port 53 proto udp  # for DNS
 | **`ping <host>`** | Tests connectivity to another host (ICMP echo) |
 | **`traceroute <host>`** | Shows the path packets take to a destination |
 | **`nslookup <domain>`** | Queries DNS to resolve domain names |
-| **`dig <domain>`** | Advanced DNS lookup tool |
+| **`dig <domain>`** | Advanced DNS lookup tool, "dig ANY example.com", ANY requests all available record types |
 | **`hostname`** | Displays or sets the system hostname |
 | `hostname -I` | Shows the system’s IP address |
 | **`ifconfig`** *(deprecated)* | Shows and configures network interfaces (use `ip` instead) |
