@@ -122,7 +122,7 @@ azure: login to azure console, create security principle, active directory,azure
 | **Ideal Use Case** | **Best for AI/ML, Big Data, and Google Cloud users** | **Best for AWS-heavy workloads and enterprises** | **Best for Azure users & hybrid workloads** | **Best for on-prem or multi-cloud Kubernetes** |
 
 ---
-**Domain name**
+**Domain name**  
 Let’s say you bought a domain: example.com from GoDaddy.
 By default, DNS queries for example.com go to GoDaddy’s name servers.
 After setting up Cloud DNS, Google gives you name servers like:
