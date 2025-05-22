@@ -163,7 +163,8 @@ iptables -A OUTPUT -p tcp --dport 80 -j DROP
 iptables -A OUTPUT -p tcp --dport 443 -j DROP  
 ⚠️ Make sure SSH (port 22) and DNS (53) are not blocked if you're connected remotely.
 ```  
-## Method 2: Using a Proxy (Squid)  
+## Method 2:  
+Using a Proxy (Squid)  
 ```  
 You can install a proxy like Squid and configure it to allow specific sites.  
 sudo apt install squid -y  
