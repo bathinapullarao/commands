@@ -1,12 +1,14 @@
 
-<ins>AWS:</ins> 
+<ins>**AWS:**</ins> 
 ```  
-login to AWS console and go to iam create secteate key access key, provide access to services to it.
-create vpc with multiple subnets and another vpc, create vpc peering,create a bastion server and connect from it to all the servers.
-create elastic ip's, assign to ec2 instance, create gke cluster, ec2 instance, AWS lambda,s3 buckets, 
- rds,route53 or cloud flare, update SSL certificates, understand about security groups and network acl's
+login to AWS console and go to iam create secteate key access key,
+provide access to services to it.create vpc with multiple subnets and another vpc,
+create vpc peering,create a bastion server and connect from it to all the servers.
+create elastic ip's, assign to ec2 instance, create gke cluster, ec2 instance,
+AWS lambda,s3 buckets,rds,route53 or cloud flare, update SSL certificates,
+understand about security groups and network acl's
 ```
-<ins>gcp:</ins>  
+**<ins>GCP:</ins>**  
 ```
 login to gcp console, create Iam user, security groups , provide access, create compute engine,
 instance group, gke, all ingress some ports in firewall, create cloudsql, vpc, vpc peering, tunneling to windows
