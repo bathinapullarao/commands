@@ -123,13 +123,13 @@ azure: login to azure console, create security principle, active directory,azure
 
 ---
 **Domain name**  
-Let’s say you bought a domain: example.com from GoDaddy.
-By default, DNS queries for example.com go to GoDaddy’s name servers.
-After setting up Cloud DNS, Google gives you name servers like:
-ns-cloud-a1.googledomains.com
-ns-cloud-a2.googledomains.com
-ns-cloud-a3.googledomains.com
-ns-cloud-a4.googledomains.com
-You go to your GoDaddy dashboard and replace the default name servers with the ones above.
-➡️ Result: Now, whenever someone looks up example.com, DNS queries are sent to Google Cloud DNS instead of GoDaddy.
+Let’s say you bought a domain: example.com from GoDaddy.  
+By default, DNS queries for example.com go to GoDaddy’s name servers.  
+After setting up Cloud DNS, Google gives you name servers like:  
+ns-cloud-a1.googledomains.com  
+ns-cloud-a2.googledomains.com  
+ns-cloud-a3.googledomains.com  
+ns-cloud-a4.googledomains.com  
+You go to your GoDaddy dashboard and replace the default name servers with the ones above.  
+➡️ Result: Now, whenever someone looks up example.com, DNS queries are sent to Google Cloud DNS instead of GoDaddy.  
 
