@@ -221,4 +221,4 @@ ip a
 # Check internet connectivity
 ping 8.8.8.8
 ```
-![Screenshot of a comment on a GitHub issue showing an image, added in the Markdown, of an Octocat smiling and raising a tentacle.](https://www.google.com/imgres?q=einstein%20cartoon%20png&imgurl=https%3A%2F%2Fwallpapers.com%2Fimages%2Fhd%2Falbert-einstein-cartoon-png-38-wxujldtojz3ookl2.jpg&imgrefurl=https%3A%2F%2Fwallpapers.com%2Fpng%2Falbert-einstein-cartoon-png-38-wxujldtojz3ookl2.html&docid=poqK6Th406zGtM&tbnid=VxjHUi76TzLwgM&vet=12ahUKEwiQ9t_hqbeNAxUEmK8BHQiKMjEQM3oECF8QAA..i&w=896&h=896&hcb=2&ved=2ahUKEwiQ9t_hqbeNAxUEmK8BHQiKMjEQM3oECF8QAA)
+![Screenshot of a comment on a GitHub issue showing an image, added in the Markdown, of an Octocat smiling and raising a tentacle.](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQk_6_iIAWFIm6OKoeUek1i9IypLrLMJ8jOPA&s)
