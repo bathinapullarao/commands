@@ -231,5 +231,67 @@ ip a
 # Check internet connectivity
 ping 8.8.8.8
 ```
+
+# 🔐 Places to Write Access Policies in AWS
+
+In **AWS**, you can write access policies in various places depending on what you're securing and who/what needs access.
+
+---
+
+## ✅ Places You Can Write Access Policies
+
+| **Place** | **Description** | **Scope** | **Policy Type** |
+|-----------|------------------|-----------|------------------|
+| **IAM User** | Attached directly to a user | Single user | Identity-based |
+| **IAM Group** | Policies attached to a group; affect all members | Group of users | Identity-based |
+| **IAM Role** | Used by services, users, or federated identities | Service or trusted entity | Identity-based |
+| **Resource-based Policy** | Attached directly to a resource (e.g., S3 bucket) | Specific resource | Resource-based |
+| **Service Control Policy (SCP)** | Part of AWS Organizations; controls what accounts can do | Entire account or OU | Organization policy |
+| **Session Policies** | Temporary permissions in STS AssumeRole sessions | Session duration | Identity-based |
+| **Permissions Boundary** | Limits the maximum permissions an IAM role or user can have | IAM entity level | Boundary policy |
+| **Access Control Lists (ACLs)** | Legacy; controls access to S3 buckets and objects | Resource-specific | Resource access |
+| **VPC Endpoint Policies** | Control access through VPC endpoints | Network path-level | Resource-based |
+| **Bucket Policies (S3)** | Specific to S3 buckets | Per bucket | Resource-based |
+| **Lambda Resource Policies** | Controls who can invoke your Lambda | Per function | Resource-based |
+| **KMS Key Policies** | Manage access to encryption keys | Per key | Resource-based |
+| **SQS/SNS/Lake Formation/Secrets Manager Policies** | Specific to these services | Per resource | Resource-based |
+| **IAM Policy Simulator** | Tool to test policies, not a policy location | N/A | N/A |
+
+---
+
+## 🧠 Policy Types in AWS
+
+| **Type** | **Attached To** | **Controls** |
+|----------|------------------|---------------|
+| **Identity-based policy** | IAM users, groups, roles | What actions they can perform on which resources |
+| **Resource-based policy** | AWS resources like S3, Lambda, KMS | Who can access the resource and how |
+| **SCP (Org-level)** | AWS accounts or Organizational Units | Max permissions boundary |
+| **Permissions boundary** | IAM roles/users | Limit maximum effective permissions |
+| **Session policy** | STS sessions | Temporary fine-grained access control |
+
+---
+
+## 🔒 Example: Controlling Access to an S3 Bucket
+
+- **IAM Policy on User:**  
+  Allows `s3:PutObject` on `my-bucket`.
+
+- **Bucket Policy:**  
+  Allows public `s3:GetObject` on all objects in the bucket.
+
+- **Permissions Boundary:**  
+  Limits user from doing anything outside of `s3:GetObject`.
+
+---
+
+## ✅ Recommendations
+
+- Use **IAM roles** for EC2, Lambda, etc.
+- Use **resource-based policies** for shared services like S3, KMS, SNS.
+- Use **SCPs** to restrict permissions across accounts in AWS Organizations.
+- Use **permissions boundaries** for delegation of admin capabilities.
+
+---
+
 ![Screenshot of a comment on a GitHub issue showing an image, added in the Markdown, of an Octocat smiling and raising a tentacle.](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQk_6_iIAWFIm6OKoeUek1i9IypLrLMJ8jOPA&s)
 ![gif file](https://barreirofisica.wordpress.com/wp-content/uploads/2013/06/albert-einstein.gif)
