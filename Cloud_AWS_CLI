@@ -110,7 +110,7 @@ s3fs mybucket /path/to/mountpoint -o passwd_file=${HOME}/.passwd-s3fs   <--mount
 ---------------------------------------------------------------------------------------------------------
 Use Case                                                                Best Choice
 Restrict API Access to AWS services (e.g., S3, DynamoDB)                IAM
-Restrict Kubernetes API Access for Pods                                 Service Account
+Restrict Kubernetes API Access for Pods                                 IAM Role
 Restrict instance-level access (e.g., allow SSH to EC2)                 Security Group
 Restrict subnet-level traffic (e.g., block all outgoing traffic)        NACL
 ---------------------------------------------------------------------------------------------------------
