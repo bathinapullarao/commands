@@ -206,6 +206,16 @@ Go to AWS Console → Open AWS Shield.-->Click Activate AWS Shield Advanced.-->C
 ALB, CloudFront, Route 53, or API Gateway.
 Click Enable Protection.
 🔹 Done! AWS Shield is now defending your application.
+---------------------------------------------------------------------------------------------------------
+Amazon API Gateway is a fully managed service by AWS that enables you to:
+✅ Create,
+✅ Publish,
+✅ Secure,
+✅ Monitor, and
+✅ Maintain
+APIs at any scale.
+It acts as a "front door" for your backend services — 
+whether those are AWS Lambda functions, EC2 instances, microservices, or other HTTP endpoints.
 ---------------------------------------------------------------------------------------------------------------
 Firewall                         Purpose                                         Best For
 Security Groups                  Stateful, per-instance                          Protecting EC2, RDS, Load Balancers
