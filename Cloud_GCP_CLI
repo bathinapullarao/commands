@@ -63,6 +63,11 @@ steps:
 2️⃣ Submit the Build
 gcloud builds submit --config cloudbuild.yaml
 --------------------------------------------------------------------------------------------------------
+GKE Autopilot is a fully managed mode of running Kubernetes on Google Kubernetes Engine (GKE) 
+where Google manages the cluster's infrastructure, including the control plane and the worker nodes.
+You just deploy your pods, and GKE Autopilot automatically provisions and scales the underlying 
+compute resources based on your workload needs.
+--------------------------------------------------------------------------------------------------------
 GCS:offers different types of buckets based on location and storage class
 Based on Location: Regional, Dual-Region, Multi-Region
 Based on Storage Class: 
