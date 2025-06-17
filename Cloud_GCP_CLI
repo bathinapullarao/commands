@@ -164,12 +164,6 @@ sudo docker tag php-apache:$TAG asia.gcr.io/ProjectID/${LOCAL_IMAGE}:$TAG
 docker push asia.gcr.io/ProjectID/${LOCAL_IMAGE}:$TAG
 
 
-
-
-
-
-
-
 gcloud info --format='value(config.project)'      <-- To get project ID
 ##shell
 for project in $(gcloud projects list --format="value(project_id)")
@@ -179,3 +173,8 @@ do
 done
 ##To check logging in GCP
 resource.type="cloudsql_database"  textPayload:("LOCK" OR "error" OR "deadlock")
+
+Pub/Sub:
+Google Cloud Pub/Sub is a messaging service for sending and receiving messages between independent systems.
+Publisher: Sends a message to a topic.
+Subscriber: Pulls or receives messages from a subscription attached to that topic.
