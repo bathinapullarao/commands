@@ -11,3 +11,4 @@ use 'datavalidation' to get
 =TEXT(B2-WEEKDAY(B2,2)+1,"dd mmm")&TEXT(B2-WEEKDAY(B2,2)+7," to dd mmm") <--value of B2 is 19-Feb-2025 and it returns 
 =VLOOKUP(Q2,'# Setup'!$B$3:$D$25,3,0) <--search Q2 value in setup sheet from range b3 to d25 when exact mach of Q2 print exact row cell value of the 3 column value here d series is 3rd column 
 =If(T6="null","",VALUE(T6))  <--If T6 contains the text "null", return an empty string ("").Otherwise, convert the value in T6 to a number using VALUE(T6).
+=ARRAYFORMULA(IF(U2:U="true", 1, IF(U2:U="false", 0, "")))    <--it will apply to whole column replacing true to 1 and false to 0
