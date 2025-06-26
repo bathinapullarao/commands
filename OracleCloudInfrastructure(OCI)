@@ -1,0 +1,34 @@
+bash -c "$(curl -L https://raw.githubusercontent.com/oracle/oci-cli/master/scripts/install/install.sh)"     <--Install OCI CLI
+oci --version            <--check version
+oci setup config         <--Configure OCI CLI, Tenancy OCID, User OCID, Default region (e.g., ap-hyderabad-1), Path to API key
+                              You can find these in your OCI Console:
+                              Tenancy OCID: Identity > Tenancy
+                              User OCID: Identity > Users > Your user
+                              Region: Top right corner in Console
+                          The oci setup config will generate an API key pair (by default under ~/.oci/oci_api_key_public.pem)
+                          Go to OCI Console > Identity > Users > Click on your user
+                          Under “API Keys” → Click Add Public Key
+                          Paste contents of oci_api_key_public.pem
+oci iam compartment list  <--Test the Connection
+oci compute instance list --compartment-id <compartment_ocid>   <--# List compute instances
+oci os bucket list --compartment-id <compartment_ocid>          <--# List object storage buckets
+oci compute instance launch ...                                 <--# Launch an instance
+
+Tip: Store Profile for Multiple Projects
+In ~/.oci/config, you can define multiple [PROFILE_NAME] sections for different projects.
+Example:
+[DEFAULT]
+user=ocid1.user...
+fingerprint=...
+key_file=~/.oci/oci_api_key.pem
+tenancy=ocid1.tenancy...
+region=ap-hyderabad-1
+
+[PROJECT2]
+user=ocid1.user...
+tenancy=ocid1.tenancy...
+key_file=~/.oci/oci_api_key_project2.pem
+region=us-ashburn-1
+
+Then use:
+oci --profile PROJECT2 os bucket list --compartment-id <ocid>
