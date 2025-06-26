@@ -36,5 +36,11 @@ oci --profile PROJECT2 os bucket list --compartment-id <ocid>
 Generate an auth token for your OCI user
 Go to Identity > Users > Your User > Auth Tokens.
 Generate a token (this is used as the password for various services to connect).
+----------------------------------------------------------------------------------------------------------
+What is a Tenancy?
+It is your cloud account on OCI.Created when you sign up for OCI.
+Includes:Compartments (logical groups of resources),Users,Groups,Policies
+Networks, Compute, Storage, Functions, etc.
+-----------------------------------------------------------------------------------------------------------
 
 
