@@ -13,7 +13,7 @@ oci iam compartment list  <--Test the Connection
 oci compute instance list --compartment-id <compartment_ocid>   <--# List compute instances
 oci os bucket list --compartment-id <compartment_ocid>          <--# List object storage buckets
 oci compute instance launch ...                                 <--# Launch an instance
-
+--------------------------------------------------------------------------------------------------
 Tip: Store Profile for Multiple Projects
 In ~/.oci/config, you can define multiple [PROFILE_NAME] sections for different projects.
 Example:
@@ -32,3 +32,9 @@ region=us-ashburn-1
 
 Then use:
 oci --profile PROJECT2 os bucket list --compartment-id <ocid>
+----------------------------------------------------------------------------------------------------------
+Generate an auth token for your OCI user
+Go to Identity > Users > Your User > Auth Tokens.
+Generate a token (this is used as the password for various services to connect).
+
+
