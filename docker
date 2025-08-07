@@ -11,7 +11,7 @@ gcloud container images list
 aws configure  <--You will be prompted to enter:AWS Access Key ID-->AWS Secret Access Key-->Default region (e.g., us-east-1)-->Output format (leave as json or none)
 aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin [AWS_ACCOUNT_ID].dkr.ecr.[REGION].amazonaws.com
 aws ecr create-repository --repository-name myapp  <--Create an ECR Repository
-docker tag myapp:latest [AWS_ACCOUNT_ID].dkr.ecr.[REGION].amazonaws.com/myapp:latest
+docker tag myapp:latest [AWS_ACCOUNT_ID].dkr.ecr.[REGION].amazonaws.com/myapp:latest  <--two repos avaialable at local one is myapp and other is repo with gcr
 docker push [AWS_ACCOUNT_ID].dkr.ecr.[REGION].amazonaws.com/myapp:latest
 aws ecr list-images --repository-name myapp
 docker pull [AWS_ACCOUNT_ID].dkr.ecr.[REGION].amazonaws.com/myapp:latest
