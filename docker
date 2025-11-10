@@ -1,3 +1,4 @@
+#**Multistage docker build
 #stateless application is one that neither reads nor stores information about its state from one time that it is run to the next.
 gcloud auth login
 gcloud config set project [PROJECT_ID]
