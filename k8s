@@ -1066,8 +1066,8 @@ metadata:
   annotations:
     # optional: annotate for your processes
     managed-by: "helm-or-manual"
-immutable: true
-type: Opaque
+immutable: true <--for production environments where configuration or secrets shouldn’t change unexpectedly.
+type: Opaque <--default generic type for key-value secrets.Use case: Use when you just want to store arbitrary data such as passwords, tokens, or connection strings.
 stringData:
   DATABASE_URL: "postgres://user:password@db.example.local:5432/mydb"
   API_KEY: "replace-with-real-key"
@@ -1098,13 +1098,18 @@ spec:
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxUnavailable: 1
-      maxSurge: 1
+      maxUnavailable: 1 <--If your Deployment has 3 replicas, during an update:Kubernetes 
+                           can take down 1 old pod (so 2 remain running)Then start 1 new pod
+                           Minimum of 2 pods will always be serving requests.
+      maxSurge: 1 <--Kubernetes may temporarily run 1 extra pod(so 4 total if you had 3 replicas).
   template:
     metadata:
-      labels:
+      labels:  <--Common use cases To select pods in:Service selectors,Deployment selectors,
+                  NetworkPolicy, PodDisruptionBudget, HPA, etc.For grouping or filtering with:
+                  #kubectl get pods -l app=myapp
+                  #kubectl get pods -l environment=production
         app: myapp
-      annotations:
+      annotations: <--To record build or deployment metadata (Git commit, CI/CD build ID)..etc
         # recommend enabling pod-level seccomp if cluster supports it
         seccomp.security.alpha.kubernetes.io/pod: runtime/default
     spec:
@@ -1119,7 +1124,9 @@ spec:
       - name: myapp
         # pin image by digest in production
         image: ghcr.io/org/myapp@sha256:<PUT_REAL_DIGEST_HERE>
-        imagePullPolicy: IfNotPresent
+        imagePullPolicy: IfNotPresent  <--#Always	Pull the image every time the Pod starts — even if it already exists on the node.
+                                          #IfNotPresent	Pull the image only if it’s not already cached on the node.
+                                          #Never	Never pull the image from a registry — only use the local copy (must already exist).
         ports:
         - containerPort: 8080
           name: http
