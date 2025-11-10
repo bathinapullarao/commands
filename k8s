@@ -1040,4 +1040,211 @@ kubectl describe ingress my-ingress
 ✅ Configured Ingress for external access
 
 Would you like help customizing or troubleshooting any part? 🚀
+------------------------------------------------------------------------------------------
+Sample production-ready Kubernetes manifests (secure defaults)
+
+Below is a multi-document YAML you can apply as a template. It demonstrates production-minded 
+defaults and common security best practices: non-root user, minimal capabilities, seccomp,
+read-only root filesystem, resource requests/limits, probes, mounted ConfigMap/Secret 
+(read-only & immutable), NetworkPolicy, and a PodDisruptionBudget. Replace placeholders 
+(<...>) with your real values (image digest, domain, secrets).
+
+# Namespace
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: myapp-prod
+  labels:
+    environment: production
+---
+# Immutable Secret (store sensitive values here)
+apiVersion: v1
+kind: Secret
+metadata:
+  name: myapp-secret
+  namespace: myapp-prod
+  annotations:
+    # optional: annotate for your processes
+    managed-by: "helm-or-manual"
+immutable: true
+type: Opaque
+stringData:
+  DATABASE_URL: "postgres://user:password@db.example.local:5432/mydb"
+  API_KEY: "replace-with-real-key"
+---
+# ConfigMap for non-sensitive configuration
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: myapp-config
+  namespace: myapp-prod
+data:
+  APPLICATION_ENV: "production"
+  LOG_LEVEL: "info"
+---
+# Deployment with security best-practices
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myapp
+  namespace: myapp-prod
+  labels:
+    app: myapp
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: myapp
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app: myapp
+      annotations:
+        # recommend enabling pod-level seccomp if cluster supports it
+        seccomp.security.alpha.kubernetes.io/pod: runtime/default
+    spec:
+      # Pod-level security context (file group, drop FS ownership surprises)
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 2000
+      # Restrict scheduling to appropriate nodes if needed (nodeSelector / tolerations)
+      containers:
+      - name: myapp
+        # pin image by digest in production
+        image: ghcr.io/org/myapp@sha256:<PUT_REAL_DIGEST_HERE>
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8080
+          name: http
+        # Environment from ConfigMap and Secret (Secrets mounted as env or files)
+        envFrom:
+        - configMapRef:
+            name: myapp-config
+        - secretRef:
+            name: myapp-secret
+        # Minimal privileges on process level
+        securityContext:
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+          runAsNonRoot: true
+          runAsUser: 1000
+          runAsGroup: 1000
+          capabilities:
+            drop: ["ALL"]
+          seccompProfile:
+            type: RuntimeDefault
+        # Resource requests and limits (tune for your app)
+        resources:
+          requests:
+            cpu: "250m"
+            memory: "256Mi"
+          limits:
+            cpu: "1000m"
+            memory: "1Gi"
+        # Liveness / readiness probes
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: http
+          initialDelaySeconds: 30
+          periodSeconds: 20
+          timeoutSeconds: 5
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /ready
+            port: http
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          timeoutSeconds: 3
+          failureThreshold: 3
+        # Mount config and secrets read-only
+        volumeMounts:
+        - name: config
+          mountPath: /etc/myapp/config
+          readOnly: true
+        - name: secret-vol
+          mountPath: /etc/myapp/secret
+          readOnly: true
+      # Minimal volumes (only what is needed)
+      volumes:
+      - name: config
+        configMap:
+          name: myapp-config
+      - name: secret-vol
+        secret:
+          secretName: myapp-secret
+      # Do not run as privileged
+      hostNetwork: false
+      hostPID: false
+      hostIPC: false
+      # Optionally add imagePullSecrets if using private registry
+      # imagePullSecrets:
+      # - name: myregistry-cred
+---
+# Service (ClusterIP for internal apps; use LoadBalancer or Ingress for external)
+apiVersion: v1
+kind: Service
+metadata:
+  name: myapp-svc
+  namespace: myapp-prod
+  labels:
+    app: myapp
+spec:
+  type: ClusterIP
+  selector:
+    app: myapp
+  ports:
+  - port: 80
+    targetPort: 8080
+    protocol: TCP
+---
+# PodDisruptionBudget to keep availability during maintenance
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: myapp-pdb
+  namespace: myapp-prod
+spec:
+  minAvailable: 2
+  selector:
+    matchLabels:
+      app: myapp
+---
+# Simple NetworkPolicy: only allow traffic from namespace 'frontend' to this backend on TCP/80
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: myapp-only-from-frontend
+  namespace: myapp-prod
+spec:
+  podSelector:
+    matchLabels:
+      app: myapp
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          name: frontend  # adjust to your frontend namespace label
+    ports:
+    - protocol: TCP
+      port: 80
+  egress:
+  - to:
+    - ipBlock:
+        cidr: 0.0.0.0/0
+    ports:
+    - protocol: TCP
+      port: 53   # allow DNS; tailor egress rules tightly for your app
+
 
