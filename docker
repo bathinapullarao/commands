@@ -100,8 +100,8 @@ WORKDIR $APP_HOME
 # Add a file from a remote URL or local tar archive (ADD can also extract archives)
 ADD https://raw.githubusercontent.com/docker/cli/main/README.md /app/remote_file.txt
 
-# Copy files from the host machine to the container
-COPY app_source/ /app/
+# Copy files from the host machine to the container by exluding dockerignore files
+COPY app_source/ /app/ --exclude-from=.dockerignore 
 
 # Install dependencies (example: install curl)
 RUN apt-get update && apt-get install -y curl
