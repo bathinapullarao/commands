@@ -1215,7 +1215,7 @@ spec:
 ---
 # PodDisruptionBudget to keep availability during maintenance
 apiVersion: policy/v1
-kind: PodDisruptionBudget
+kind: PodDisruptionBudget  <--Always keep at least 2 pods of this app running, even if nodes are being drained or updated.
 metadata:
   name: myapp-pdb
   namespace: myapp-prod
