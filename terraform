@@ -31,12 +31,13 @@ terraform apply -target=module.module_instances.google_compute_region_instance_g
 
 terraform init     <--Initializes the Terraform working directory (downloads providers, modules, etc.)
 terraform validate <--Checks if configuration files are syntactically valid
+terraform validate -json <-- Outputs validation in JSON (for automation)
 terraform plan     <--Previews changes Terraform will make (no changes applied yet)
 terraform apply    <--Applies the planned changes (asks for confirmation)
 terraform apply -auto-approve  <--Applies changes without asking for confirmation
 terraform apply -var="region=us-east1"  <-- Overrides variable value from CLI eg:terraform apply -var="project=myproject"
 terraform apply -var-file="prod.tfvars" <-- Loads variables from a file eg:terraform apply -var-file="prod.tfvars"
-terraform plan -lock=false
+terraform plan -lock=false <--runs the plan without acquiring a state lock
 terraform force-unlock -force IDcanbeshowninlockerror
 terraform destroy       <-- Destroys all managed infrastructure
 terraform plan destroy  <-- Destroys without confirmation
@@ -53,13 +54,13 @@ terraform workspace new <name> <-- Creates a new workspace
 terraform workspace  show <--Shows the current workspace
 terraform workspace select <name> <--Switches to a workspace
 terraform import         <-- command is used to import existing resources into Terraform.
-terraform fmt            <-- Formats .tf files to canonical style
+terraform fmt            <-- Formats .tf files to canonical style. it cleans up spacing, alignment, and indentation so that your .tf files look consistent and professional.
 terraform fmt -recursive <-- Formats all .tf files in subdirectories
-terraform validate -json <-- Outputs validation in JSON (for automation)
 terraform providers      <-- Shows all providers used
 terraform providers schema <-- Displays available arguments and attributes for providers
-terraform providers lock <--Locks provider versions for reproducibility
-terraform get            <-- Downloads and updates modules
+terraform providers lock <-- Locks provider versions for reproducibility
+terraform get            <-- Download new modules or update missing ones
+terraform get -update    <-- Force re-download of all modules, even if already present
 terraform version        <-- Shows Terraform version
 terraform graph          <-- Generates a visual dependency graph (in DOT format)
 terraform console        <-- Opens an interactive console to query variables, outputs, etc.
