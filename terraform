@@ -29,23 +29,41 @@ Execute terraform module by module
 terraform plan -target=module.module_instances.google_compute_region_instance_group_manager.ig_esserver
 terraform apply -target=module.module_instances.google_compute_region_instance_group_manager.ig_esserver
 
-terraform init
-terraform validate
-terraform plan
-terraform apply
-terraform apply -auto-approve
+terraform init     <--Initializes the Terraform working directory (downloads providers, modules, etc.)
+terraform validate <--Checks if configuration files are syntactically valid
+terraform plan     <--Previews changes Terraform will make (no changes applied yet)
+terraform apply    <--Applies the planned changes (asks for confirmation)
+terraform apply -auto-approve  <--Applies changes without asking for confirmation
+terraform apply -var="region=us-east1"  <-- Overrides variable value from CLI eg:terraform apply -var="project=myproject"
+terraform apply -var-file="prod.tfvars" <-- Loads variables from a file eg:terraform apply -var-file="prod.tfvars"
 terraform plan -lock=false
 terraform force-unlock -force IDcanbeshowninlockerror
-terraform plan destroy 
-terraform refresh      <--This will refresh your state by comparing it to your cloud infrastructure.
-terraform output       <--output command is also useful for scripts to extract outputs from your configuration.
-terraform taint google_compute_instance.vm_instance   <-- to tell Terraform to recreate the instance.
-terraform show
-terraform workspace 
-terraform workspace  show
-terraform workspace  select
-terraform import       <-- command is used to import existing resources into Terraform.
-
+terraform destroy       <-- Destroys all managed infrastructure
+terraform plan destroy  <-- Destroys without confirmation
+terraform refresh       <-- Updates the state file to match real infrastructure
+terraform output        <-- Displays output values from state
+terraform output <name> <-- Shows a specific output value eg:terraform output instance_ip
+terraform taint google_compute_instance.vm_instance <-- to tell Terraform to recreate the instance.
+terraform show         <--Displays the current state or plan in human-readable format
+terraform state list   <--Lists all resources in the current state
+terraform state show <resource> <--Shows details for a specific resource eg:terraform state show aws_instance.my_vm
+terraform state rm <resource> <--Removes a resource from state (won’t destroy it). eg:terraform state rm google_compute_instance.myvm
+terraform workspace  list     <-- Lists all workspaces
+terraform workspace new <name> <-- Creates a new workspace
+terraform workspace  show <--Shows the current workspace
+terraform workspace select <name> <--Switches to a workspace
+terraform import         <-- command is used to import existing resources into Terraform.
+terraform fmt            <-- Formats .tf files to canonical style
+terraform fmt -recursive <-- Formats all .tf files in subdirectories
+terraform validate -json <-- Outputs validation in JSON (for automation)
+terraform providers      <-- Shows all providers used
+terraform providers schema <-- Displays available arguments and attributes for providers
+terraform providers lock <--Locks provider versions for reproducibility
+terraform get            <-- Downloads and updates modules
+terraform version        <-- Shows Terraform version
+terraform graph          <-- Generates a visual dependency graph (in DOT format)
+terraform console        <-- Opens an interactive console to query variables, outputs, etc.
+terraform login          <-- Authenticates to Terraform Cloud
 ##### Instance without autoscalar
 resource "google_compute_instance" "instance_name"
 resource "google_compute_address" "globalip_of_instance"
