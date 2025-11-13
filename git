@@ -205,3 +205,124 @@ git push origin main
 git checkout develop
 git merge hotfix/fix-crash
 git push origin develop
+---------------------------------------------------------------------------------------------
+👍👍GitHub Actions👍👍 is one of the most powerful CI/CD (Continuous Integration / Continuous Deployment) 
+tools built directly into GitHub. Let’s break it down clearly:
+
+🧩 What is GitHub Actions?
+GitHub Actions helps you automate tasks in your software development lifecycle — like:
+Building your code automatically when you push commits.
+Running tests.
+Building Docker images.
+Deploying applications to environments like GCP, AWS, Azure, or Kubernetes.
+Sending notifications or triggering custom workflows.
+
+It works by defining workflows using YAML files inside your repository.
+⚙️ Where it lives
+You store your workflows under:
+.github/workflows/
+Each YAML file in that folder defines a pipeline (workflow).
+Example:
+.github/
+ └── workflows/
+      └── ci.yml
+
+🚀 How it works (in short)
+A GitHub Actions workflow runs in response to events, such as:
+push
+pull_request
+schedule
+workflow_dispatch (manual trigger)
+Each workflow has:
+Jobs (that can run in parallel or sequence)
+Steps (individual commands or reusable actions)
+Runners (machines that execute your jobs — GitHub provides Linux, Windows, macOS runners)
+🧠 Basic Example — Node.js app CI
+
+Here’s a simple example of a workflow that runs tests whenever you push code.
+# .github/workflows/node-ci.yml
+name: Node.js CI
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run tests
+        run: npm test
+
+🔧 How to Create and Use It
+
+Go to your GitHub repo → click on “Actions” tab.
+Click “New workflow” → you can pick a template or set up your own.
+Create a YAML file (like the one above) under .github/workflows/.
+
+Commit and push the file.
+GitHub automatically runs the workflow on the next event (like push or pull_request).
+🌍 Example — Deploy to GKE (Google Kubernetes Engine)
+
+Here’s a simple example that builds a Docker image and deploys it to GKE:
+
+name: Deploy to GKE
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@v2
+        with:
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+          service_account_key: ${{ secrets.GCP_SA_KEY }}
+
+      - name: Configure Docker
+        run: gcloud auth configure-docker
+
+      - name: Build and push Docker image
+        run: |
+          docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/myapp:${{ github.sha }} .
+          docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/myapp:${{ github.sha }}
+
+      - name: Deploy to GKE
+        run: |
+          gcloud container clusters get-credentials my-cluster --region europe-west2
+          kubectl set image deployment/myapp myapp=gcr.io/${{ secrets.GCP_PROJECT_ID }}/myapp:${{ github.sha }}
+
+🔒 Secrets Management
+You can store secrets (like credentials, tokens, etc.) safely in:
+Repo → Settings → Secrets and variables → Actions
+Use them inside workflows like:
+${{ secrets.MY_SECRET_NAME }}
+
+💡 Common Use Cases
+
+✅ CI/CD (build, test, deploy)
+✅ Code linting and formatting checks
+✅ Security scanning
+✅ Tagging or version bumping
+✅ Automated release notes
+✅ Sending notifications to Slack/Teams
