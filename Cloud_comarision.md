@@ -292,6 +292,91 @@ In **AWS**, you can write access policies in various places depending on what yo
 - Use **permissions boundaries** for delegation of admin capabilities.
 
 ---
+# AWS VPC Endpoint Guide
+
+## What is a VPC Endpoint?
+
+A **VPC Endpoint** is a private connection between your **VPC** and
+**AWS services** without using the public internet.
+
+### Simple Definition
+
+A VPC Endpoint allows your VPC to access AWS services **privately**,
+using the AWS internal network, not the Internet.
+
+It avoids: - Public IP - Internet Gateway - NAT Gateway - VPN - Direct
+Connect
+
+------------------------------------------------------------------------
+
+## Types of VPC Endpoints
+
+### 1. Interface Endpoint (Most Common)
+
+-   Powered by **AWS PrivateLink**
+-   Creates an ENI inside your subnet
+-   Used for private access to:
+    -   S3 (optional)
+    -   DynamoDB (optional)
+    -   Secrets Manager
+    -   SSM
+    -   CloudWatch
+    -   ECR
+    -   SNS/SQS
+    -   Many more services
+
+**Use case:** Access AWS services using VPC private IP.
+
+------------------------------------------------------------------------
+
+### 2. Gateway Endpoint
+
+Only for: - **S3** - **DynamoDB**
+
+Adds a route in the route table → direct AWS internal connection.
+
+**Use case:** Access S3/DynamoDB from private subnet without NAT.
+
+------------------------------------------------------------------------
+
+## Why Use VPC Endpoints?
+
+  Benefit          Explanation
+  ---------------- ----------------------------------------
+  Private access   No internet exposure
+  Secure           No public IP required
+  Cheaper          Avoid NAT Gateway charges
+  Faster           Uses AWS internal backbone
+  Compliance       Required for banking & secure networks
+
+------------------------------------------------------------------------
+
+## Architecture Example
+
+    VPC
+     ├── Private Subnet
+     │     └── EC2 Instance (no internet)
+     │
+     ├── VPC Endpoint (Interface)
+     │     └── Connects privately to:
+     │           - S3
+     │           - DynamoDB
+     │           - SSM
+     │           - ECR
+     │           - Secrets Manager
+
+------------------------------------------------------------------------
+
+## Example AWS CLI Command
+
+### Create an S3 Gateway Endpoint
+
+    aws ec2 create-vpc-endpoint     --vpc-id vpc-12345     --service-name com.amazonaws.region.s3     --route-table-ids rtb-12345     --vpc-endpoint-type Gateway
+
+------------------------------------------------------------------------
+
+## End of Document
+
 
 ![Screenshot of a comment on a GitHub issue showing an image, added in the Markdown, of an Octocat smiling and raising a tentacle.](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQk_6_iIAWFIm6OKoeUek1i9IypLrLMJ8jOPA&s)
 ![gif file](https://barreirofisica.wordpress.com/wp-content/uploads/2013/06/albert-einstein.gif)
