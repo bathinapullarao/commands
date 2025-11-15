@@ -201,7 +201,7 @@ COPY pom.xml /home/app
 RUN mvn -f /home/app/pom.xml clean package
 
 FROM openjdk:11.0.2-jdk-slim
-COPY --from=build /home/app/target/jello-builder-1.0.0.jar app.jar
+COPY --from=build /home/app/target/builder-1.0.0.jar app.jar
 ENV JAVA_OPTS=""
 ADD src/main/resources/service_account_gcp.json service_account_gcp.json
 ENV GOOGLE_APPLICATION_CREDENTIALS "service_account_gcp.json"
