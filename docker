@@ -194,3 +194,96 @@ docker run -d \                             <-- d demen
 --net mongo-network \                       <-- net network
 --name mongodb \                            <-- 
 mongo
+---------------------------------------------------------------------------------------------------
+FROM maven:3.8.3-jdk-11 AS build
+COPY src /home/app/src
+COPY pom.xml /home/app
+RUN mvn -f /home/app/pom.xml clean package
+
+FROM openjdk:11.0.2-jdk-slim
+COPY --from=build /home/app/target/jello-builder-1.0.0.jar app.jar
+ENV JAVA_OPTS=""
+ADD src/main/resources/service_account_gcp.json service_account_gcp.json
+ENV GOOGLE_APPLICATION_CREDENTIALS "service_account_gcp.json"
+ENTRYPOINT exec java $JAVA_OPTS  -jar /app.jar
+
+✅ What Kind of Dockerfile Is This?
+This is a **multi-stage Dockerfile** used for building and running a Java (Spring Boot / Maven) application.
+Stage 1 (Builder stage): Uses Maven + JDK to compile the project and create a JAR file.
+Stage 2 (Runtime stage): Uses a lightweight JDK image to run the JAR.
+
+Multi-stage builds make the final Docker image smaller, faster, and more secure.
+✅ Detailed Explanation of Each Step
+Stage 1: Build Stage (Using Maven)
+1. FROM maven:3.8.3-jdk-11 AS build
+This sets the base image.
+You are using the official Maven image (with Java 11).
+AS build gives this stage a name so you can COPY from it later.
+
+2. COPY src /home/app/src
+Copies your project’s source code (src folder) from your system into the container at /home/app/src.
+
+3. COPY pom.xml /home/app
+Copies the pom.xml file to the container.
+Maven needs pom.xml to download dependencies and build the application.
+
+4. RUN mvn -f /home/app/pom.xml clean package
+Runs Maven inside the container:
+clean removes old build files
+package compiles the code and creates the JAR file under /home/app/target/...jar.
+This will generate something like:
+/home/app/target/jello-builder-1.0.0.jar
+
+✔ By doing this inside the container, you do NOT need Maven installed on your laptop.
+
+Stage 2: Runtime Stage (Using Lightweight JDK)
+5. FROM openjdk:11.0.2-jdk-slim
+Starts the second stage.
+Uses a slim (lightweight) Java image to run the JAR file.
+This makes the final image very small.
+
+6. COPY --from=build /home/app/target/jello-builder-1.0.0.jar app.jar
+Copies the built JAR from the first stage (build) into the second stage.
+The JAR is renamed to app.jar.
+
+7. ENV JAVA_OPTS=""
+Sets an environment variable.
+JAVA_OPTS is used to pass custom JVM options at runtime.
+Example:
+-Xms512m -Xmx1024m
+
+Currently, it's empty.
+
+8. ADD src/main/resources/service_account_gcp.json service_account_gcp.json
+Adds the GCP service account JSON file to the container.
+This is usually used for:
+Pub/Sub
+BigQuery
+Cloud Storage
+Cloud SQL Auth
+⚠ But copying credentials into the image is generally unsafe.
+Better: mount as a Kubernetes secret.
+
+9. ENV GOOGLE_APPLICATION_CREDENTIALS "service_account_gcp.json"
+Sets GCP credential environment variable.
+Google SDKs automatically use this path to authenticate.
+
+10. ENTRYPOINT exec java $JAVA_OPTS -jar /app.jar
+This is the command that starts your application when the container runs.
+exec ensures proper signal handling (useful for Kubernetes).
+java $JAVA_OPTS -jar /app.jar runs the Spring Boot app.
+Example if you set JAVA_OPTS:
+docker run -e JAVA_OPTS="-Xmx1024m" appimage
+
+✅ Summary Table
+Line	Meaning
+FROM maven… AS build	Use Maven to build the app
+COPY src	Copy source code
+COPY pom.xml	Copy pom.xml
+RUN mvn clean package	Build JAR
+FROM openjdk slim	Lightweight runtime environment
+COPY --from=build	Copy JAR from builder stage
+ENV JAVA_OPTS	Optional Java settings
+ADD GCP key file	Add credentials
+ENV GOOGLE_APPLICATION_CREDENTIALS	Set Google auth location
+ENTRYPOINT java -jar	Start application
