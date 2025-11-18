@@ -1,0 +1,17 @@
+sudo apt update -y
+sudo apt upgrade -y
+sudo apt install -y curl wget apt-transport-https conntrack
+sudo apt install -y docker.io
+sudo usermod -aG docker $USER
+newgrp docker
+curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+sudo install minikube-linux-amd64 /usr/local/bin/minikube     <--install minikube
+minikube start --driver=docker
+minikube status
+kubectl get nodes                    <--kubectl will not work
+sudo service docker start
+sudo snap install kubectl --classic  <--install kubectl command
+kubectl version --client
+kubectl get nodes
+minikube addons enable ingress       <--ingress will work with this command
+minikube tunnel                      <--****By tunneling only app will show in browser
