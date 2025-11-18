@@ -1,5 +1,13 @@
 #**Multistage docker build
 #stateless application is one that neither reads nor stores information about its state from one time that it is run to the next.
+-----------------------------------------------------------------------------------
+***######To create a image form dockerfile,  you should execute below command from the folder which contain dockerfile
+docker build -t myapp:latest .  <-- -t myapp:latest: Tags the image with a name and version.
+                                    .: Uses the current directory as the build context.
+docker tag myapp:latest myrepo/myapp:v1 <--Tag an Image
+docker push myrepo/myapp:v1     <-- Push an Image to Docker Hub
+docker run -d -p 3000:3000 myapp
+-----------------------------------------------------------------------------------
 gcloud auth login
 gcloud config set project [PROJECT_ID]
 gcloud services enable containerregistry.googleapis.com
@@ -149,14 +157,7 @@ docker run -d -p 8080:80 --name myapp nginx  <-- -d: Runs the container in detac
                                                  -p 8080:80: Maps port 8080 on the host to port 80 in the container.
                                                  --name myapp: Assigns a custom name to the container.
                                                  nginx: The image to use.
-***######To create a image form dockerfile,  you should execute below command from the folder which contain dockerfile
-docker build -t myapp:latest .  <-- -t myapp:latest: Tags the image with a name and version.
-                                    .: Uses the current directory as the build context.
-docker tag myapp:latest myrepo/myapp:v1 <--Tag an Image
-docker push myrepo/myapp:v1     <-- Push an Image to Docker Hub
-docker run -d -p 3000:3000 myapp
-
-
+--------------------------------------------------------------------------------------
 #prune
 docker image prune -a           <--Remove Unused Images
 docker container prune          <--Remove All Stopped Containers
