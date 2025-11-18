@@ -2,6 +2,9 @@ When k8s app is not opening troubleshoot like below
 kubectl get pods -n prod  <--in prod namespace If pods are not READY, app will not open.
 kubectl get svc -n prod   <--Expected:myapp-service   NodePort   8080:30080/TCP <--where NodePort is 30080
 
+comman errors
+ImagePullBackOff          <-- image not able to pull from registory
+
 **Kubernetes (k8s) manifest file is a YAML or JSON configuration file that tells Kubernetes what resources to create and how to configure them in your cluster.
 managing and scaling applications using Kubernetes, including the use of deployments, statefulsets, and daemonsets?
 -------------------------------------------------------------------------------------------------------------------------------------
