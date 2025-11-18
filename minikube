@@ -15,3 +15,369 @@ kubectl version --client
 kubectl get nodes
 minikube addons enable ingress       <--ingress will work with this command
 minikube tunnel                      <--****By tunneling only app will show in browser
+minikube ip                          <--to get the ip of minikube
+-----------------------------------------------------------------------------------------------
+My kubernets manifest files are given below
+namespace.yaml
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: prod
+
+ingress.yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: myapp-ingress
+  namespace: prod
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: myapp.local
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: myapp-service
+                port:
+                  number: 8080
+
+
+configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-config
+  namespace: prod
+data:
+  APP_MESSAGE: "Hello from ConfigMap!"
+
+deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myapp
+  namespace: prod
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: myapp
+  template:
+    metadata:
+      labels:
+        app: myapp
+    spec:
+      containers:
+        - name: myapp
+          image: bathinapullarao/hello-world-app:latest  # change to your image
+          ports:
+            - containerPort: 8080
+          envFrom:
+            - configMapRef:
+                name: app-config
+            - secretRef:
+                name: app-secret
+          volumeMounts:
+            - name: app-storage
+              mountPath: /data
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 10
+      volumes:
+        - name: app-storage
+          persistentVolumeClaim:
+            claimName: app-pvc
+
+
+hpa.yaml
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: myapp-hpa
+  namespace: prod
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: myapp
+  minReplicas: 2
+  maxReplicas: 5
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 70
+
+
+pvc.yaml
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: app-pvc
+  namespace: prod
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+
+
+secret.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: app-secret
+  namespace: prod
+type: Opaque
+data:
+  DB_PASSWORD: cGFzc3dvcmQ=     # "password" base64 encoded
+
+
+service.yaml
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: myapp-service
+  namespace: prod
+spec:
+  type: NodePort
+  selector:
+    app: myapp
+  ports:
+    - port: 8080
+      targetPort: 8080
+      nodePort: 30080
+
+---------------------
+foldor structure
+k8s/
+ ├── namespace.yaml
+ ├── ingress.yaml
+ ├── microservice1/
+ │    ├── deployment.yaml
+ │    ├── service.yaml
+ │    ├── configmap.yaml
+ │    ├── secret.yaml
+ │    ├── pvc.yaml
+ │    └── hpa.yaml
+ ├── microservice2/
+ │    ├── deployment.yaml
+ │    ├── service.yaml
+ │    ├── configmap.yaml
+ │    ├── secret.yaml
+ │    ├── pvc.yaml
+ │    └── hpa.yaml
+ └── ...
+microservice1/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myapp
+  namespace: prod
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: myapp
+  template:
+    metadata:
+      labels:
+        app: myapp
+    spec:
+      containers:
+        - name: myapp
+          image: bathinapullarao/hello-world-app:latest
+          ports:
+            - containerPort: 8080
+          envFrom:
+            - configMapRef:
+                name: myapp-config
+            - secretRef:
+                name: myapp-secret
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 8080
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 8080
+
+microservice1/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: myapp-service
+  namespace: prod
+spec:
+  type: ClusterIP
+  selector:
+    app: myapp
+  ports:
+    - port: 8080
+      targetPort: 8080
+
+✅ Example — Microservice 2 (orderservice)
+
+(You can add any number of microservices like this)
+
+microservice2/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: orderservice
+  namespace: prod
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: orderservice
+  template:
+    metadata:
+      labels:
+        app: orderservice
+    spec:
+      containers:
+        - name: orderservice
+          image: bathinapullarao/order-service:latest
+          ports:
+            - containerPort: 8000
+
+microservice2/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: orderservice-service
+  namespace: prod
+spec:
+  type: ClusterIP
+  selector:
+    app: orderservice
+  ports:
+    - port: 8000
+      targetPort: 8000
+
+✅ Updated Ingress for Multiple Microservices
+
+You have 2 options:
+
+OPTION A — Path-based routing (recommended)
+
+Single domain → different paths
+
+Example:
+
+http://myapp.local/myapp → myapp-service
+
+http://myapp.local/orders → orderservice
+
+ingress.yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: my-ingress
+  namespace: prod
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: myapp.local
+      http:
+        paths:
+          - path: /myapp/?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: myapp-service
+                port:
+                  number: 8080
+
+          - path: /orders/?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: orderservice-service
+                port:
+                  number: 8000
+
+OPTION B — Host-based routing (microservice subdomains)
+
+Different hostnames:
+
+myapp.local → myapp
+
+orders.myapp.local → orderservice
+
+ingress.yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: my-ingress
+  namespace: prod
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: myapp.local
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: myapp-service
+                port:
+                  number: 8080
+
+    - host: orders.myapp.local
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: orderservice-service
+                port:
+                  number: 8000
+
+
+📌 Add the hosts in your Windows /etc/hosts:
+
+127.0.0.1   myapp.local
+127.0.0.1   orders.myapp.local
+
+✔ Deployment command
+
+Apply all manifests:
+
+kubectl apply -f namespace.yaml
+kubectl apply -f microservice1/
+kubectl apply -f microservice2/
+kubectl apply -f ingress.yaml
+
