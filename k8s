@@ -3,6 +3,7 @@ kubectl get pods -n prod  <--in prod namespace If pods are not READY, app will n
 kubectl get svc -n prod   <--Expected:myapp-service   NodePort   8080:30080/TCP <--where NodePort is 30080
 kubectl get ingress -n prod
 kubectl logs -n prod -l app=myapp --tail=50
+kubectl describe pod <pod-name> -n <namespace>
 -------------------------------------------------------------------------------------------------------
 comman errors
 ImagePullBackOff          <-- image not able to pull from registory
