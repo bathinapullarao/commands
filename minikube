@@ -16,6 +16,7 @@ kubectl get nodes
 minikube addons enable ingress       <--ingress will work with this command
 minikube tunnel                      <--****By tunneling only app will show in browser
 minikube ip                          <--to get the ip of minikube
+kubectl apply -f k8s/                <--To apply whole directory
 -----------------------------------------------------------------------------------------------
 My kubernets manifest files are given below
 namespace.yaml
