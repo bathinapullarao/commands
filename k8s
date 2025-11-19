@@ -4,6 +4,7 @@ kubectl get svc -n prod   <--Expected:myapp-service   NodePort   8080:30080/TCP 
 kubectl get ingress -n prod
 kubectl logs -n prod -l app=myapp --tail=50
 kubectl describe pod <pod-name> -n <namespace>
+kubectl rollout restart deployment perchases -n prod   <--perchases is deploymnet name for namespace prod
 -------------------------------------------------------------------------------------------------------
 comman errors
 ImagePullBackOff          <-- image not able to pull from registory
