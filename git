@@ -65,6 +65,10 @@ git cherrypick commit-id <--pick a commit from a branch and applying it to anoth
 
 main.yml#L208-217   <--to higlight specific lines in gitlab here inthis case line 208 to 217
 
+git fetch --all                <--Fetch all remote updates
+git remote prune origin        <--Remove deleted remote branches
+git branch -d branchName       <--Delete local branch
+
 Recommended Git Branching Strategy
 1. Main Branches
 ###main or production
