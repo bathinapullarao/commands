@@ -7,6 +7,9 @@ kubectl logs -n prod -l app=myapp --tail=50
 kubectl describe pod <pod-name> -n <namespace>
 -------------------------------------------------------------------------------------------------------
 kubectl rollout restart deployment perchases -n prod   <--perchases is deploymnet name for namespace prod
+kubectl rollout history deployment/myapp -n prod       <--Check Deployment rollout history
+kubectl rollout undo deployment/myapp -n prod          <--Rollback to previous revision
+kubectl rollout undo deployment/myapp --to-revision=2 -n prod   <--Rollback to a specific revision
 kubectl get pvc -n <namespace>   <--List PVCs in a namespace
 kubectl describe pvc <pvc-name> -n <namespace>
 kubectl delete pvc <pvc-name> -n <namespace>
