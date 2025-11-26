@@ -1,3 +1,102 @@
+```  yaml
+✅ 1. Prerequisites
+On GCP:
+
+✔️ A GKE cluster
+✔️ A service account with these roles:
+
+roles/container.admin
+
+roles/storage.admin
+
+roles/artifactregistry.admin
+
+roles/iam.serviceAccountUser
+
+✔️ Enable required APIs:
+
+gcloud services enable container.googleapis.com artifactregistry.googleapis.com
+
+
+✔️ Download service account JSON (example: gke-sa.json)
+
+✅ 2. Store Secrets in GitHub
+
+Go to:
+
+GitHub Repo → Settings → Secrets and variables → Actions → New Repository Secret
+
+Create:
+
+Secret Name	Value
+GCP_PROJECT_ID	your GCP project
+GKE_CLUSTER_NAME	your cluster name
+GKE_REGION	e.g., asia-south1 / us-central1
+GCP_SA_KEY	copy service account JSON content
+✅ 3. Create Artifact Registry (Optional, for Docker images)
+gcloud artifacts repositories create myrepo \
+--repository-format=docker \
+--location=asia-south1
+
+
+Example image path:
+
+asia-south1-docker.pkg.dev/PROJECT_ID/myrepo/myapp
+
+✅ 4. Create GitHub Actions Workflow
+
+Create file:
+
+.github/workflows/gke-deploy.yml
+```
+
+#Paste this YAML:
+```  yaml
+name: Deploy to GKE
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Authenticate to Google Cloud
+      uses: google-github-actions/auth@v2
+      with:
+        credentials_json: ${{ secrets.GCP_SA_KEY }}
+
+    - name: Set up gcloud CLI
+      uses: google-github-actions/setup-gcloud@v2
+
+    - name: Configure Docker for Artifact Registry
+      run: gcloud auth configure-docker ${{ secrets.GKE_REGION }}-docker.pkg.dev
+
+    - name: Build & Push Docker Image
+      run: |
+        IMAGE="${{ secrets.GKE_REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/myrepo/myapp:${{ github.sha }}"
+        docker build -t $IMAGE .
+        docker push $IMAGE
+        echo "IMAGE_NAME=$IMAGE" >> $GITHUB_ENV
+
+    - name: Get GKE Credentials
+      run: |
+        gcloud container clusters get-credentials ${{ secrets.GKE_CLUSTER_NAME }} \
+        --region ${{ secrets.GKE_REGION }} \
+        --project ${{ secrets.GCP_PROJECT_ID }}
+
+    - name: Deploy to GKE using kubectl
+      run: |
+        kubectl set image deployment/myapp myapp-container=${IMAGE_NAME}
+        kubectl rollout status deployment/myapp
+
+```
+
 # GitHub Actions to Deploy to GKE --- Full Explanation
 
 ## 1. CI/CD Flow Overview
