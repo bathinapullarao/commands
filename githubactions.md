@@ -1,52 +1,37 @@
 ```  yaml
 ✅ 1. Prerequisites
 On GCP:
-
 ✔️ A GKE cluster
 ✔️ A service account with these roles:
-
 roles/container.admin
-
 roles/storage.admin
-
 roles/artifactregistry.admin
-
 roles/iam.serviceAccountUser
 
 ✔️ Enable required APIs:
-
 gcloud services enable container.googleapis.com artifactregistry.googleapis.com
-
 
 ✔️ Download service account JSON (example: gke-sa.json)
 
 ✅ 2. Store Secrets in GitHub
-
-Go to:
-
-GitHub Repo → Settings → Secrets and variables → Actions → New Repository Secret
-
+Go to:GitHub Repo → Settings → Secrets and variables → Actions → New Repository Secret
 Create:
-
 Secret Name	Value
 GCP_PROJECT_ID	your GCP project
 GKE_CLUSTER_NAME	your cluster name
 GKE_REGION	e.g., asia-south1 / us-central1
 GCP_SA_KEY	copy service account JSON content
+
 ✅ 3. Create Artifact Registry (Optional, for Docker images)
 gcloud artifacts repositories create myrepo \
 --repository-format=docker \
 --location=asia-south1
 
-
 Example image path:
-
 asia-south1-docker.pkg.dev/PROJECT_ID/myrepo/myapp
 
 ✅ 4. Create GitHub Actions Workflow
-
 Create file:
-
 .github/workflows/gke-deploy.yml
 ```
 
