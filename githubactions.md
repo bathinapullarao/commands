@@ -30,6 +30,21 @@ gcloud artifacts repositories create myrepo \
 Example image path:
 asia-south1-docker.pkg.dev/PROJECT_ID/myrepo/myapp
 
+You must create the file ".github/workflows/gke-deploy.yml" inside your project repository, in a very specific path.
+
+Here is the exact required location:
+
+myapp/
+ ├── Dockerfile
+ ├── app.py
+ ├── k8s/
+ ├── README.md
+ └── .github/
+      └── workflows/
+           └── gke-deploy.yml
+
+##The file .github/workflows/gke-deploy.yml executes automatically inside GitHub when certain events happen — you do NOT run it manually.
+
 ✅ 4. Create GitHub Actions Workflow
 Create file:
 .github/workflows/gke-deploy.yml
