@@ -2,6 +2,21 @@ SOPs means Standard Operating Procedures.
 Argo CD(Argo Continuous Delivery) is a GitOps-based continuous delivery tool for Kubernetes.
 Argo CD = Git + Kubernetes + Automation
 
+Port     	Used By
+22      	SSH, Git
+80 / 443	Web, Ingress, LB
+6379      Redis
+8080    	Jenkins, Node apps, Tomcat
+6443    	Kubernetes API
+3306    	MySQL,MariaDB
+5432    	PostgreSQL
+9090    	Prometheus
+3000    	Grafana
+5000    	Docker registry
+9200      Elasticsearch
+9100      Node Exporter
+30000-32767 NodePort range
+
 Here’s a simple breakdown
 https://cricket.sportshub.stream/      <--sports
 https://www.bolly2tolly.city/          <--movies
