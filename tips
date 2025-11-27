@@ -5,16 +5,17 @@ Argo CD = Git + Kubernetes + Automation
 Port     	Used By
 22      	SSH, Git
 80 / 443	Web, Ingress, LB
-6379      Redis
-8080    	Jenkins, Node apps, Tomcat
-6443    	Kubernetes API
-3306    	MySQL,MariaDB
-5432    	PostgreSQL
-9090    	Prometheus
 3000    	Grafana
+3306    	MySQL,MariaDB
 5000    	Docker registry
-9200      Elasticsearch
+5432    	PostgreSQL
+6379      Redis
+6443    	Kubernetes API
+8080    	Jenkins, Node apps, Tomcat
+9000      SonarQube UI
 9100      Node Exporter
+9200      Elasticsearch
+9090    	Prometheus
 30000-32767 NodePort range
 
 Here’s a simple breakdown
