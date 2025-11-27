@@ -403,11 +403,16 @@ terraform {
     }
   }
 }
-
 provider "google" {
-  project = var.project_id
-  region  = var.region
-  zone    = var.zone
+  project = "my-project"
+  region  = "asia-south1"
+  zone    = "asia-south1-a"
+}
+
+provider "google-beta" {
+  project = "my-project"
+  region  = "asia-south1"
+  zone    = "asia-south1-a"
 }
 
 # -----------------------------
@@ -525,3 +530,39 @@ public_key_path  = "~/.ssh/id_rsa.pub"
 terraform init
 terraform plan
 terraform apply -auto-approve
+
+
+provider "kubernetes" {
+  host                   = google_container_cluster.primary.endpoint
+  token                  = data.google_client_config.default.access_token
+  cluster_ca_certificate = base64decode(google_container_cluster.primary.master_auth[0].cluster_ca_certificate)
+}
+
+resource "kubernetes_deployment" "app" {
+  metadata {
+    name = "myapp"
+    namespace = "default"
+  }
+
+  spec {
+    replicas = 2
+    selector {
+      match_labels = {
+        app = "myapp"
+      }
+    }
+    template {
+      metadata {
+        labels = {
+          app = "myapp"
+        }
+      }
+      spec {
+        container {
+          name  = "myapp"
+          image = "nginx"
+        }
+      }
+    }
+  }
+}
