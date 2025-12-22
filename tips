@@ -1,6 +1,13 @@
 https://colab.research.google.com/         <--python AI/ML practice
 Airflow: Apache Airflow is an open-source workflow orchestration tool widely used in DevOps, Data Engineering, and MLOps to schedule, manage, and monitor complex workflows.
 Dynatrace: automatically monitors everything in your environment
+ML Pipelines? 
+TensorFlow: TensorFlow is a deep learning framework developed by Google. 
+PyTorch: is a deep learning framework developed by Meta (Facebook), 
+Scikit-learn: is a machine learning library (not deep learning).
+Shakudo: is an enterprise AI/ML platform that helps organizations build, deploy, and manage AI systems without needing deep in-house ML infrastructure expertise.
+        Shakudo works across:AWS (SageMaker, EKS),Azure,GCP,On-prem Kubernetes
+Aws Sagemaker:AWS service for building, training, and deploying Machine Learning (ML) models
 
 SOPs means Standard Operating Procedures.
 Argo CD(Argo Continuous Delivery) is a GitOps-based continuous delivery tool for Kubernetes.
