@@ -1,3 +1,5 @@
+multi-region or active-active architecture
+Multi-Region (Active-Passive) Architecture
 https://colab.research.google.com/         <--python AI/ML practice
 Airflow: Apache Airflow is an open-source workflow orchestration tool widely used in DevOps, Data Engineering, and MLOps to schedule, manage, and monitor complex workflows.
 Dynatrace: automatically monitors everything in your environment
