@@ -1,5 +1,23 @@
 multi-region or active-active architecture
 Multi-Region (Active-Passive) Architecture
+Rolling Deployment: Deploy the new version gradually, replacing old pods one by one while the app stays live.
+                    How it works: Some pods run old version, Some pods run new version
+                    Pros:No downtime,Simple to implement
+                    Cons:Old & new versions run together,Rollback is slower
+Blue-Green Deployment: Maintain two identical environments:
+                       Blue = current live version
+                       Green = new version
+                      How it works: Deploy new version to Green, Test Green, Switch traffic from Blue → Green instantly
+                       Pros:Instant rollback, Clean release
+                       Cons: Higher cost (double resources), Traffic is shared automatically
+Canary Release: Release new version to a small % of users first, then increase gradually.
+                      How it works: 5% → 20% → 50% → 100%
+                      Pros:Lowest risk, Real user validation
+                      Cons: More complex traffic control
+When to Use: Rolling: Small changes, stateless apps
+             Blue-Green: Critical releases, banking apps
+             Canary: ML models, large user bases
+
 https://colab.research.google.com/         <--python AI/ML practice
 Airflow: Apache Airflow is an open-source workflow orchestration tool widely used in DevOps, Data Engineering, and MLOps to schedule, manage, and monitor complex workflows.
 Dynatrace: automatically monitors everything in your environment
