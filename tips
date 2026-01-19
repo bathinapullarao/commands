@@ -15,9 +15,66 @@ Canary Release: Release new version to a small % of users first, then increase g
                       Pros:Lowest risk, Real user validation
                       Cons: More complex traffic control
 When to Use: Rolling: Small changes, stateless apps
-             Blue-Green: Critical releases, banking apps
-             Canary: ML models, large user bases
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-deploy
+spec:
+  replicas: 10
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 2
+      maxSurge: 2
+  template:
+    spec:
+      containers:
+      - name: app
+        image: myapp:v2
+-------------------------------------------------------------------------------
+When to Use: Blue-Green: Critical releases, banking apps
+Blue Deployment:---
+metadata:
+  name: app-blue
+spec:
+  template:
+    metadata:
+      labels:
+        version: blue
+Green Deployment:---
+metadata:
+  name: app-green
+spec:
+  template:
+    metadata:
+      labels:
+        version: green
+Service (Switch Traffic):---
+spec:
+  selector:
+    version: green   # change from blue → green
+Rollback:----
+Change selector back to blue
+--------------------------------------------------------------------------------------
+When to Use: Canary: ML models, large user bases
+Canary Deployment
+How it works
+Send small % traffic to new version.
 
+Option A: Using Replicas (Simple)
+Steps
+Keep main deployment (v1) with more replicas
+Canary deployment (v2) with fewer replicas
+
+# Stable
+replicas: 9
+
+# Canary
+replicas: 1
+Traffic split: ~90% v1, ~10% v2
+
+Option B: Canary Deployment with Istio
+---------------------------------------------------------------------------------------
 https://colab.research.google.com/         <--python AI/ML practice
 Airflow: Apache Airflow is an open-source workflow orchestration tool widely used in DevOps, Data Engineering, and MLOps to schedule, manage, and monitor complex workflows.
 Dynatrace: automatically monitors everything in your environment
