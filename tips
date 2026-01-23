@@ -75,6 +75,11 @@ Traffic split: ~90% v1, ~10% v2
 
 Option B: Canary Deployment with Istio
 ---------------------------------------------------------------------------------------
+SAST / DAST (DevSecOps): SAST scans application code for vulnerabilities before runtime, while DAST tests a running application by simulating real attacks. 
+SAST – Static Application Security Testing:  exmples: SonarQube, Checkmarx, Fortify, 
+DAST – Dynamic Application Security Testing: Examples: OWASP ZAP, Burp Suite
+       OWASP ZAP(Open Web Application Security Project – Zed Attack Proxy)
+-----------------------------------------------------------------------------------------
 https://colab.research.google.com/         <--python AI/ML practice
 Airflow: Apache Airflow is an open-source workflow orchestration tool widely used in DevOps, Data Engineering, and MLOps to schedule, manage, and monitor complex workflows.
 Dynatrace: automatically monitors everything in your environment
