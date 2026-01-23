@@ -80,6 +80,11 @@ SAST – Static Application Security Testing:  exmples: SonarQube, Checkmarx, Fo
 DAST – Dynamic Application Security Testing: Examples: OWASP ZAP, Burp Suite
        OWASP ZAP(Open Web Application Security Project – Zed Attack Proxy)
 -----------------------------------------------------------------------------------------
+trivy <-- OS scan to find vulnerabilities
+docker run --rm -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy image nginx:latest
+##--rm  Automatically removes the container after it finishes,Keeps your system clean (no stopped containers left behind)
+-------------------------------------------------------------------------------------------
+
 https://colab.research.google.com/         <--python AI/ML practice
 Airflow: Apache Airflow is an open-source workflow orchestration tool widely used in DevOps, Data Engineering, and MLOps to schedule, manage, and monitor complex workflows.
 Dynatrace: automatically monitors everything in your environment
