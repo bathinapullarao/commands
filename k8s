@@ -26,7 +26,10 @@ kubectl top node
 
 -------------------------------------------------------------------------------------------------------
 comman errors
+CrashLoopBackOff          <-- Container starts → crashes → restarts again and again
 ImagePullBackOff          <-- image not able to pull from registory
+pod stuck in Pending      <-- Not enough CPU/memory
+
 
 **Kubernetes (k8s) manifest file is a YAML or JSON configuration file that tells Kubernetes what resources to create and how to configure them in your cluster.
 managing and scaling applications using Kubernetes, including the use of deployments, statefulsets, and daemonsets?
