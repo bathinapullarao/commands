@@ -380,3 +380,191 @@ Adds a route in the route table → direct AWS internal connection.
 
 ![Screenshot of a comment on a GitHub issue showing an image, added in the Markdown, of an Octocat smiling and raising a tentacle.](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQk_6_iIAWFIm6OKoeUek1i9IypLrLMJ8jOPA&s)
 ![gif file](https://barreirofisica.wordpress.com/wp-content/uploads/2013/06/albert-einstein.gif)
+
+# GKE Interview Preparation Guide
+
+---
+
+# 1️⃣ Interview Questions on GKE (Google Kubernetes Engine)
+
+## Basic Questions
+
+**Q1. What is GKE?**  
+GKE is Google Cloud’s managed Kubernetes service that handles cluster provisioning, control plane management, upgrades, scaling, and security.
+
+**Q2. Kubernetes vs GKE?**  
+- Kubernetes = Open‑source orchestration platform  
+- GKE = Managed Kubernetes on GCP
+
+**Q3. Components of GKE cluster**
+- Control Plane (Google managed)
+- Node Pools
+- Nodes (VMs)
+- Pods
+- Services
+
+**Q4. What is a Node Pool?**  
+Group of nodes with same configuration.
+
+---
+
+## Intermediate Questions
+
+**Cluster Types**
+- Zonal
+- Regional
+- Autopilot
+
+**Standard vs Autopilot**
+
+| Feature | Standard | Autopilot |
+|--------|-----------|------------|
+| Node Mgmt | User | Google |
+| Billing | Per node | Per pod |
+| Flexibility | High | Limited |
+
+**Autoscaling**
+- HPA
+- Cluster Autoscaler
+- VPA
+
+**Workload Identity**  
+Maps K8s SA → GCP SA securely.
+
+---
+
+## Networking & Security
+
+**Service Types**
+- ClusterIP
+- NodePort
+- LoadBalancer
+- Ingress
+
+**Security**
+- Private clusters
+- RBAC
+- Network Policies
+- Shielded Nodes
+- Binary Authorization
+
+---
+
+## Storage & Monitoring
+
+**Storage**
+- Persistent Disk
+- Filestore
+- GCS CSI
+- Secrets / ConfigMaps
+
+**Monitoring**
+- Cloud Monitoring
+- Cloud Logging
+- Managed Prometheus
+
+---
+
+# 2️⃣ Hands‑on kubectl Commands
+
+## Cluster Access
+```bash
+gcloud container clusters get-credentials CLUSTER --region REGION
+kubectl config get-contexts
+kubectl cluster-info
+kubectl get nodes -o wide
+```
+
+## Workloads
+```bash
+kubectl get pods -A
+kubectl get deploy -A
+kubectl get svc -A
+kubectl describe pod POD
+kubectl logs POD
+kubectl logs -f POD
+```
+
+## Exec
+```bash
+kubectl exec -it POD -- /bin/sh
+```
+
+## Apply / Delete
+```bash
+kubectl apply -f app.yaml
+kubectl delete -f app.yaml
+```
+
+## Scaling
+```bash
+kubectl scale deploy app --replicas=5
+kubectl autoscale deploy app --cpu-percent=60 --min=2 --max=10
+```
+
+## Rollouts
+```bash
+kubectl rollout status deploy/app
+kubectl rollout undo deploy/app
+```
+
+## Services / Ingress
+```bash
+kubectl get svc
+kubectl get ingress
+kubectl describe ingress app
+```
+
+## Port Forward
+```bash
+kubectl port-forward svc/app 8080:80
+```
+
+## ConfigMaps / Secrets
+```bash
+kubectl get cm
+kubectl get secrets
+kubectl describe secret app
+```
+
+## Metrics
+```bash
+kubectl top nodes
+kubectl top pods
+```
+
+---
+
+# 3️⃣ GKE vs EKS vs AKS Comparison
+
+| Feature | GKE | EKS | AKS |
+|--------|-----|-----|-----|
+| Provider | Google | AWS | Azure |
+| Control Plane | Managed | Managed | Managed |
+| Node Mgmt | Standard / Autopilot | Managed / Self / Fargate | Node Pools |
+| Identity | Workload Identity | IAM Roles (IRSA) | Azure AD |
+| Networking | VPC Native | VPC CNI | Azure CNI |
+| Ingress | GCLB | ALB / NLB | App Gateway |
+| Monitoring | Cloud Ops | CloudWatch | Azure Monitor |
+| Best For | Low ops | AWS ecosystem | Microsoft ecosystem |
+
+---
+
+## When to Choose
+
+**GKE**
+- Least operational overhead
+- Autopilot mode
+
+**EKS**
+- Deep AWS integrations
+- Flexible networking
+
+**AKS**
+- Azure AD integration
+- Microsoft workloads
+
+---
+
+
+
