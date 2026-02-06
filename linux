@@ -1,3 +1,19 @@
+ICMP (Internet Control Message Protocol) <-- ICMP does NOT use ports.
+SCTP (Stream Control Transmission Protocol) <--is a transport layer protocol (Layer 4) like TCP and UDP, designed to combine the reliability of TCP 
+                                               with the speed and multi-streaming capability of UDP.It is defined in RFC 4960 and widely used in telecom 
+                                               networks and some modern applications.
+SSL is now called → TLS (Transport Layer Security).
+Google Cloud Certificate Manager    <-- get certificates
+3306 <-- mysql
+3389 <-- Remote Desktop Protocol (RDP)
+5432 <-- PostgreSQL
+3000 <-- Grafana
+9090 <-- Prometheus
+9200 <-- Elasticsearch
+8080 <-- Jenkins
+8081 <-- Nexus Repository
+8082 <-- Nexus Docker Repo
+
 How to Calculate CIDR Ranges?
 Formula: Number of IPs = 2^(32 - subnet mask)
 🔹 Example Calculations
