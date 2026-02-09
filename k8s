@@ -1,3 +1,9 @@
+Autopilot: is a fully managed Kubernetes operating mode where the cloud provider manages the nodes, scaling, security, and infrastructure — 
+you only manage pods and applications.Other clouds have similar concepts but different names — e.g., Fargate: in AWS, Virtual Nodes: in Azure.
+
+
+
+
 When k8s app is not opening troubleshoot like below
 kubectl get all -n prod
 kubectl get pods -n prod  <--in prod namespace If pods are not READY, app will not open.
