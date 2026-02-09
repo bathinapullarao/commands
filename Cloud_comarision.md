@@ -19,6 +19,9 @@ create cloudsql, vpc, vpc peering, tunneling to windows
 login to azure console, create security principle, active directory,azure DevOps,
 vm's, aks
 ```
+## Cloud Hierarchy Comparison
+| Level | GCP | AWS | Azure | | ------------- | ------------ | ------------------------ | --------------------------- | | Level 1 (Top) | Organization | Organization | Tenant (Entra ID) | | Level 2 | Folder | Organizational Unit (OU) | Management Group | | Level 3 | Project | Account | Subscription | | Level 4 | Resources | Resources | Resource Groups → Resources |
+
 # Cloud Service Comparison: AWS vs. GCP vs. Azure
 
 ## 1️⃣ Compute Services
