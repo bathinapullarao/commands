@@ -1,3 +1,4 @@
+Is Splunk an AWS Service?❌ No — Splunk is not built or owned by AWS like:Amazon CloudWatch,AWS X-Ray,AWS OpenSearch.
 General Purpose Instances: T-Series(Burstable Performance)T4g, T3, T3a, T2,| M-Series(Balanced Compute & Memory)M7g, M6g, M6i, M5, M4
 Compute Optimized Instances:C-Series(High Compute Performance)C7g, C7i, C6g, C6i, C5, C4,
 Memory Optimized Instances:R-Series (High RAM for Databases & In-Memory Caching)R7g, R6g, R6i, R5, R4 
