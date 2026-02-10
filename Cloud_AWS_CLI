@@ -2,6 +2,7 @@
 #Elastic Stack (formerly called ELK Stack-E → Elasticsearch,L → Logstash,K → Kibana)is an open-source platform used to collect,process,store,search,
             visualize logs and metrics.Later Beats was added → so now called Elastic Stack.
 #Honeycomb helps engineers understand why systems behave a certain way by analyzing high-cardinality telemetry data (logs, metrics, traces, events).
+#Endpoint Service = You publish your service privately so others can access it via private IPs.
 
 It’s one of the most popular alternatives to Splunk.
 General Purpose Instances: T-Series(Burstable Performance)T4g, T3, T3a, T2,| M-Series(Balanced Compute & Memory)M7g, M6g, M6i, M5, M4
