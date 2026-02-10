@@ -1,4 +1,9 @@
-Is Splunk an AWS Service?❌ No — Splunk is not built or owned by AWS like:Amazon CloudWatch,AWS X-Ray,AWS OpenSearch.
+#Is Splunk an AWS Service?❌ No — Splunk is not built or owned by AWS like:Amazon CloudWatch,AWS X-Ray,AWS OpenSearch.
+#Elastic Stack (formerly called ELK Stack-E → Elasticsearch,L → Logstash,K → Kibana)is an open-source platform used to collect,process,store,search,
+            visualize logs and metrics.Later Beats was added → so now called Elastic Stack.
+#Honeycomb helps engineers understand why systems behave a certain way by analyzing high-cardinality telemetry data (logs, metrics, traces, events).
+
+It’s one of the most popular alternatives to Splunk.
 General Purpose Instances: T-Series(Burstable Performance)T4g, T3, T3a, T2,| M-Series(Balanced Compute & Memory)M7g, M6g, M6i, M5, M4
 Compute Optimized Instances:C-Series(High Compute Performance)C7g, C7i, C6g, C6i, C5, C4,
 Memory Optimized Instances:R-Series (High RAM for Databases & In-Memory Caching)R7g, R6g, R6i, R5, R4 
