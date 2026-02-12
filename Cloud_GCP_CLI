@@ -1,3 +1,38 @@
+1.cloud armer ---
+tredetinal vs vpc firewall?
+2.tredetinal firewall -- centalised 
+vpc firewall 
+3.when you use firestore and cloudsql?
+firestore - nosql DB
+cloudsql - rdbms
+4.cloud deploymnet manger?
+it is infrastructure tools like terraform, cloud deployment will use Yaml, jenjo.
+5.in gcp what is autoscaler?
+managed instce group
+6.static external ip vs femeral exteranl ip?
+static <--you can relase when you nolonger needed, 
+femeral <--when we resatrt vm it will release.
+7.budget allorts?
+8.multi regional storeage(sync) vs regional storage(less cost)
+9.bigquesry vs dataflow
+bigquery(datawarehouse) , dataflow(data processing pipeline, it will not store data in is a processing) before storing in bigquery
+10.auto ml vs vertex ai
+vertex ai have full control, auto ml is making more machineleaning accessble, it will gives trained model.
+11. what is anthos
+hybred and multicloud platform. it focus on kubernetes.cosistent way to deploy
+12.user account vs services acccount
+13.vpc peering vs vpn vs vpc sharing
+14.cloud storage lifescyscle policies.
+unused data will archave or delete based on our need.
+15.data studio now called local studio
+local studio is visulization tool
+16. Cloud functions.
+is serverless used for small fuctions like processing image, short leaved and end after that fuction over.
+17. coud spanner vs cloud sql
+cloud sql(vertical scale) spanner (horizontally scalled)
+18. secret manager vs key management system
+kms (encription keys) , secretmanger (for storing api keys passowrds and certificate)
+
 TPU = Tensor Processing Unit
 SERVICE_ACCOUNT_NAME@PROJECT_ID.iam.gserviceaccount.com  <--The full email address (including PROJECT_ID) makes it unique within GCP.
 1. Compute
