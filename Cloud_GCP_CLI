@@ -32,6 +32,11 @@ is serverless used for small fuctions like processing image, short leaved and en
 cloud sql(vertical scale) spanner (horizontally scalled)
 18. secret manager vs key management system
 kms (encription keys) , secretmanger (for storing api keys passowrds and certificate)
+19. loadbalancer vs api gateway
+api gateway more specific api managemnet neads, routing, authentication and autheration, rate limiting, catching, monitoring and anlytics , 
+security agains dos attoacs,api keys(authenticate requests by keys)
+
+
 
 TPU = Tensor Processing Unit
 SERVICE_ACCOUNT_NAME@PROJECT_ID.iam.gserviceaccount.com  <--The full email address (including PROJECT_ID) makes it unique within GCP.
