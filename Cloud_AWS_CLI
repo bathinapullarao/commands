@@ -1,3 +1,26 @@
+1. ec2 vs aws lamda
+ec2 full control over vertiual machine, aws lamda server less
+2. s3 vs ebs(elastic bloc storage)
+ebs like virtual hard drive. s3 is like object storage
+3. vpc  vs direct connect
+vpc isolated network, dirct connect for dedicated connection to connect from onprimis to aws
+4. rds vs dinamodb
+rds(mysql,postgresql,sqlserver) , dynamodb(nosql database, no scema(how data is organized))
+5. iam role and access keys- access key and secret access key
+6. aws sheald (standed vs advanced) <--protection services against ddos, can configure on specific resources
+7. vpc vs transist gatway 
+transist gatway to connect multiple vpcs and onprimises
+8. nacl vs security groups
+9. application loadbalancer and network loadbancer
+10. amazon cloud frount is contentet delevey network
+11. secret manager vs kms
+12. elastic load balancer has 3LB  1.network vs  2.aplication loadbalancer(routhing based on path basing) vs 3.classic(handle http https tcp/udp trafic)
+13. route53 <--scaleble web service
+14. sqs vs sns
+sqs (pull base) sns(push based multile application like sms emails)
+15.
+
+
 #Is Splunk an AWS Service?❌ No — Splunk is not built or owned by AWS like:Amazon CloudWatch,AWS X-Ray,AWS OpenSearch.
 #Elastic Stack (formerly called ELK Stack-E → Elasticsearch,L → Logstash,K → Kibana)is an open-source platform used to collect,process,store,search,
             visualize logs and metrics.Later Beats was added → so now called Elastic Stack.
