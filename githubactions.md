@@ -221,3 +221,42 @@ application.
 ✔ Fully automated CI/CD\
 ✔ Build → Push → Deploy → Rollout\
 ✔ Zero-downtime deployment to GKE
+
+``` yaml
+name: Deploy Helm to EKS
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1 # Update to your region
+
+      - name: Install kubectl
+        uses: azure/setup-kubectl@v4
+
+      - name: Install Helm
+        uses: azure/setup-helm@v4
+        with:
+          version: 'latest'
+
+      - name: Update kubeconfig
+        run: aws eks update-kubeconfig --name your-cluster-name --region us-east-1
+
+      - name: Deploy Helm chart
+        run: |
+          helm upgrade --install my-release-name ./helm-chart-directory --namespace my-namespace --create-namespace
+```
