@@ -1,6 +1,27 @@
 #An air-gapped cluster is a Kubernetes environment that has no internet connectivity.It is completely isolated from external networks.
 #Autopilot: is a fully managed Kubernetes operating mode where the cloud provider manages the nodes, scaling, security, and infrastructure — 
 you only manage pods and applications.Other clouds have similar concepts but different names — e.g., Fargate: in AWS, Virtual Nodes: in Azure.
+k8s errors:-------------
+Crashloopbackoff: A pod keeps restarting due to failure in application or container missconfiguration.
+        fix--Check logs, Verify env varibles,fix startup command.
+Imagepullbackoff:The container image can't be pulled from the container registory due to incorrect image names,
+                 missing authentication or unavailable repo.
+        fix--Check image name,tag, registory auth,pull secrets 
+OOMKilled(out of memory):Pod is terminated due to exeding its memory limits.
+        fix--increase memery limits and optimize app usage
+Pending Pods:Pods remain in a pening state because they can not be scheduled due to resource constraints, taints or missing constraints.
+        fix--Check node capacity,requests/limits,taints and tolerations.
+CreateContainerConfigError: A container faild to start due to incorrect config settings, such as missing
+        environmnet varibles,incorrect volume mounts,or invalid secrets.
+        fix:validate env varibles,configmaps,secrests,mounts
+pod eviction due to resouce constraings: k8s evicts pods when a node runs out of resources(CPU,memory,Disk).
+taint vs toleration:------- Taints and Tolerations control which Pods can run on which Nodes.
+taint: A taint applied on a node to restrict pod scheduling.eg: kubectl taint nodes node1 env=prod:NoSchedule
+toleration:is applied on Pod to allow them to run on taintd node.
+Effect               Meaning
+NoSchedule           Pod will NOT be scheduled
+PreferNoSchedule     Avoid scheduling (soft rule)
+NoExecute            Evict running pods + block new ones
 
 k8s components:-----------
 api server:coroecomponet to expose api,sheduler:asignes node to newly created pods, 
