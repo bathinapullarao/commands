@@ -55,9 +55,9 @@ Create file:
 name: Deploy to GKE
 
 on:
-  push:
-    branches: [ "main" ]
-
+  push:                             ## pull_request:
+    branches: [ "main" ]            ##  types:
+                                            ##-  closed
 jobs:
   deploy:
     runs-on: ubuntu-latest
