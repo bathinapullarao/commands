@@ -2,6 +2,63 @@
 #Autopilot: is a fully managed Kubernetes operating mode where the cloud provider manages the nodes, scaling, security, and infrastructure — 
 you only manage pods and applications.Other clouds have similar concepts but different names — e.g., Fargate: in AWS, Virtual Nodes: in Azure.
 
+k8s components:-----------
+api server:coroecomponet to expose api,sheduler:asignes node to newly created pods, 
+controler manger: corent state to desigerd state,
+etcd: stored all cluster data such as configuration and state.
+kubelet:it runs on each node and ensures that containers are running in a pod.
+kube proxy:maintains network comunication and maintains network rules on each node.
+pod vs container:-----------
+smallest deployment unit and it can host one or more containers, the containers in side pod share same network namespace and communicate with eachother very easly
+how does k8s handles scaling:-----------
+hpa, vpa, deployment,node scaling
+deployement vs statfulset:---
+k8s services:-----------
+cluster ip, node port, loadbalancer,head less service will not get cluster ip
+configuration and secreats:----
+congigmap will store configurations
+how you will trableshoot k8s----
+commen challenges like image pull errors,networking  problems,resource constraints and missconfigurations.
+approches involve in checking logs, using kubectl commands to inspect resources, looking at events,leverage monituring tools like promotus.
+ingress vs service:--------
+service handles internal comunication,ingress is like smart router for cluster, 
+it handles exteranalaccess by routing trafic to different bases on hostnames and paths.
+configmap:----
+stores configurations as key value pairs.then you ken reference this key inside the pod definitions.
+k8s deployment and demenset:-----------
+demenset: ensures that a copy of pods runing on all or a specified subset of nods.
+pv vs pvc:------------
+pv:pease of store provided by the cluster admin.
+pvc: request by user or a pod for storage, basically , you say i need this much space.k8s binds that pvc to a sutable pv.
+kubelet vs controleplane(api server is main part of controleplane):-------------
+kubelet regulerly comunicate with controleplane
+namespace:--------
+cluster to multiple sub clusters
+sidecar container how it is used inside the pod:----------
+extra container will run inside in the same pod for supporing tasks like loging, monitoring or proxying traffic
+So the main app container focused on the core job.
+configurable probe vs liveleness probe vs readiness probe:----------
+liveleness probe:checks the container still alive-if it fails k8s restart the pod.
+rediness probe:check the container is ready to handle trafic-if not ready pod stay outof the service roation untill it become ready.
+configurable probe:esentialy a way to define checks that k8s will run agains container to see it is healty or ready.
+                this probes can be configured in different in differnet ways- like running http request.
+rollingupdate:
+graduly replace old pods with newonce so that few pods go  down and new once come up.
+we can also configure perrameters kike max unavailable or max surge to fine tune how quicly it should roleout.
+max unavilabe:how many pods can be down at once during update.
+surge:how many extra pods(above the desired count) can be created during the update.if it set 2 temperarly have 2 extra pods. 
+k8s job vs deployment vs statefulset:-----------jobs not require service where as deploymnet and statfullset require service.
+k8s job is used to run a finite task(short running jobs)- basicaly it will create one or more pods to completion,  
+ensuring the tasks completed successfully. once the work done job pods terminate.
+deploymnet an statefulset for long running jobs
+k8s in-cluster config:-----------automaticaly configure by k8s no need manul configration.
+is a way for running applications inside the k8s cluster to securly access the k8s api without needing external
+credentials. typicaly it uses a service account and token mounted inside the pod, along with the cluster insternal
+api server endpoint.this lets apps inside the cluster like controler or clients, interact with the api to manage resources dynamically.
+configmap vs secretes:----------
+secreates are designed for sensitive data  like passwords, API kyes, or tokens because they are base64 encoded.
+configmap are for non sensite plain configuration data.
+
 
 
 
