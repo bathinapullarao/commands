@@ -90,6 +90,10 @@ kubectl get svc -n prod   <--Expected:myapp-service   NodePort   8080:30080/TCP 
 kubectl get ingress -n prod
 kubectl logs -n prod -l app=myapp --tail=50
 kubectl describe pod <pod-name> -n <namespace>
+kubectl drain node <node name> <--This command is used to safely remove all Pods from a Kubernetes node
+                              before maintenance, upgrade, or shutdown.
+kubectl cordon node <node_name> <--is used to mark a Kubernetes node as Unschedulable.
+kubectl uncordon node <node_name> <--is used to mark a Kubernetes node as Schedulable again after it was cordoned or drained.
 -------------------------------------------------------------------------------------------------------
 kubectl rollout restart deployment perchases -n prod   <--perchases is deploymnet name for namespace prod
 kubectl rollout history deployment/myapp -n prod       <--Check Deployment rollout history
