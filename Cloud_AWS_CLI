@@ -90,6 +90,9 @@ aws_secret_access_key = YOUR_DEV_SECRET
 aws_access_key_id = YOUR_PROD_KEY
 aws_secret_access_key = YOUR_PROD_SECRET
 
+aws kms encrypt --key-id alias/my-kms-key --plaintext fileb:///abcd.json --output text \
+  --query CiphertextBlob > abcd.json.encrypted.base64
+
 #You can switch between profiles in scripts by setting the AWS_PROFILE environment variable dynamically.
 -------------------------------------------------------------------------------------------------------
 Option 1: Get from IAM Console (Recommended)
