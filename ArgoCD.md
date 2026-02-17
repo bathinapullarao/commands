@@ -2,7 +2,8 @@
 
 > Format: **Question** followed by a crisp **Answer**.  
 > Focus: real-world GitOps, Argo CD architecture, security, multi-cluster, troubleshooting, and best practices.
->argocd app get <app-name>  
+>
+argocd app get <app-name>  
 argocd app status <app-name>  
 argocd app diff <app-name>  
 argocd app sync <app-name>  
