@@ -35,6 +35,10 @@ kms (encription keys) , secretmanger (for storing api keys passowrds and certifi
 19. loadbalancer vs api gateway
 api gateway more specific api managemnet neads, routing, authentication and autheration, rate limiting, catching, monitoring and anlytics , 
 security agains dos attoacs,api keys(authenticate requests by keys)
+20. What are GCP Preemptible VMs 
+Like Spot instances in AWS
+21. What are Committed Use Discounts (CUDs)
+like Reserved Instances in AWS
 
 
 
