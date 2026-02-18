@@ -18,7 +18,9 @@ transist gatway to connect multiple vpcs and onprimises
 13. route53 <--scaleble web service
 14. sqs vs sns
 sqs (pull base) sns(push based multile application like sms emails)
-15.
+15. what is EventBridge
+AWS Console → EventBridge → Rules → Create rule / Edit rule → Schedule → Cron expression
+
 
 
 #Is Splunk an AWS Service?❌ No — Splunk is not built or owned by AWS like:Amazon CloudWatch,AWS X-Ray,AWS OpenSearch.
