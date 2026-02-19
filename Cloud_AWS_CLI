@@ -20,6 +20,9 @@ transist gatway to connect multiple vpcs and onprimises
 sqs (pull base) sns(push based multile application like sms emails)
 15. what is EventBridge
 AWS Console → EventBridge → Rules → Create rule / Edit rule → Schedule → Cron expression
+16. What is Karpenter
+Karpenter is an open-source Kubernetes node autoscaler that automatically provisions the right 
+compute resources (nodes)based on pending pods’ requirements.
 
 
 
