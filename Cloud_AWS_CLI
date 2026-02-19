@@ -23,7 +23,18 @@ AWS Console → EventBridge → Rules → Create rule / Edit rule → Schedule �
 16. What is Karpenter
 Karpenter is an open-source Kubernetes node autoscaler that automatically provisions the right 
 compute resources (nodes)based on pending pods’ requirements.
-
+17. AWS cost Explorer
+AWS Cost Explorer is a built-in AWS tool used to visualize, analyze, and manage your AWS spending and usage over time.
+It helps you understand:1.Where money is being spent2.Which services cost the most
+                        3.Cost trends (daily / monthly / yearly)4.Forecast future costs
+18. AWS Budgets
+AWS Budgets is a cost management tool that helps you set spending or usage limits and 
+receive alerts when thresholds are reached or exceeded.
+Example: Monthly budget = $5,000 Alert when:80% reached, 100% exceeded
+19. AWS Cost Anomaly Detection
+is an AI/ML-powered cost monitoring service that automatically detects unusual or unexpected spikes in AWS 
+spending and sends alerts.It helps you catch billing issues early — before the monthly bill becomes too high.
+Normal EC2 daily cost = $50, Suddenly jumps to $400 → flagged as anomaly
 
 
 #Is Splunk an AWS Service?❌ No — Splunk is not built or owned by AWS like:Amazon CloudWatch,AWS X-Ray,AWS OpenSearch.
