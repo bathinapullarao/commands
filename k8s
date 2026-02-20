@@ -1,3 +1,4 @@
+GKE stable version:1.32 to 1.34
 #An air-gapped cluster is a Kubernetes environment that has no internet connectivity.It is completely isolated from external networks.
 #Autopilot: is a fully managed Kubernetes operating mode where the cloud provider manages the nodes, scaling, security, and infrastructure — 
 you only manage pods and applications.Other clouds have similar concepts but different names — e.g., Fargate: in AWS, Virtual Nodes: in Azure.
