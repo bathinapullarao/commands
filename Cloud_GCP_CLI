@@ -39,6 +39,9 @@ security agains dos attoacs,api keys(authenticate requests by keys)
 Like Spot instances in AWS
 21. What are Committed Use Discounts (CUDs)
 like Reserved Instances in AWS
+22. Data proc batch vs job
+A job submitted to a running Dataproc cluster (Spark, Hive, Hadoop, etc.) for execution.jobs are good for
+continuous workload. but when batch runs cluster will create and delete after completion.
 
 
 
