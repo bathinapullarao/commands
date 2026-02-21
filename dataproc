@@ -1,0 +1,20 @@
+from google.cloud import dataproc_v1
+
+client = dataproc_v1.BatchControllerClient(
+    client_options={"api_endpoint": "us-central1-dataproc.googleapis.com:443"}
+)
+
+parent = "projects/YOUR_PROJECT/regions/us-central1"
+
+batch = {
+    "pyspark_batch": {
+        "main_python_file_uri": "gs://YOUR_BUCKET/jobs/job.py"
+    }
+}
+
+operation = client.create_batch(
+    request={"parent": parent, "batch": batch, "batch_id": "batch-from-workbench"}
+)
+
+result = operation.result()
+print(result)
