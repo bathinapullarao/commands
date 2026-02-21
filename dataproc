@@ -18,3 +18,212 @@ operation = client.create_batch(
 
 result = operation.result()
 print(result)
+
+--------------------------------------------------------------------------------------------------------------
+1.gcs_process_10tb.py
+-------------------
+#!/usr/bin/env python3
+"""
+Dataproc PySpark job: Read from GCS, process large dataset (10TB+), write to another GCS bucket.
+
+Usage (on Dataproc):
+  spark-submit gcs_process_10tb.py \
+    --input gs://INPUT_BUCKET/path/ \
+    --output gs://OUTPUT_BUCKET/path/ \
+    --input-format parquet \
+    --output-partitions 4000
+
+Notes:
+- For 10TB, prefer columnar formats (Parquet/ORC) and partitioned output.
+- Tune --output-partitions based on cluster size and desired file sizes (e.g., 256MB-1GB per file).
+"""
+
+import argparse
+import sys
+from datetime import datetime
+
+from pyspark.sql import SparkSession
+from pyspark.sql import functions as F
+
+
+def parse_args():
+    p = argparse.ArgumentParser()
+    p.add_argument("--input", required=True, help="GCS input path (e.g., gs://bucket/raw/events/)")
+    p.add_argument("--output", required=True, help="GCS output path (e.g., gs://bucket/curated/events/)")
+    p.add_argument(
+        "--input-format",
+        choices=["parquet", "orc", "csv", "json"],
+        default="parquet",
+        help="Input file format in GCS",
+    )
+    p.add_argument("--output-format", choices=["parquet", "orc"], default="parquet")
+    p.add_argument(
+        "--output-partitions",
+        type=int,
+        default=2000,
+        help="Number of shuffle/output partitions (tune for large data)",
+    )
+    p.add_argument(
+        "--partition-column",
+        default="event_date",
+        help="Column name used to partition output data (default: event_date)",
+    )
+    p.add_argument(
+        "--checkpoint",
+        default="",
+        help="Optional GCS checkpoint path for long jobs (e.g., gs://bucket/checkpoints/job1/)",
+    )
+    return p.parse_args()
+
+
+def build_spark():
+    spark = (
+        SparkSession.builder.appName("gcs-10tb-processing")
+        # For large jobs, adaptive query execution often helps.
+        .config("spark.sql.adaptive.enabled", "true")
+        # Use more partitions for big shuffles. We'll also override via --output-partitions.
+        .config("spark.sql.shuffle.partitions", "2000")
+        # Avoid too many tiny output files; tune to your needs.
+        .config("spark.sql.files.maxRecordsPerFile", "5000000")
+        .getOrCreate()
+    )
+    return spark
+
+
+def read_input(spark: SparkSession, path: str, fmt: str):
+    reader = spark.read
+    if fmt == "parquet":
+        return reader.parquet(path)
+    if fmt == "orc":
+        return reader.orc(path)
+    if fmt == "csv":
+        # For very large CSV, ensure you have a schema; inferSchema can be expensive.
+        return reader.option("header", "true").option("escape", "\"").csv(path)
+    if fmt == "json":
+        return reader.json(path)
+    raise ValueError(f"Unsupported input format: {fmt}")
+
+
+def main():
+    args = parse_args()
+    spark = build_spark()
+
+    if args.checkpoint:
+        spark.sparkContext.setCheckpointDir(args.checkpoint)
+
+    # Read
+    df = read_input(spark, args.input, args.input_format)
+
+    # ---- Example “10TB-safe” processing pattern ----
+    # 1) Select only needed columns (reduces IO)
+    # 2) Normalize / derive a partition column (event_date)
+    # 3) Filter early (predicate pushdown helps for Parquet/ORC)
+    # 4) Aggregate / transform
+    #
+    # NOTE: Adjust these column names to your dataset.
+    # Assume columns: event_ts (timestamp/string), user_id, event_type, amount (numeric), country
+    required_cols = ["event_ts", "user_id", "event_type", "amount", "country"]
+    missing = [c for c in required_cols if c not in df.columns]
+    if missing:
+        print(f"[WARN] Missing expected columns: {missing}. Using available columns only.", file=sys.stderr)
+
+    present_cols = [c for c in required_cols if c in df.columns]
+    if present_cols:
+        df = df.select(*present_cols)
+
+    # Create event_date partition column if possible
+    if "event_ts" in df.columns:
+        df = df.withColumn(
+            "event_date",
+            F.to_date(
+                F.col("event_ts").cast("timestamp")
+            )
+        )
+    else:
+        # fallback: put everything under a single date partition (not ideal)
+        df = df.withColumn("event_date", F.lit(datetime.utcnow().date().isoformat()).cast("date"))
+
+    # Filter example: last 90 days (modify/remove as needed)
+    # For truly “process all 10TB”, you may remove this filter.
+    df = df.filter(F.col("event_date").isNotNull())
+
+    # Example transform: clean fields
+    if "country" in df.columns:
+        df = df.withColumn("country", F.upper(F.trim(F.col("country"))))
+
+    # Example aggregate: daily totals by country + event_type
+    agg_keys = ["event_date"]
+    if "country" in df.columns:
+        agg_keys.append("country")
+    if "event_type" in df.columns:
+        agg_keys.append("event_type")
+
+    if "amount" in df.columns:
+        amount_col = F.col("amount").cast("double")
+    else:
+        amount_col = F.lit(0.0)
+
+    out = (
+        df.groupBy(*agg_keys)
+        .agg(
+            F.count(F.lit(1)).alias("event_count"),
+            F.sum(amount_col).alias("total_amount"),
+            F.approx_count_distinct(F.col("user_id")).alias("approx_unique_users") if "user_id" in df.columns else F.lit(None).alias("approx_unique_users"),
+        )
+    )
+
+    # Control parallelism for shuffle + output
+    spark.conf.set("spark.sql.shuffle.partitions", str(args.output_partitions))
+    out = out.repartition(args.output_partitions, F.col(args.partition_column))
+
+    # Write (partitioned)
+    writer = out.write.mode("overwrite")
+    if args.output_format == "parquet":
+        writer = writer.option("compression", "snappy").format("parquet")
+    else:
+        writer = writer.option("compression", "snappy").format("orc")
+
+    writer.partitionBy(args.partition_column).save(args.output)
+
+    print(f"[OK] Wrote output to: {args.output}")
+    spark.stop()
+
+
+if __name__ == "__main__":
+    main()
+
+------------------------------------------------------------------------------------------------
+2) Upload the script to GCS
+gsutil cp gcs_process_10tb.py gs://YOUR_BUCKET/jobs/gcs_process_10tb.py
+-------------------------------------------------------------------------------------------------
+3) Run it as a Dataproc cluster job (classic “Dataproc job”)
+gcloud dataproc jobs submit pyspark gs://YOUR_BUCKET/jobs/gcs_process_10tb.py \
+  --cluster=YOUR_CLUSTER \
+  --region=YOUR_REGION \
+  -- \
+  --input gs://INPUT_BUCKET/raw/events/ \
+  --output gs://OUTPUT_BUCKET/curated/events_daily_agg/ \
+  --input-format parquet \
+  --output-partitions 4000
+----------------------------------
+Note the -- after region: that passes arguments to your script.
+-----------------------------------------------------------------------------------------------
+4) Run it as a Dataproc Serverless Batch (no cluster)
+gcloud dataproc batches submit pyspark gs://YOUR_BUCKET/jobs/gcs_process_10tb.py \
+  --region=YOUR_REGION \
+  --batch=gcs-10tb-batch-001 \
+  --deps-bucket=YOUR_BUCKET \
+  -- \
+  --input gs://INPUT_BUCKET/raw/events/ \
+  --output gs://OUTPUT_BUCKET/curated/events_daily_agg/ \
+  --input-format parquet \
+  --output-partitions 4000
+------------------------------------------------------------------------------------------------
+5) Practical notes for 10TB so it actually works
+Prefer Parquet/ORC input (CSV/JSON will be slower & costlier).
+Partition input data in GCS by date (e.g., .../event_date=YYYY-MM-DD/) so Spark can prune partitions.
+Choose --output-partitions so output files are reasonably sized (commonly 256MB–1GB each).
+Ensure the Dataproc service account has:
+read on input bucket
+write on output bucket
+For very long pipelines, set --checkpoint gs://.../checkpoints/... to enable checkpointing.
