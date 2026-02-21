@@ -1,3 +1,4 @@
+gcloud auth application-default login   <-- no credentials needed while connecting from terrform
 1.cloud armer ---
 tredetinal vs vpc firewall?
 2.tredetinal firewall -- centalised 
