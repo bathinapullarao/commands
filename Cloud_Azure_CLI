@@ -20,6 +20,7 @@ source control, Azure boards for work tracking, azure artifacts, azure pipelines
 18. Cost Management  <-- AWS Cost Explorer
 19. Azure Budgets <--AWS budgets
 20. Azure Virtual Network (VNet) <--VPC
+21. ACR(Azure container registery) <--ECR
 
 az login <-- once done no need to provide client_id,tenant_id,subscription_id,
 client_secret in terraform code, it will connect automatically.
