@@ -10,9 +10,9 @@ cloudsql - rdbms
 it is infrastructure tools like terraform, cloud deployment will use Yaml, jenjo.
 5.in gcp what is autoscaler?
 managed instce group
-6.static external ip vs femeral exteranl ip?
+6.static external ip vs Ephemeral External IP?
 static <--you can relase when you nolonger needed, 
-femeral <--when we resatrt vm it will release.
+Ephemeral <--when we resatrt vm it will release.
 7.budget allorts?
 8.multi regional storeage(sync) vs regional storage(less cost)
 9.bigquesry vs dataflow
