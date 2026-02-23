@@ -1,3 +1,5 @@
+Azure Devops is a platform that provided a set of development tools. it includes Azure repos for
+source control, Azure boards for work tracking, azure artifacts, azure pipelines(same like github actions) and more.
 1. Azure Functions?  <--same like aws lambda
 2. Azure Managed Disks  <--same like ebs in aws
 3.Azure ExpressRoute  <-- same like aws direct connect
