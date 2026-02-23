@@ -185,28 +185,27 @@ Publish build artifacts.
 
 Example YAML pipeline for CI:
 trigger:
-  - main
+- main
 
 pool:
-  vmImage: 'ubuntu-latest'
+  vmImage: ubuntu-latest
 
-steps:
-  - task: UseNode@1
-    inputs:
-      version: '16.x'
+jobs:
 
-  - script: |
-      npm install
-      npm run build
-    displayName: 'Build and Install Dependencies'
+# Job 1
+- job: Build_App
+  steps:
+  - script: echo "Building application..."
 
-  - script: npm test
-    displayName: 'Run Tests'
+# Job 2
+- job: Run_Tests
+  steps:
+  - script: echo "Running tests..."
 
-  - task: PublishBuildArtifacts@1
-    inputs:
-      pathToPublish: 'dist'
-      artifactName: 'drop'
+# Job 3
+- job: Security_Scan
+  steps:
+  - script: echo "Scanning security..."
 Save and run the pipeline. This will trigger the build whenever code is pushed.
 
 Step 2: Create a Release (CD) Pipeline
