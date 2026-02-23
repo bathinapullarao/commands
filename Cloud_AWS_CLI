@@ -35,6 +35,7 @@ Example: Monthly budget = $5,000 Alert when:80% reached, 100% exceeded
 is an AI/ML-powered cost monitoring service that automatically detects unusual or unexpected spikes in AWS 
 spending and sends alerts.It helps you catch billing issues early — before the monthly bill becomes too high.
 Normal EC2 daily cost = $50, Suddenly jumps to $400 → flagged as anomaly
+20. Site-to-Site VPN, Client VPN, Transit Gateway VPN, Direct Connect backup
 
 
 #Is Splunk an AWS Service?❌ No — Splunk is not built or owned by AWS like:Amazon CloudWatch,AWS X-Ray,AWS OpenSearch.
