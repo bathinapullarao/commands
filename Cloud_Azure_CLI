@@ -17,6 +17,7 @@
 17. Azure Event Grid <-- EventBridge
 18. Cost Management  <-- AWS Cost Explorer
 19. Azure Budgets <--AWS budgets
+20. Azure Virtual Network (VNet) <--VPC
 
 az login <-- once done no need to provide client_id,tenant_id,subscription_id,
 client_secret in terraform code, it will connect automatically.
