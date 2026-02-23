@@ -1,3 +1,13 @@
+Azure AD Tenant(Equivalent to: GCP → Organization)
+   ↓
+Management Groups(GCP → Folders)
+   ↓
+Subscriptions(GCP → Projects)
+   ↓
+Resource Groups
+   ↓
+Resources(GCP → Compute Engine, GKE, Storage, etc.)
+----------------------------------------------------
 SSH Service Connection
 Use the classic editor" or "YAML" approach
 source control (Azure Repos, GitHub, etc.).
