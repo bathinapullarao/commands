@@ -535,4 +535,226 @@ spec:
 
 ---
 
-*End of document.*
+## 1. What is ArgoCD?
+
+**Answer:**  
+ArgoCD is a declarative GitOps continuous delivery tool for Kubernetes that automates application deployment and lifecycle management by syncing Kubernetes manifests from Git repositories.
+
+---
+
+## 2. What is GitOps?
+
+**Answer:**  
+GitOps is an operational model where Git is the single source of truth for infrastructure and application deployment. Changes are made via Git commits and automatically synced to clusters.
+
+---
+
+## 3. Key Features of ArgoCD
+
+- Declarative deployments  
+- Git as source of truth  
+- Automated sync  
+- RBAC integration  
+- Multi‑cluster support  
+- Rollback capability  
+- Drift detection  
+
+---
+
+## 4. ArgoCD Architecture Components
+
+- API Server  
+- Repository Server  
+- Application Controller  
+- Redis  
+- Dex (SSO)  
+- UI / CLI  
+
+---
+
+## 5. How does ArgoCD work?
+
+1. Pull manifests from Git  
+2. Compare with cluster state  
+3. Detect drift  
+4. Sync changes  
+
+---
+
+## 6. What is an ArgoCD Application?
+
+A custom resource representing a deployed app, pointing to:
+
+- Git repo  
+- Path  
+- Cluster  
+- Namespace  
+
+---
+
+## 7. Sync Status Types
+
+- Synced  
+- OutOfSync  
+- Unknown  
+
+---
+
+## 8. Health Status
+
+- Healthy  
+- Degraded  
+- Progressing  
+- Missing  
+
+---
+
+## 9. Manual vs Auto Sync
+
+- Manual → user triggers deployment  
+- Auto → ArgoCD deploys automatically on Git changes  
+
+---
+
+## 10. What is Self‑Heal?
+
+Automatically reverts manual cluster changes back to Git state.
+
+---
+
+## 11. What is Prune?
+
+Deletes resources removed from Git repo.
+
+---
+
+## 12. ArgoCD Sync Strategies
+
+- Rolling update  
+- Blue‑Green  
+- Canary  
+
+---
+
+## 13. ArgoCD vs Jenkins
+
+| Feature | ArgoCD | Jenkins |
+|--------|--------|---------|
+| GitOps | Yes | No |
+| CD | Yes | Yes |
+| CI | No | Yes |
+
+---
+
+## 14. ArgoCD vs Flux
+
+Both GitOps tools; ArgoCD has richer UI and app management.
+
+---
+
+## 15. Multi‑Cluster Deployment
+
+ArgoCD can deploy apps across multiple Kubernetes clusters.
+
+---
+
+## 16. Security in ArgoCD
+
+- RBAC  
+- SSO  
+- TLS  
+- Secrets management  
+
+---
+
+## 17. ArgoCD CLI Commands
+
+```bash
+argocd login
+argocd app list
+argocd app sync <app>
+argocd app rollback <app>
+```
+
+---
+
+## 18. How to Rollback?
+
+Via UI or CLI to previous Git revision.
+
+---
+
+## 19. Drift Detection
+
+Compares live cluster vs Git manifests.
+
+---
+
+## 20. Helm Support
+
+ArgoCD can deploy Helm charts directly.
+
+---
+
+## 21. Kustomize Support
+
+Native support for Kustomize overlays.
+
+---
+
+## 22. Private Repo Access
+
+Configured via SSH keys or tokens.
+
+---
+
+## 23. App of Apps Pattern
+
+Parent app manages multiple child apps.
+
+---
+
+## 24. Sync Waves
+
+Controls deployment order.
+
+---
+
+## 25. Hooks
+
+PreSync, Sync, PostSync lifecycle hooks.
+
+---
+
+## 26. ArgoCD Notifications
+
+Slack, Email, Webhooks alerts.
+
+---
+
+## 27. High Availability Setup
+
+Multiple replicas of controllers and Redis.
+
+---
+
+## 28. Secrets Handling
+
+Use Sealed Secrets / External Secrets.
+
+---
+
+## 29. RBAC Roles
+
+Admin, Read‑only, Custom roles.
+
+---
+
+## 30. Use Cases
+
+- Kubernetes CD  
+- Microservices deployment  
+- Multi‑env promotion  
+
+---
+
