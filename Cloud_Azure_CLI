@@ -1,4 +1,24 @@
-gcloud auth application-default login <-- once done no need to provide client_id,tenant_id,subscription_id,
+1. Azure Functions?  <--same like aws lambda
+2. Azure Managed Disks  <--same like ebs in aws
+3.Azure ExpressRoute  <-- same like aws direct connect
+4. Azure DB Services  <--like aws RDS-Relational database service
+5.Azure Cosmos DB  <-- like aws DynamoDB (fully managed NoSQL database service)
+6.Service Principal Secret / Certificate <--like aws Access Key + Secret Key
+7.Azure DDoS Protection <-- AWS Shield
+8.Azure Virtual WAN <--AWS Transit Gateway Equivalent
+9.Network Security Groups (NSG) <--Security Groups, NACL in aws. Azure uses one service (NSG) for both functions.
+10. Azure Front Door (or) Azure Content Delivery Network <-- like Amazon CloudFront
+11.Azure Key Vault (Secrets) <--like KMS and secret manager
+12.Application Gateway <--ALB (Application LB)
+13.Azure Load Balancer <--NLB (Network LB)
+14.Azure DNS <--route53
+15.Azure Service Bus & Azure Queue Storage <--SQS
+16. Service Bus Topics & Event Grid <--SNS
+17. Azure Event Grid <-- EventBridge
+18. Cost Management  <-- AWS Cost Explorer
+19. Azure Budgets <--AWS budgets
+
+az login <-- once done no need to provide client_id,tenant_id,subscription_id,
 client_secret in terraform code, it will connect automatically.
 
 Azure AD Tenant(Equivalent to: GCP → Organization)
