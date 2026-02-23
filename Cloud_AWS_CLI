@@ -63,7 +63,7 @@ Video Processing, Streaming                 G4dn, G5
 Data Warehousing                            D3, I3, H1
 -------------------------------------------------------------------------------------------------------
 For unpredictable, flexible workloads →     On-Demand
-For consistent, steady workloads →          Reserved Instances or Savings Plans
+For consistent, steady workloads →          Reserved Instances or Savings Plans or Convertible Reserved Instances
 For cost-sensitive, fault-tolerant jobs →   Spot Instances
 For compliance/security needs →             Dedicated Hosts/Instances
 For dynamically scaling apps →              Auto Scaling with a mix of instances
