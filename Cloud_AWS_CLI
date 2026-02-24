@@ -37,6 +37,7 @@ spending and sends alerts.It helps you catch billing issues early — before the
 Normal EC2 daily cost = $50, Suddenly jumps to $400 → flagged as anomaly
 20. Site-to-Site VPN, Client VPN, Transit Gateway VPN, Direct Connect backup
 21.Red shift <--same like big query
+22.EMR(Elastic MapReduce)<--same like DataProc
 
 
 #Is Splunk an AWS Service?❌ No — Splunk is not built or owned by AWS like:Amazon CloudWatch,AWS X-Ray,AWS OpenSearch.
