@@ -48,7 +48,7 @@ continuous workload. but when batch runs cluster will create and delete after co
 25.Cloud trace <— for latency
 26.API Keys,OAuth 2.0 Client IDs  <--will use in application code to caonnect to application api keys in url you can see
 27.API Gateway <-- API Gateway is a reverse proxy layer that:Routes requests,Authenticates users,
-Applies rate limits,Logs traffic,Protects backend services
+Applies rate limits,Logs traffic,Protects backend services. upload openapi.yaml by writing configurations init.
 
 
 
