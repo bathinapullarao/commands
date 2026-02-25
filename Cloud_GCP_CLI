@@ -43,6 +43,9 @@ like Reserved Instances in AWS
 22. Data proc batch vs job
 A job submitted to a running Dataproc cluster (Spark, Hive, Hadoop, etc.) for execution.jobs are good for
 continuous workload. but when batch runs cluster will create and delete after completion.
+23.Vpc service controls<— data will not send outside of boundaries when credentials compromised
+24.Ops agent<—to get metrics to cloud monitoring
+25.Cloud trace <— for latency
 
 
 
