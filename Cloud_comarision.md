@@ -62,7 +62,7 @@ vm's, aks
 ## 4️⃣ Database Services
 | Feature          | AWS | GCP | Azure |
 |-----------------|-----|-----|-------|
-| **Managed SQL Database** | RDS (Relational Database Service) | Cloud SQL | Azure SQL Database |
+| **Managed SQL Database** | RDS (Relational Database Service) | Cloud SQL | Azure Database for MySql |
 | **NoSQL Database** | DynamoDB | Firestore, Bigtable | Cosmos DB(Global) |
 | **Data Warehouse** | Redshift | BigQuery | Synapse Analytics |
 | **Cache Service** | ElastiCache (Redis, Memcached) | Memorystore (Redis) | Azure Cache for Redis |
