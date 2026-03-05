@@ -66,7 +66,7 @@ vm's, aks
 | **NoSQL Database** | DynamoDB | Firestore, Bigtable | Cosmos DB |
 | **Data Warehouse** | Redshift | BigQuery | Synapse Analytics |
 | **Cache Service** | ElastiCache (Redis, Memcached) | Memorystore (Redis) | Azure Cache for Redis |
-| **Graph Database** | Neptune | N/A | Azure Cosmos DB (Gremlin API) |
+| **Global Database** | Amazon Aurora | Spanner | Azure Cosmos DB |
 
 ## 5️⃣ Identity & Security
 | Feature          | AWS | GCP | Azure |
