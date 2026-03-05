@@ -221,4 +221,164 @@ Common issues:
 
 ---
 
-**End of Document**
+## 16. Central Reusable Workflow
+```yaml
+devops-pipelines-repo
+   └── .github/workflows/microservice-ci.yml   (Reusable workflow)
+
+service-user-repo
+   └── .github/workflows/ci.yml                (Calls reusable workflow)
+
+service-payment-repo
+   └── .github/workflows/ci.yml                (Calls reusable workflow)
+```
+Repository: devops-pipelines-repo
+.github/workflows/microservice-ci.yml
+
+```yaml
+name: Reusable Microservice CI
+
+on:
+  workflow_call:
+    inputs:
+      service_name:
+        required: true
+        type: string
+      docker_image:
+        required: true
+        type: string
+      environment:
+        required: true
+        type: string
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Show variables
+        run: |
+          echo "Service Name: ${{ inputs.service_name }}"
+          echo "Docker Image: ${{ inputs.docker_image }}"
+          echo "Environment: ${{ inputs.environment }}"
+
+      - name: Build Docker Image
+        run: |
+          docker build -t ${{ inputs.docker_image }} .
+
+      - name: Push Docker Image
+        run: |
+          echo "Pushing image ${{ inputs.docker_image }}"
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      - name: Deploy
+        run: |
+          echo "Deploying ${{ inputs.service_name }} to ${{ inputs.environment }}"
+```
+Microservice Repo Workflow
+
+Example repo: user-service
+
+.github/workflows/ci.yml
+
+```yaml
+name: User Service CI
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  call-reusable-workflow:
+
+    uses: my-org/devops-pipelines-repo/.github/workflows/microservice-ci.yml@main
+
+    with:
+      service_name: user-service
+      docker_image: myrepo/user-service:latest
+      environment: dev
+```
+Another Microservice Example
+
+Example repo: payment-service
+```yaml
+name: Payment Service CI
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  call-reusable-workflow:
+
+    uses: my-org/devops-pipelines-repo/.github/workflows/microservice-ci.yml@main
+
+    with:
+      service_name: payment-service
+      docker_image: myrepo/payment-service:latest
+      environment: prod
+```
+Passing Secrets
+
+If you need secrets (like registry credentials):
+
+Reusable workflow:
+```yaml
+on:
+  workflow_call:
+    secrets:
+      docker_password:
+        required: true
+```
+
+Caller workflow:
+```yaml
+jobs:
+  call-reusable-workflow:
+    uses: my-org/devops-pipelines-repo/.github/workflows/microservice-ci.yml@main
+
+    with:
+      service_name: user-service
+      docker_image: myrepo/user-service:latest
+      environment: dev
+
+    secrets:
+      docker_password: ${{ secrets.DOCKER_PASSWORD }}
+```
+Using Repository Variables Automatically
+
+If each repo has variables:
+```yaml
+Settings → Variables → Actions
+Example:
+
+SERVICE_NAME=user-service
+ENVIRONMENT=dev
+
+Then workflow becomes:
+
+with:
+  service_name: ${{ vars.SERVICE_NAME }}
+  docker_image: myrepo/${{ vars.SERVICE_NAME }}:latest
+  environment: ${{ vars.ENVIRONMENT }}
+```
+Enterprise Pattern (Recommended)
+```yaml
+org
+ ├── devops-workflows-repo
+ │      └ reusable-ci.yml
+ │
+ ├── service1
+ ├── service2
+ ├── service3
+ └── service42
+```
