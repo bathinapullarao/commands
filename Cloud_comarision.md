@@ -53,7 +53,7 @@ vm's, aks
 ## 3️⃣ Networking Services
 | Feature          | AWS | GCP | Azure |
 |-----------------|-----|-----|-------|
-| **Load Balancer** | ELB (Elastic Load Balancer) | Cloud Load Balancer | Azure Load Balancer |
+| **Load Balancer** | ELB (Elastic Load Balancer) | Cloud Load Balancer | Azure Load Balancer-Standed(ALB)&Gateway(NLB) |
 | **CDN (Content Delivery)** | CloudFront | Cloud CDN | Azure CDN |
 | **VPC (Virtual Private Cloud)** | Amazon VPC | VPC | Azure Virtual Network (VNet) |
 | **Hybrid Connectivity** | AWS Direct Connect | Cloud Interconnect | ExpressRoute |
