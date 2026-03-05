@@ -63,10 +63,10 @@ vm's, aks
 | Feature          | AWS | GCP | Azure |
 |-----------------|-----|-----|-------|
 | **Managed SQL Database** | RDS (Relational Database Service) | Cloud SQL | Azure SQL Database |
-| **NoSQL Database** | DynamoDB | Firestore, Bigtable | Cosmos DB |
+| **NoSQL Database** | DynamoDB | Firestore, Bigtable | Cosmos DB(Global) |
 | **Data Warehouse** | Redshift | BigQuery | Synapse Analytics |
 | **Cache Service** | ElastiCache (Redis, Memcached) | Memorystore (Redis) | Azure Cache for Redis |
-| **Global Database** | Amazon Aurora | Spanner | Azure Cosmos DB |
+| **Global Database** | Amazon Aurora | Spanner | Azure SQL Database|
 
 ## 5️⃣ Identity & Security
 | Feature          | AWS | GCP | Azure |
