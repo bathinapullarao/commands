@@ -105,6 +105,7 @@ Port     	Used By
 80 / 443	Web, Ingress, LB
 3000    	Grafana
 3306    	MySQL,MariaDB
+3389      RDP
 5000    	Docker registry
 5432    	PostgreSQL
 6379      Redis
